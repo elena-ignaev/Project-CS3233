@@ -1,7 +1,6 @@
 package com.example.projectp1;
 
 import com.example.projectp1.FXObjects.*;
-import com.example.projectp1.Model.Lighter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -15,19 +14,19 @@ public class TestFXObjects extends Application {
         TubePane tubePane = new TubePane();
         LighterPane lighterPane = new LighterPane();
 
-        LitmusPane litmusPane = new LitmusPane();
+        RedLitmusPane redLitmusPane = new RedLitmusPane();
         BurnerPane burnerPane = new BurnerPane();
         SplintPane splintPane = new SplintPane();
 
         AnchorPane pane = new AnchorPane();
 
-        pane.getChildren().addAll(tubePane, lighterPane, litmusPane, burnerPane, splintPane);
+        pane.getChildren().addAll(tubePane, lighterPane, redLitmusPane, burnerPane, splintPane);
 
         tubePane.setLayoutX(100);
         tubePane.setLayoutY(100);
 
-        litmusPane.setLayoutX(200);
-        litmusPane.setLayoutY(100);
+        redLitmusPane.setLayoutX(200);
+        redLitmusPane.setLayoutY(100);
 
         burnerPane.setLayoutY(500);
         burnerPane.setLayoutX(100);

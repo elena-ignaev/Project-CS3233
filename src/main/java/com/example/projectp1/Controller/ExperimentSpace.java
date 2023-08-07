@@ -11,16 +11,23 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ExperimentSpace implements Initializable {
 
     // Main functionalities
+    private boolean hasTestTube = false;
+    public void setHasTestTube(boolean testTube) {
+        this.hasTestTube = testTube;
+    }
+    public boolean isHasTestTube() {
+        return this.hasTestTube;
+    }
 
     // Pane
     @FXML
     private Pane experimentSpace;
-
     public Pane getExperimentSpace() {
         return this.experimentSpace;
     }
@@ -29,13 +36,10 @@ public class ExperimentSpace implements Initializable {
         //Equipment components
     @FXML
     private Button testTube;
-
     @FXML
     private Button heatingEquipment;
-
     @FXML
     private ComboBox<String> testPH;
-
     ObservableList<String> litmusPaperType = FXCollections.observableArrayList(
             "Red litmus", "Blue litmus"
     );
@@ -44,52 +48,89 @@ public class ExperimentSpace implements Initializable {
     public void addEquipment(ActionEvent event) {
         if (event.getSource() == testTube) {
             // add the tube to the main pane
-            TestTube tubeModel1 = new TestTube();
-            TubePane tube1 = new TubePane(tubeModel1);
-            getExperimentSpace().getChildren().add(tube1);
-
+            TestTube tubeModel = new TestTube();
+            TubePane tube = new TubePane(tubeModel);
+            getExperimentSpace().getChildren().add(tube);
+            setHasTestTube(true);
             // drag the tube
-            tube1.setOnMouseDragged(e -> {
-                tube1.setLayoutX(e.getX());
-                tube1.setLayoutY(e.getY());
+            tube.setOnMouseDragged(e -> {
+                tube.setLayoutX(e.getX());
+                tube.setLayoutY(e.getY());
             });
         }
 
         else if (event.getSource() == heatingEquipment) {
-            Lighter lighterModel1 = new Lighter();
-            LighterPane lighter1 = new LighterPane(lighterModel1);
-            getExperimentSpace().getChildren().add(lighter1);
+            Lighter lighterModel = new Lighter();
+            LighterPane lighter = new LighterPane(lighterModel);
+            BunsenBurner bunsenBurner = new BunsenBurner();
+            BurnerPane burner = new BurnerPane(bunsenBurner);
+            getExperimentSpace().getChildren().addAll(lighter, burner);
+            burner.setLayoutY(100);
 
-            lighter1.setOnMouseDragged(e -> {
-                lighter1.setLayoutX(e.getX());
-                lighter1.setLayoutY(e.getY());
+            lighter.setOnMouseDragged(e -> {
+                lighter.setLayoutX(e.getX());
+                lighter.setLayoutY(e.getY()); //error: flicking when dragging object, tab pane is transparent and can see through
+            });
+            burner.setOnMouseDragged(e -> {
+                burner.setLayoutX(e.getX());
+                burner.setLayoutY(e.getY() + 100); //error: flicking when dragging object, tab pane is transparent and can see through
             });
         }
 
+        else if (event.getSource() == testPH) {
+            if (testPH.getValue().equals("Red litmus")) {
+                RedLitmus redModel = new RedLitmus();
+                RedLitmusPane red = new RedLitmusPane(redModel);
+                getExperimentSpace().getChildren().add(red);
+                red.setOnMouseDragged(e -> {
+                    red.setLayoutX(e.getX());
+                    red.setLayoutY(e.getY()); //error: flicking when dragging object, tab pane is transparent and can see through
+                });
+            }
+            else if (testPH.getValue().equals("Blue litmus")) {
+                BlueLitmus blueModel = new BlueLitmus();
+                BlueLitmusPane blue = new BlueLitmusPane(blueModel);
+                getExperimentSpace().getChildren().add(blue);
+                blue.setOnMouseDragged(e -> {
+                    blue.setLayoutX(e.getX());
+                    blue.setLayoutY(e.getY());
+                });
+            }
+        }
     }
-
-
-
 
 
 
     // Substance tab
     @FXML
     private Button aqueousNaOH;
-
     @FXML
     private Button aqueousNH3;
-
     @FXML
     private Button aqueousAgNO3;
-
     @FXML
     private Button aqueousBaCl2;
     @FXML
     private ComboBox<String> salts;
-
     ObservableList<String> saltsForQA = FXCollections.observableArrayList(
             "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2");
+
+    public void addSubstance(ActionEvent event) {
+        if (isHasTestTube()) {
+            if (event.getSource() == salts) {
+                if (salts.getValue().equals("Random")){
+                    Random random = new Random();
+                    int index = random.nextInt();
+                }
+            }
+        } else {
+            Alert noTestTube = new Alert(Alert.AlertType.WARNING);
+            noTestTube.setTitle("Warning");
+            noTestTube.setHeaderText("No test tube");
+            noTestTube.setContentText("Cannot add substance when there is no test tube!");
+            noTestTube.showAndWait();
+        }
+    }
 
 
 

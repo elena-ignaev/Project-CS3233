@@ -5,13 +5,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class LitmusPane extends Pane implements Paintable {
+public class RedLitmusPane extends Pane implements Paintable {
     private RedLitmus redLitmus;
-    public LitmusPane() {
+    public RedLitmusPane() {
         paint();
     }
-    public LitmusPane(RedLitmus redLitmus) {
+    public RedLitmusPane(RedLitmus redLitmus) {
         this.redLitmus = redLitmus;
+        paint();
     }
 
     public RedLitmus getRedLitmus() {
@@ -27,10 +28,10 @@ public class LitmusPane extends Pane implements Paintable {
     @Override
     public void paint() {
         Rectangle paper = new Rectangle(40,80);
-        paper.setFill(Color.MISTYROSE);
+        paper.setFill(Color.SALMON);
 
         Rectangle changeable = new Rectangle(40, 80);
-        changeable.setFill(Color.MISTYROSE);
+        changeable.setFill(Color.SALMON);
         changeable.setY(80);
 
         if (this.getRedLitmus() != null){

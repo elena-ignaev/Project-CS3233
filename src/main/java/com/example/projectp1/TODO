@@ -1,2 +1,5 @@
 TODO:
-make changes to tubepane class in uml diagram: add constructor tubepane(testtube), remove constructor tubepane(heights, testtube)
+in uml diagram
+make changes to tubepane class: add constructor tubepane(testtube), remove constructor tubepane(heights, testtube)
+error of flicking dragging animation and transparent tab pane can see through the components behind
+add blue litmus class

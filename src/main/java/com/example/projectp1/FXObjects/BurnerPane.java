@@ -24,6 +24,7 @@ public class BurnerPane extends Pane implements Paintable {
     }
     public BurnerPane(BunsenBurner bunsenBurner) {
         this.bunsenBurner = bunsenBurner;
+        paint();
     }
 
     @Override
