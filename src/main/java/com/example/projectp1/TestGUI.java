@@ -11,7 +11,7 @@ import java.io.IOException;
 public class TestGUI extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TestGUI.class.getResource("home-page-1.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TestGUI.class.getResource("experiment-space.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 //        scene.getStylesheets().add(TestGUI.class.getResource("View/logInPage.css").toExternalForm());
         stage.setTitle("My Chemical");
