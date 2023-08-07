@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.HomeController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Home">
+                            <items>
+                                <MenuItem fx:id="saveProgress" mnemonicParsing="false" text="Save progress" />
+                        <MenuItem fx:id="viewNotes" mnemonicParsing="false" text="View your quick-note" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Edit">
+                            <items>
+                                <MenuItem fx:id="delete" mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="clearAll" mnemonicParsing="false" text="Clear all" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem fx:id="aboutProgrammer" mnemonicParsing="false" text="About the programmer" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            <Pane prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+            <TabPane prefHeight="117.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
+              <tabs>
+                <Tab closable="false" text="Equipment">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0">
+                           <children>
+                              <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox prefHeight="67.0" prefWidth="203.0">
+                                       <children>
+                                          <Label text="Test pH:">
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ComboBox fx:id="testPH" prefHeight="25.0" prefWidth="103.0">
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <VBox prefHeight="67.0" prefWidth="358.0">
+                                       <children>
+                                          <Button fx:id="tubePane" mnemonicParsing="false" text="Test tube">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                          <Button fx:id="heatingEquipment" mnemonicParsing="false" text="Heating Equipment">
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="50.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab closable="false" text="Substances">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <HBox prefHeight="67.0" prefWidth="227.0">
+                                       <children>
+                                          <Label text="Salt:">
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <ComboBox fx:id="salts" prefHeight="25.0" prefWidth="150.0" promptText="Choose your salt">
+                                             <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                                             </HBox.margin>
+                                          </ComboBox>
+                                       </children>
+                                    </HBox>
+                                    <VBox prefHeight="67.0" prefWidth="375.0">
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label text="Test for cation:">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Button mnemonicParsing="false" text="Aqueous NaOH">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                                <Button mnemonicParsing="false" text="Aqueous NH3">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label text="Test for anion:">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Button mnemonicParsing="false" text="Aqueous AgNO3">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                                <Button mnemonicParsing="false" text="Aqueous BaCl2">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab closable="false" text="Question">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                       <children>
+                                          <Label alignment="CENTER" text="What cation is present?">
+                                             <VBox.margin>
+                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="cationAns" promptText="Example: (Na)+">
+                                             <VBox.margin>
+                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                       <children>
+                                          <Label alignment="CENTER" text="What anion is present?">
+                                             <VBox.margin>
+                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="anionAns" promptText="Example: (SO3)2-">
+                                             <VBox.margin>
+                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                       <children>
+                                          <Label alignment="CENTER" text="What is the salt?">
+                                             <VBox.margin>
+                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="saltAns" promptText="Example: (Na)2(SO4)">
+                                             <VBox.margin>
+                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                       <children>
+                                          <Button fx:id="checkAns" mnemonicParsing="false" text="Check">
+                                             <VBox.margin>
+                                                <Insets left="50.0" top="5.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                          <Button fx:id="showExplanation" mnemonicParsing="false" text="Explain">
+                                             <VBox.margin>
+                                                <Insets left="50.0" top="5.0" />
+                                             </VBox.margin>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Explanation">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox layoutX="75.0" layoutY="-75.0" prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="explanation" text="Explanation goes here">
+                                       <VBox.margin>
+                                          <Insets left="10.0" top="2.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Label text="Still don't get it? Note down your queries to ask teachers in class:">
+                                       <VBox.margin>
+                                          <Insets left="10.0" top="2.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <Button fx:id="saveQueries" mnemonicParsing="false" text="Save queries">
+                                       <VBox.margin>
+                                          <Insets left="10.0" top="2.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

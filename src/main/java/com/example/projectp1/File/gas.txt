@@ -1,0 +1,7 @@
+gas,test,result
+NH3,red_litmus,blue
+CO2,lime_water,white_precipitate
+Cl2,damp_litmus,bleach
+H2,lighted_splint,pop_sound
+O2,glowing_splint,relights
+SO2,acidified_KMnO4,colorless
