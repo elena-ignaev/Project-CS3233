@@ -44,7 +44,7 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-            <Pane prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+            <Pane fx:id="experimentSpace" prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
             <TabPane prefHeight="117.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
               <tabs>
                 <Tab closable="false" text="Equipment">
@@ -69,7 +69,7 @@
                                     </HBox>
                                     <VBox prefHeight="67.0" prefWidth="358.0">
                                        <children>
-                                          <Button fx:id="tubePane" mnemonicParsing="false" text="Test tube">
+                                          <Button fx:id="testTube" mnemonicParsing="false" onAction="#addEquipment" text="Test tube">
                                              <VBox.margin>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
@@ -119,12 +119,12 @@
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <Button mnemonicParsing="false" text="Aqueous NaOH">
+                                                <Button fx:id="aqueousNaOH" mnemonicParsing="false" text="Aqueous NaOH">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" text="Aqueous NH3">
+                                                <Button fx:id="aqueousNH3" mnemonicParsing="false" text="Aqueous NH3">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -138,12 +138,12 @@
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <Button mnemonicParsing="false" text="Aqueous AgNO3">
+                                                <Button fx:id="AqueousAgNO3" mnemonicParsing="false" text="Aqueous AgNO3">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" text="Aqueous BaCl2">
+                                                <Button fx:id="aqueousBaCl2" mnemonicParsing="false" text="Aqueous BaCl2">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>

@@ -2,7 +2,7 @@ package com.example.projectp1.Model;
 
 public abstract class Substance implements Component {
     private String name;
-    private String color;
+    private String color = "lightgrey";
     public Substance(String name) {
         this.name = name;
         this.color = "";

@@ -1,6 +1,7 @@
 package com.example.projectp1;
 
 import com.example.projectp1.FXObjects.*;
+import com.example.projectp1.Model.Lighter;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +14,7 @@ public class TestFXObjects extends Application {
     public void start(Stage stage) throws IOException {
         TubePane tubePane = new TubePane();
         LighterPane lighterPane = new LighterPane();
+
         LitmusPane litmusPane = new LitmusPane();
         BurnerPane burnerPane = new BurnerPane();
         SplintPane splintPane = new SplintPane();

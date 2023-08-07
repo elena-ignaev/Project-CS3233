@@ -16,12 +16,12 @@ public class TubePane extends Pane implements Paintable {
     private double emptyHeight = 90;
     private double layerHeight = 25;
     private double diameter = 50;
-    private String color1;
-    private String color2;
-    private String color3;
-    private double transparency1;
-    private double transparency2;
-    private double transparency3;
+    private String color1 = "lightgrey";
+    private String color2 = "lightgrey";
+    private String color3 = "lightgrey";
+    private double transparency1 = 1.0;
+    private double transparency2 = 1.0;
+    private double transparency3 = 1.0;
     public double getEmptyHeight() {
         return emptyHeight;
     }
@@ -86,32 +86,28 @@ public class TubePane extends Pane implements Paintable {
         this.color3 = color3;
     }
     public TubePane() {
-        this.transparency1 = 0.5;
-        this.transparency2 = 0.5;
-        this.transparency3 = 0.5;
-        this.color1 = this.color2 = this.color3 = "WHITESMOKE";
         paint();
     }
-    public TubePane(double emptyHeight, double layerHeight, double diameter, TestTube tubeModel) {
-        this.diameter = diameter;
-        this.emptyHeight = emptyHeight;
-        this.layerHeight = layerHeight;
-        this.color1 = tubeModel.getLayer1().getColor();
-        this.color2 = tubeModel.getLayer2().getColor();
-        this.color3 = tubeModel.getLayer3().getColor();
-        if (tubeModel.getLayer1().isClear()) {
-            this.transparency1 = 0.5;
-        } else {
-            this.transparency1 = 1;
-        }
-        if (tubeModel.getLayer2().isClear()) {
-            this.transparency2 = 0.5;
-        } else {
-            this.transparency2 = 1;
-        }if (tubeModel.getLayer1().isClear()) {
-            this.transparency3 = 0.5;
-        } else {
-            this.transparency3 = 1;
+
+    public TubePane(TestTube tubeModel) {
+        if (tubeModel.getLayer1() != null && tubeModel.getLayer2() != null && tubeModel.getLayer3() != null) {
+            this.color1 = tubeModel.getLayer1().getColor();
+            this.color2 = tubeModel.getLayer2().getColor();
+            this.color3 = tubeModel.getLayer3().getColor();
+            if (tubeModel.getLayer1().isClear()) {
+                this.transparency1 = 0.5;
+            } else {
+                this.transparency1 = 1;
+            }
+            if (tubeModel.getLayer2().isClear()) {
+                this.transparency2 = 0.5;
+            } else {
+                this.transparency2 = 1;
+            }if (tubeModel.getLayer3().isClear()) {
+                this.transparency3 = 0.5;
+            } else {
+                this.transparency3 = 1;
+            }
         }
         paint();
     }
@@ -126,13 +122,13 @@ public class TubePane extends Pane implements Paintable {
 
         //First layer of tube
         Rectangle layer1 = new Rectangle(this.getDiameter(), this.getLayerHeight());
-        layer1.setFill(Color.LIGHTBLUE); //layer for appearance of gas
+        layer1.setFill(Color.web(getColor1())); //layer for appearance of gas
         layer1.setOpacity(getTransparency1());
         layer1.setY(this.getEmptyHeight());
 
         //Second layer of tube
         Rectangle layer2 = new Rectangle(this.getDiameter(), this.getLayerHeight());
-        layer2.setFill(Color.LIGHTBLUE); //layer for solution
+        layer2.setFill(Color.web(getColor2())); //layer for solution
         layer2.setOpacity(this.getTransparency2());
         layer2.setY(this.getLayerHeight() + this.getEmptyHeight());
 
@@ -141,8 +137,8 @@ public class TubePane extends Pane implements Paintable {
         bottom.setCenterX(this.getDiameter()/2);
         bottom.setCenterY(this.getLayerHeight()*2 + this.getEmptyHeight());
         Shape layer3 = Shape.subtract(bottom, layer2);
-        layer3.setFill(Color.LIGHTBLUE); //layer for formation of precipitate
-        layer3.setOpacity(transparency3);
+        layer3.setFill(Color.web(getColor3())); //layer for formation of precipitate
+        layer3.setOpacity(getTransparency3());
 
         setPrefSize(this.getEmptyHeight() + this.getLayerHeight()*3, this.getDiameter());
 

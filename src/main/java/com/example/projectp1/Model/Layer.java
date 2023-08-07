@@ -3,8 +3,8 @@ package com.example.projectp1.Model;
 public class Layer {
     private String content;
     private double height = 25;
-    private String color;
-    private boolean isClear;
+    private String color = "lightgrey";
+    private boolean isClear = false;
     public Layer(String content, String color, boolean isClear) {
         this.content = content;
         this.color = color;

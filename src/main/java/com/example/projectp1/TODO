@@ -1,3 +1,2 @@
 TODO:
-read Strings to implement how reaction occurs
-should i develop classes of each substance: class mg class fe
+make changes to tubepane class in uml diagram: add constructor tubepane(testtube), remove constructor tubepane(heights, testtube)

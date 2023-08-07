@@ -14,6 +14,7 @@ public class LighterPane extends Pane implements Paintable {
     }
     public LighterPane(Lighter lighter) {
         this.lighter =lighter;
+        paint();
     }
 
     public Lighter getLighter() {
