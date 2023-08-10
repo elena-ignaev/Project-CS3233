@@ -3,11 +3,16 @@ package com.example.projectp1.Model;
 public class Gas extends Substance {
     private String test;
     private String result;
-     public Gas(int location) {
-        super(Database.getGasName()[location]);
-        this.test = Database.getGasTest()[location];
-        this.result = Database.getGasResult()[location];
+    public Gas(String name, String test, String result) {
+        super(name);
+        this.test = test;
+        this.result = result;
     }
+//     public Gas(int location) {
+//        super(Database.getGasName()[location]);
+//        this.test = Database.getGasTest()[location];
+//        this.result = Database.getGasResult()[location];
+//    }
     public String getTest() {
          return this.test;
     }

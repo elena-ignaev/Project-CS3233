@@ -1,17 +1,28 @@
 package com.example.projectp1.Model;
 
 public class Cation extends Substance{
+    private String element;
     private int charge;
     private String withNaOH;
     private String withNH3;
+    public Cation(String element, int charge, String withNaOH, String withNH3) {
+        super(element + charge + "+");
+        this.element = element;
+        this.charge = charge;
+        this.withNaOH = withNaOH;
+        this.withNH3 = withNH3;
+    }
     // format <elementary symbols>(<charge>)
-    public Cation(int location) {
-        super(Database.getCationElements()[location%(Database.getCationElements().length)]
-                + Database.getCationCharge()[location%(Database.getCationCharge().length)]);
-        location = location%(Database.getCationElements().length);
-        this.charge = Database.getCationCharge()[location];
-        this.withNaOH = Database.getCationReactWithNaOH()[location];
-        this.withNH3 = Database.getCationReactWithNH3()[location];
+//    public Cation(int location) {
+//        super(Database.getCationElements()[location%(Database.getCationElements().length)]
+//                + Database.getCationCharge()[location%(Database.getCationCharge().length)]);
+//        location = location%(Database.getCationElements().length);
+//        this.charge = Database.getCationCharge()[location];
+//        this.withNaOH = Database.getCationReactWithNaOH()[location];
+//        this.withNH3 = Database.getCationReactWithNH3()[location];
+//    }
+    public String getElement() {
+        return this.element;
     }
     public int getCharge() {
         return this.charge;
@@ -27,6 +38,9 @@ public class Cation extends Substance{
             throw new IllegalArgumentException("Charge of cation cannot be non-positive");
         }
         this.charge = charge;
+    }
+    public void setElement(String element) {
+        this.element = element;
     }
     public void setWithNaOH(String withNaOH) {
         this.withNaOH = withNaOH;

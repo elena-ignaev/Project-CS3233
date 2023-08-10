@@ -81,6 +81,7 @@ public class ExperimentSpace implements Initializable {
             if (testPH.getValue().equals("Red litmus")) {
                 RedLitmus redModel = new RedLitmus();
                 RedLitmusPane red = new RedLitmusPane(redModel);
+
                 getExperimentSpace().getChildren().add(red);
                 red.setOnMouseDragged(e -> {
                     red.setLayoutX(e.getX());
