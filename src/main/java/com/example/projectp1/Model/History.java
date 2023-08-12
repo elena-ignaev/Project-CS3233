@@ -72,7 +72,7 @@ public class History {
                 Gas gas = new Gas(tokenizer[0], tokenizer[1], tokenizer[2]);
                 this.getGases().add(gas);
             }
-        } catch(IOException ex) {
+        } catch (IOException ex) {
 
         }
     }

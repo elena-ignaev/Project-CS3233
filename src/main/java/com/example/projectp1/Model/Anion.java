@@ -18,18 +18,18 @@ public class Anion extends Substance {
         this.reagents = reagents;
         this.reactions = reactions;
     }
-//    public Anion(int location) {
-//        super("");
-//        if (!validIndex(location)) {
-//            throw new IllegalArgumentException("You can only create an anion with a number from 0 to " + (Database.getAnionElements().length - 1));
-//        }
-//        this.setName(Database.getAnionElements()[location]
-//                + Database.getAnionCharge()[location]);
-//        this.element = Database.getAnionElements()[location];
-//        this.charge = Database.getAnionCharge()[location];
-//        this.reagents = Database.getAnionReagents()[location];
-//        this.reactions = Database.getAnionReactions()[location];
-//    }
+    public Anion(int location) {
+        super("");
+        if (!validIndex(location)) {
+            throw new IllegalArgumentException("You can only create an anion with a number from 0 to " + (Database.getAnionElements().length - 1));
+        }
+        this.setName(Database.getAnionElements()[location]
+                + Database.getAnionCharge()[location]);
+        this.element = Database.getAnionElements()[location];
+        this.charge = Database.getAnionCharge()[location];
+        this.reagents = Database.getAnionReagents()[location];
+        this.reactions = Database.getAnionReactions()[location];
+    }
     public String getElement() {
         return this.element;
     }
@@ -58,21 +58,21 @@ public class Anion extends Substance {
         this.reactions = reactions;
     }
 
-//    public void setAnion(int index) {
-//        if (!validIndex(index)) {
-//            throw new IllegalArgumentException("You can only create an anion with a number from 0 to " + (Database.getAnionElements().length - 1));
-//        }
-//        this.element = Database.getAnionElements()[index];
-//        this.charge = Database.getAnionCharge()[index];
-//        this.reagents = Database.getAnionReagents()[index];
-//        this.reactions = Database.getAnionReactions()[index];
-//    }
+    public void setAnion(int index) {
+        if (!validIndex(index)) {
+            throw new IllegalArgumentException("You can only create an anion with a number from 0 to " + (Database.getAnionElements().length - 1));
+        }
+        this.element = Database.getAnionElements()[index];
+        this.charge = Database.getAnionCharge()[index];
+        this.reagents = Database.getAnionReagents()[index];
+        this.reactions = Database.getAnionReactions()[index];
+    }
     public static boolean validCharge(int charge) {
         return charge < 0;
     }
-//    public static boolean validIndex(int index) {
-//        return 0 <= index && index < Database.getAnions().size();
-//    }
+    public static boolean validIndex(int index) {
+        return 0 <= index && index < Database.getAnionElements().length;
+    }
     @Override
     public void reacts() {}
 

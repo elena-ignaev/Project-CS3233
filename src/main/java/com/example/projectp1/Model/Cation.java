@@ -13,14 +13,14 @@ public class Cation extends Substance{
         this.withNH3 = withNH3;
     }
     // format <elementary symbols>(<charge>)
-//    public Cation(int location) {
-//        super(Database.getCationElements()[location%(Database.getCationElements().length)]
-//                + Database.getCationCharge()[location%(Database.getCationCharge().length)]);
-//        location = location%(Database.getCationElements().length);
-//        this.charge = Database.getCationCharge()[location];
-//        this.withNaOH = Database.getCationReactWithNaOH()[location];
-//        this.withNH3 = Database.getCationReactWithNH3()[location];
-//    }
+    public Cation(int location) {
+        super(Database.getCationElements()[location%(Database.getCationElements().length)]
+                + Database.getCationCharge()[location%(Database.getCationCharge().length)]);
+        location = location%(Database.getCationElements().length);
+        this.charge = Database.getCationCharge()[location];
+        this.withNaOH = Database.getCationReactWithNaOH()[location];
+        this.withNH3 = Database.getCationReactWithNH3()[location];
+    }
     public String getElement() {
         return this.element;
     }
