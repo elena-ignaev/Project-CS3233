@@ -122,7 +122,8 @@ public class ExperimentSpace implements Initializable {
             if (event.getSource() == salts) {
                 if (salts.getValue().equals("Random")){
                     Random random = new Random();
-                    int index = random.nextInt();
+                    int cationIndex = random.nextInt(8);
+                    int anionIndex = random.nextInt(5);
                 }
             }
         } else {
