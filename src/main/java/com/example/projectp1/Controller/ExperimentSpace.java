@@ -2,6 +2,7 @@ package com.example.projectp1.Controller;
 
 import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
+import com.example.projectp1.TestDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ExperimentSpace implements Initializable {
+
 
     // Main functionalities
     private boolean hasTestTube = false;
@@ -120,10 +122,13 @@ public class ExperimentSpace implements Initializable {
     public void addSubstance(ActionEvent event) {
         if (isHasTestTube()) {
             if (event.getSource() == salts) {
+                Database database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
                 if (salts.getValue().equals("Random")){
                     Random random = new Random();
-                    int cationIndex = random.nextInt(8);
-                    int anionIndex = random.nextInt(5);
+                    int cationIndex = random.nextInt(Database.getNumOfCations());
+                    int anionIndex = random.nextInt(Database.getNumOfAnions());
+                    Salt randomSalt = new Salt(new Cation(cationIndex, database), new Anion(anionIndex, database));
+                    System.out.println(getExperimentSpace().getChildren().get(0));
                 }
             }
         } else {

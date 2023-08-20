@@ -4,9 +4,36 @@ public class Salt extends Substance{
     private Cation cation;
     private Anion anion;
     public Salt(Cation cation, Anion anion) {
-        super(cation.getName().substring(0,cation.getName().length()-2) + anion.getName().substring(0,anion.getName().length()-2));
-        this.cation = cation;
-        this.anion = anion;
+        super("");
+        try {
+            int oxidationStateCation = 1;
+            int oxidationStateAnion = 1;
+            if (Character.isDigit(cation.getCharge().charAt(0))) {
+                oxidationStateCation = Integer.parseInt(cation.getCharge().substring(0, 1));
+            }
+            if (Character.isDigit(anion.getCharge().charAt(0))) {
+                oxidationStateAnion = Integer.parseInt(anion.getCharge().substring(0, 1));
+            }
+
+            String name = "";
+
+            if (oxidationStateAnion != 1) {
+                name = name.concat("(" + cation.getElement() + ")" + oxidationStateAnion);
+            } else {
+                name = name.concat(cation.getElement());
+            }
+
+            if (oxidationStateCation != 1) {
+                name = name.concat("(" + anion.getElement() + ")" + oxidationStateCation);
+            } else {
+                name = name.concat(anion.getElement());
+            }
+            this.setName(name);
+            this.cation = cation;
+            this.anion = anion;
+        } catch (NullPointerException ex) {
+            System.out.println("Cation or Anion is invalid");
+        }
     }
     public Cation getCation() {
         return this.cation;
@@ -28,12 +55,17 @@ public class Salt extends Substance{
 
     @Override
     public String toString() {
-        return "Salt properties: "
-                + "\nName: " + this.getName()
-                + "\nColor: " + this.getColor()
-                + "\nCation present: " + this.cation.getName() + "\n" + this.cation
-                + "\nAnion present: " + this.anion.getName() + "\n" + this.anion
-                + "\n";
-
+        String saltString = "Salt has invalid Cation or Anion";
+        try {
+            saltString =  "Salt properties: "
+                    + "\nName: " + this.getName()
+                    + "\nColor: " + this.getColor()
+                    + "\nCation present: " + this.getCation().getName() + "\n" + this.getCation()
+                    + "\nAnion present: " + this.getAnion().getName() + "\n" + this.getAnion()
+                    + "\n";
+        } catch (NullPointerException ex) {
+            System.out.println("Cation or Anion is invalid");
+        }
+        return saltString;
     }
 }

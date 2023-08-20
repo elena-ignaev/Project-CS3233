@@ -4,14 +4,35 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Database {
+    private static int numOfCations = 0;
+    private static int numOfAnions = 0;
+    private static int numOfGases = 0;
+    public static int getNumOfCations() {
+        return numOfCations;
+    }
+    public static int getNumOfAnions() {
+        return numOfAnions;
+    }
+    public static int getNumOfGases() {
+        return numOfGases;
+    }
+    public static void setNumOfCations(int num) {
+        numOfCations = num;
+    }
+    public static void setNumOfAnions(int num) {
+        numOfAnions = num;
+    }
+    public static void setNumOfGases(int num) {
+        numOfGases = num;
+    }
     private ArrayList<String> cationElements = new ArrayList<>(8);
-    private ArrayList<Integer> cationCharge = new ArrayList<>(8);
+    private ArrayList<String> cationCharge = new ArrayList<>(8);
     private ArrayList<String> cationReactWithNaOH = new ArrayList<>(8);
     private ArrayList<String> cationReactWithNH3 = new ArrayList<>(8);
     public ArrayList<String> getCationElements() {
         return cationElements;
     }
-    public ArrayList<Integer> getCationCharge() {
+    public ArrayList<String> getCationCharge() {
         return cationCharge;
     }
     public ArrayList<String> getCationReactWithNaOH() {
@@ -23,13 +44,13 @@ public class Database {
 
 
     private ArrayList<String> anionElements = new ArrayList<>(5);
-    private ArrayList<Integer> anionCharge = new ArrayList<>(5);
+    private ArrayList<String> anionCharge = new ArrayList<>(5);
     private ArrayList<String> anionReagents = new ArrayList<>(5);
     private ArrayList<String> anionReactions = new ArrayList<>(5);
     public ArrayList<String> getAnionElements() {
         return anionElements;
     }
-    public ArrayList<Integer> getAnionCharge() {
+    public ArrayList<String> getAnionCharge() {
         return anionCharge;
     }
     public ArrayList<String> getAnionReagents() {
@@ -40,9 +61,9 @@ public class Database {
     }
 
 
-    private ArrayList<String> gasName;
-    private ArrayList<String> gasTest;
-    private ArrayList<String> gasResult;
+    private ArrayList<String> gasName = new ArrayList<>(6);
+    private ArrayList<String> gasTest = new ArrayList<>(6);
+    private ArrayList<String> gasResult = new ArrayList<>(6);
     public ArrayList<String> getGasName() {
         return gasName;
     }
@@ -70,10 +91,10 @@ public class Database {
                 String[] tokenizer = line.split(",");
 
                 this.getCationElements().add(tokenizer[0]);
-                this.getCationCharge().add(Integer.parseInt(tokenizer[1]));
+                this.getCationCharge().add(tokenizer[1]);
                 this.getCationReactWithNaOH().add(tokenizer[2]);
                 this.getCationReactWithNH3().add(tokenizer[3]);
-
+                setNumOfCations(getNumOfCations()+1);
             }
         } catch (IOException ex) {
 
@@ -87,6 +108,16 @@ public class Database {
             this.getAnionReactions().clear();
             this.getAnionReagents().clear();
 
+            BufferedReader bf = new BufferedReader(new FileReader(filename));
+            String line = bf.readLine();
+            while ((line = bf.readLine()) != null) {
+                String[] tokenizer = line.split(",");
+                this.getAnionElements().add(tokenizer[0]);
+                this.getAnionCharge().add(tokenizer[1]);
+                this.getAnionReagents().add(tokenizer[2]);
+                this.getAnionReactions().add(tokenizer[3]);
+                setNumOfAnions(getNumOfAnions()+1);
+            }
         } catch(IOException ex) {
 
         }
@@ -94,7 +125,19 @@ public class Database {
 
     public void loadGasDB(String filename) {
         try {
+            this.getGasName().clear();
+            this.getGasTest().clear();
+            this.getGasResult().clear();
+
             BufferedReader bf = new BufferedReader(new FileReader(filename));
+            String line = bf.readLine();
+            while ((line = bf.readLine()) != null) {
+                String[] tokenizer = line.split(",");
+                this.getGasName().add(tokenizer[0]);
+                this.getGasTest().add(tokenizer[1]);
+                this.getGasResult().add(tokenizer[2]);
+                setNumOfGases(getNumOfGases()+1);
+            }
         } catch(IOException ex) {
 
         }

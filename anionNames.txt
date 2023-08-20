@@ -1,6 +1,6 @@
 element,charge,reagents_used,result
-Cl,1-,dilute_HNO3-aqueous_AgNO3,precipitate_white
-I,1-,dilute_HNO3-aqueous_AgNO3,precipitate_yellow
+Cl,-,dilute_HNO3-aqueous_AgNO3,precipitate_white
+I,-,dilute_HNO3-aqueous_AgNO3,precipitate_yellow
 SO4,2-,dilute_HNO3-aqueous_BaCl2,precipitate_white
 CO3,2-,dilute_acid,effervescence_CO2
-NO3,1-,aqueous_NaOH-Al_foil-warm,NH4
+NO3,-,aqueous_NaOH-Al_foil-warm,NH4

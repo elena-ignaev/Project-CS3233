@@ -4,9 +4,14 @@ public class Gas extends Substance {
     private String test;
     private String result;
     public Gas (int index, Database database) {
-        super(database.getGasName().get(index));
-        this.test = database.getGasTest().get(index);
-        this.result = database.getGasResult().get(index);
+        super("");
+        try {
+            this.setName(database.getGasName().get(index));
+            this.test = database.getGasTest().get(index);
+            this.result = database.getGasResult().get(index);
+        } catch (IndexOutOfBoundsException ex) {
+            System.out.println("Choose a number from 0-" + (database.getGasName().size() - 1) + " only");
+        }
     }
 
     public Gas(String name, String test, String result) {
@@ -27,6 +32,7 @@ public class Gas extends Substance {
     public void setResult(String result) {
          this.result = result;
     }
+
     @Override
     public void reacts() {
 

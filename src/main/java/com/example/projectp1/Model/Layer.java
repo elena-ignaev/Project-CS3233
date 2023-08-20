@@ -1,17 +1,17 @@
 package com.example.projectp1.Model;
 
 public class Layer {
-    private String content;
+    private Substance content;
     private double height = 25;
     private String color = "lightgrey";
     private boolean isClear = false;
-    public Layer(String content, String color, boolean isClear) {
+    public Layer(Substance content, String color, boolean isClear) {
         this.content = content;
         this.color = color;
         this.isClear = isClear;
     }
 
-    public String getContent() {
+    public Substance getContent() {
         return this.content;
     }
 
@@ -23,7 +23,7 @@ public class Layer {
         return this.isClear;
     }
 
-    public void setContent(String content) {
+    public void setContent(Substance content) {
         this.content = content;
     }
 

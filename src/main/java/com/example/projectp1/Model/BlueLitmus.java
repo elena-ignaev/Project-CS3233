@@ -35,8 +35,8 @@ public class BlueLitmus extends Tools {
 
     @Override
     public String toString() {
-        return "Red litmus is damp? :" + this.isDamp()
-                + "\nRed litmus paper has changed color: " + this.isChanged()
+        return "Blue litmus is damp? :" + this.isDamp()
+                + "\nBlue litmus paper has changed color: " + this.isChanged()
                 + "\n";
     }
 }
