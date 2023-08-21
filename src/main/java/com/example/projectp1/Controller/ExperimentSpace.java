@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class ExperimentSpace implements Initializable {
-
+    Database database;
 
     // Main functionalities
     private boolean hasTestTube = false;
@@ -122,7 +122,6 @@ public class ExperimentSpace implements Initializable {
     public void addSubstance(ActionEvent event) {
         if (isHasTestTube()) {
             if (event.getSource() == salts) {
-                Database database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
                 if (salts.getValue().equals("Random")){
                     Random random = new Random();
                     int cationIndex = random.nextInt(Database.getNumOfCations());
@@ -131,6 +130,9 @@ public class ExperimentSpace implements Initializable {
                     System.out.println(getExperimentSpace().getChildren().get(0));
                 }
             }
+            if (event.getSource() == aqueousNaOH) {
+
+            }
         } else {
             Alert noTestTube = new Alert(Alert.AlertType.WARNING);
             noTestTube.setTitle("Warning");
@@ -138,6 +140,8 @@ public class ExperimentSpace implements Initializable {
             noTestTube.setContentText("Cannot add substance when there is no test tube!");
             noTestTube.showAndWait();
         }
+
+
     }
 
 
@@ -215,6 +219,7 @@ public class ExperimentSpace implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         salts.setItems(saltsForQA);
         testPH.setItems(litmusPaperType);
+        database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
     }
 
 }
