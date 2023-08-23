@@ -4,15 +4,70 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class History {
-    private TestTube[] tubes;
+    private ArrayList<TestTube> tubes;
     private Lighter lighter;
     private BunsenBurner bunsenBurner;
+    private ArrayList<Splint> splint;
+    private ArrayList<RedLitmus> redLitmus;
+    private ArrayList<BlueLitmus> blueLitmus;
 
     public History() {
-        tubes = new TestTube[5];
-
+        tubes = new ArrayList<>(5);
+        lighter = new Lighter();
+        bunsenBurner = new BunsenBurner();
+        splint = new ArrayList<>(2);
+        redLitmus = new ArrayList<>(3);
+        blueLitmus = new ArrayList<>();
     }
-//    private ArrayList<Cation> cations;
+    public ArrayList<TestTube> getTubes() {
+        return this.tubes;
+    }
+
+    public Lighter getLighter() {
+        return lighter;
+    }
+
+    public BunsenBurner getBunsenBurner() {
+        return bunsenBurner;
+    }
+
+    public ArrayList<Splint> getSplint() {
+        return splint;
+    }
+
+    public ArrayList<BlueLitmus> getBlueLitmus() {
+        return blueLitmus;
+    }
+
+    public ArrayList<RedLitmus> getRedLitmus() {
+        return redLitmus;
+    }
+
+    public void setTubes(ArrayList<TestTube> tubes) {
+        this.tubes = tubes;
+    }
+
+    public void setRedLitmus(ArrayList<RedLitmus> redLitmus) {
+        this.redLitmus = redLitmus;
+    }
+
+    public void setBlueLitmus(ArrayList<BlueLitmus> blueLitmus) {
+        this.blueLitmus = blueLitmus;
+    }
+
+    public void setLighter(Lighter lighter) {
+        this.lighter = lighter;
+    }
+
+    public void setBunsenBurner(BunsenBurner bunsenBurner) {
+        this.bunsenBurner = bunsenBurner;
+    }
+
+    public void setSplint(ArrayList<Splint> splint) {
+        this.splint = splint;
+    }
+
+    //    private ArrayList<Cation> cations;
 //    public ArrayList<Cation> getCations() {
 //        return cations;
 //    }

@@ -39,6 +39,11 @@ public class SplintPane extends Pane implements Paintable {
         paint();
     }
 
+    public SplintPane(Splint splint) {
+        this.splint = splint;
+        paint();
+    }
+
     public SplintPane(Splint splint, double splintLength, double splintThickness) {
         this.splintThickness = splintThickness;
         this.splintLength = splintLength;
