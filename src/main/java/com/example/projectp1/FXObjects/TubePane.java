@@ -57,33 +57,42 @@ public class TubePane extends Pane implements Paintable {
 
     public void setTransparency1(double transparency1) {
         this.transparency1 = transparency1;
+        paint();
     }
 
     public void setTransparency2(double transparency2) {
         this.transparency2 = transparency2;
+        paint();
     }
 
     public void setTransparency3(double transparency3) {
         this.transparency3 = transparency3;
+        paint();
     }
 
     public void setDiameter(double diameter) {
         this.diameter = diameter;
+        paint();
     }
     public void setEmptyHeight(double emptyHeight) {
         this.emptyHeight = emptyHeight;
+        paint();
     }
     public void setLayerHeight(double layerHeight) {
         this.layerHeight = layerHeight;
+        paint();
     }
     public void setColor1(String color1) {
         this.color1 = color1;
+        paint();
     }
     public void setColor2(String color2) {
         this.color2 = color2;
+        paint();
     }
     public void setColor3(String color3) {
         this.color3 = color3;
+        paint();
     }
     public TubePane() {
         paint();

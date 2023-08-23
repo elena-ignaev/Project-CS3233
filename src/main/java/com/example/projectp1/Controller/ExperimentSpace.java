@@ -179,7 +179,11 @@ public class ExperimentSpace implements Initializable {
                 }
             }
             if (event.getSource() == aqueousNaOH) {
-
+                TestingChemicals NaOH = new TestingChemicals("NaOH");
+                Layer aqueousNaOH = new Layer(NaOH, "lightgrey",false);
+                getHistory().getTubes().get(0).setLayer3(aqueousNaOH);
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
             }
         } else {
             Alert noTestTube = new Alert(Alert.AlertType.WARNING);
