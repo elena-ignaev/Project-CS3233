@@ -5,3 +5,7 @@ error of flicking dragging animation and transparent tab pane can see through th
 add blue litmus class
 using regex for formatting of database document
 use arraylist instead of array in database --> related problems in cation and anion --> need to change in part 1
+
+use fill transition for color change
+use media for tutorial on how to use the application
+use separate thread to update GUI

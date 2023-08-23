@@ -3,6 +3,7 @@ package com.example.projectp1.Controller;
 import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
 import com.example.projectp1.TestDatabase;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -55,10 +56,10 @@ public class ExperimentSpace implements Initializable {
             getExperimentSpace().getChildren().add(tube);
             setHasTestTube(true);
             // drag the tube
-            tube.setOnMouseDragged(e -> {
+            tube.setOnMouseDragged(e -> Platform.runLater(() -> {
                 tube.setLayoutX(e.getX());
                 tube.setLayoutY(e.getY());
-            });
+            }));
         }
 
         else if (event.getSource() == heatingEquipment) {
@@ -69,14 +70,14 @@ public class ExperimentSpace implements Initializable {
             getExperimentSpace().getChildren().addAll(lighter, burner);
             burner.setLayoutY(100);
 
-            lighter.setOnMouseDragged(e -> {
+            lighter.setOnMouseDragged(e -> Platform.runLater(() -> {
                 lighter.setLayoutX(e.getX());
-                lighter.setLayoutY(e.getY()); //error: flicking when dragging object, tab pane is transparent and can see through
-            });
-            burner.setOnMouseDragged(e -> {
+                lighter.setLayoutY(e.getY());
+            }));
+            burner.setOnMouseDragged(e -> Platform.runLater(() -> {
                 burner.setLayoutX(e.getX());
-                burner.setLayoutY(e.getY() + 100); //error: flicking when dragging object, tab pane is transparent and can see through
-            });
+                burner.setLayoutY(e.getY() + 100);
+            }));
         }
 
         else if (event.getSource() == testPH) {
