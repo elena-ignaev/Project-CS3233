@@ -22,12 +22,14 @@ public class TestingChemicals extends Substance{
         for (String name:testingChemicals) {
             if (chemicalName.equals(name)) {
                 check = true;
-            } else {
-                check = false;
             }
         }
         return check;
     }
     @Override
     public void reacts() {}
+
+    public static void main(String args[]) {
+        TestingChemicals testingChemical = new TestingChemicals("NaOH");
+    }
 }

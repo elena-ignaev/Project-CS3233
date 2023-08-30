@@ -9,3 +9,6 @@ use arraylist instead of array in database --> related problems in cation and an
 use fill transition for color change
 use media for tutorial on how to use the application
 use separate thread to update GUI
+
+think about resizing object
+provide a list of equipment on screen for better control

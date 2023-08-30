@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -110,25 +111,25 @@
                            <children>
                               <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <HBox prefHeight="67.0" prefWidth="227.0">
+                                    <HBox prefHeight="67.0" prefWidth="196.0">
                                        <children>
                                           <Label text="Salt:">
                                              <HBox.margin>
                                                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <ComboBox fx:id="salts" onAction="#addSubstance" prefHeight="25.0" prefWidth="150.0" promptText="Choose your salt">
+                                          <ComboBox fx:id="salts" onAction="#addSubstance" prefHeight="25.0" prefWidth="133.0" promptText="Choose your salt">
                                              <HBox.margin>
                                                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                                              </HBox.margin>
                                           </ComboBox>
                                        </children>
                                     </HBox>
-                                    <VBox prefHeight="67.0" prefWidth="375.0">
+                                    <VBox prefHeight="67.0" prefWidth="287.0">
                                        <children>
-                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                          <HBox prefHeight="34.0" prefWidth="283.0">
                                              <children>
-                                                <Label text="Test for cation:">
+                                                <Label text="For cation:">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -147,7 +148,7 @@
                                           </HBox>
                                           <HBox prefHeight="100.0" prefWidth="200.0">
                                              <children>
-                                                <Label text="Test for anion:">
+                                                <Label text="For anion:">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -164,6 +165,13 @@
                                                 </Button>
                                              </children>
                                           </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="117.0">
+                                       <children>
+                                          <RadioButton mnemonicParsing="false" text="Tube 1" />
+                                          <RadioButton mnemonicParsing="false" text="Tube 2" />
+                                          <RadioButton mnemonicParsing="false" text="Tube 3" />
                                        </children>
                                     </VBox>
                                  </children>

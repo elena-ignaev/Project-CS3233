@@ -75,7 +75,7 @@ public class ExperimentSpace implements Initializable {
             }));
         }
 
-        else if (event.getSource() == heatingEquipment) {
+        if (event.getSource() == heatingEquipment) {
             Lighter lighterModel = new Lighter();
             getHistory().setLighter(lighterModel);
             LighterPane lighter = new LighterPane(lighterModel);
@@ -95,7 +95,7 @@ public class ExperimentSpace implements Initializable {
             }));
         }
 
-        else if (event.getSource() == testPH) {
+        if (event.getSource() == testPH) {
             if (testPH.getValue().equals("Red litmus")) {
                 RedLitmus redModel = new RedLitmus();
                 RedLitmusPane red = new RedLitmusPane(redModel);
@@ -105,8 +105,7 @@ public class ExperimentSpace implements Initializable {
                     red.setLayoutX(e.getSceneX());
                     red.setLayoutY(e.getSceneY());
                 }));
-            }
-            else if (testPH.getValue().equals("Blue litmus")) {
+            } else if (testPH.getValue().equals("Blue litmus")) {
                 BlueLitmus blueModel = new BlueLitmus();
                 BlueLitmusPane blue = new BlueLitmusPane(blueModel);
                 getHistory().getBlueLitmus().add(blueModel);
@@ -118,7 +117,7 @@ public class ExperimentSpace implements Initializable {
             }
         }
 
-        else if (event.getSource() == splint) {
+        if (event.getSource() == splint) {
             if (splint.getValue().equals("Glowing splint")) {
                 Splint splintModel = new Splint("glowing");
                 SplintPane splint = new SplintPane(splintModel);
@@ -169,6 +168,7 @@ public class ExperimentSpace implements Initializable {
 
     public void addSubstance(ActionEvent event) {
         if (isHasTestTube()) {
+            // "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2"
             if (event.getSource() == salts) {
                 if (salts.getValue().equals("Random")){
                     Random random = new Random();
@@ -176,12 +176,52 @@ public class ExperimentSpace implements Initializable {
                     int anionIndex = random.nextInt(Database.getNumOfAnions());
                     Salt randomSalt = new Salt(new Cation(cationIndex, getDatabase()), new Anion(anionIndex, getDatabase()));
                     System.out.println(getExperimentSpace().getChildren().get(0));
-                }
+                } else if (salts.getValue().equals("FeSO4")) { // blue-green
+                    ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("blue");
+                } else if (salts.getValue().equals("MgSO4")) { // white
+
+                } else if (salts.getValue().equals("ZnSO4")) { // white
+
+                } else if (salts.getValue().equals("CuSO4")) { // blue
+
+                } else if (salts.getValue().equals("(NH4)2SO4")) { // white
+
+                } else if (salts.getValue().equals("CuCO3")) { // blue
+
+                } else if (salts.getValue().equals("CaCO3")) { // white
+
+                } else if (salts.getValue().equals("FeCl3")) {
+
+                } else if (salts.getValue().equals("NaCl")) { // white
+
+                } else if (salts.getValue().equals("Cu(NO3)2")); // blue
+
             }
             if (event.getSource() == aqueousNaOH) {
                 TestingChemicals NaOH = new TestingChemicals("NaOH");
                 Layer aqueousNaOH = new Layer(NaOH, "lightgrey",false);
                 getHistory().getTubes().get(0).setLayer3(aqueousNaOH);
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
+            }
+            if (event.getSource() == aqueousNH3) {
+                TestingChemicals NH3 = new TestingChemicals("NH3");
+                Layer aqueousNH3 = new Layer(NH3, "lightgrey",false);
+                getHistory().getTubes().get(0).setLayer3(aqueousNH3);
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
+            }
+            if (event.getSource() == aqueousAgNO3) {
+                TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
+                Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey",false);
+                getHistory().getTubes().get(0).setLayer3(aqueousAgNO3);
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
+                ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
+            }
+            if (event.getSource() == aqueousBaCl2) {
+                TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
+                Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey",false);
+                getHistory().getTubes().get(0).setLayer3(aqueousBaCl2);
                 ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
                 ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
             }
@@ -193,6 +233,8 @@ public class ExperimentSpace implements Initializable {
             noTestTube.showAndWait();
         }
 
+        // When adding a random salt, remember to open up a tab "Question" to test for knowledge
+        // When adding a known salt, remember to open up a tab "Explanation"
 
     }
 
