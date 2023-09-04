@@ -169,9 +169,9 @@
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="67.0" prefWidth="117.0">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" text="Tube 1" />
-                                          <RadioButton mnemonicParsing="false" text="Tube 2" />
-                                          <RadioButton mnemonicParsing="false" text="Tube 3" />
+                                          <RadioButton mnemonicParsing="false" text="Tube 1" toggleGroup="$tube"/>
+                                          <RadioButton mnemonicParsing="false" text="Tube 2" toggleGroup="$tube"/>
+                                          <RadioButton mnemonicParsing="false" text="Tube 3" toggleGroup="$tube"/>
                                        </children>
                                     </VBox>
                                  </children>
