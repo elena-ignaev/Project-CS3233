@@ -69,10 +69,10 @@ public class SplintPane extends Pane implements Paintable {
                 fire.setOpacity(1);
             } else if (this.getSplint().getState().equals("glowing")) {
                 fire.setFill(Color.ORANGE);
-                fire.setOpacity(0.5);
-            } else {
-                fire.setOpacity(0);
-            }
+                fire.setOpacity(0.5);}
+//            } else {
+//                fire.setOpacity(0);
+//            }
         }
 
         getChildren().clear();

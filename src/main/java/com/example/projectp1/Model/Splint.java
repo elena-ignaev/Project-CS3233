@@ -35,6 +35,9 @@ public class Splint extends Tools{
         boolean valid = false;
         for (String str : this.getAllStates()) {
             valid = str.equals(state);
+            if (valid) {
+                break;
+            }
         }
         return valid;
     }

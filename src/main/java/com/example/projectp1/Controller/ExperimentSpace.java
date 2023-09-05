@@ -9,10 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -175,13 +178,21 @@ public class ExperimentSpace implements Initializable {
         try {
             if (isHasTestTube()) {
                 // "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2"
+                ObservableList<Node> components = getExperimentSpace().getChildren();
+                ArrayList<Node> tubes = new ArrayList<>();
+                tubes.clear();
+                for (int i = 0; i < components.size(); i++) {
+                    if (components.get(i) instanceof TubePane) {
+                        tubes.add(components.get(i));
+                    }
+                }
                 if (event.getSource() == salts) {
                     if (salts.getValue().equals("Random")) {
                         Random random = new Random();
                         int cationIndex = random.nextInt(Database.getNumOfCations());
                         int anionIndex = random.nextInt(Database.getNumOfAnions());
                         Salt randomSalt = new Salt(new Cation(cationIndex, getDatabase()), new Anion(anionIndex, getDatabase()));
-                        System.out.println(getExperimentSpace().getChildren().get(0));
+                        System.out.println(tubes.get(0));
                     } else if (salts.getValue().equals("FeSO4")) { // blue-green
                         ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("blue");
                     } else if (salts.getValue().equals("MgSO4")) { // white
@@ -207,29 +218,30 @@ public class ExperimentSpace implements Initializable {
                     TestingChemicals NaOH = new TestingChemicals("NaOH");
                     Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
                     getHistory().getTubes().get(0).setLayer3(aqueousNaOH);
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
+                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
+//                    System.out.println(tube.getSelectedToggle());
                 }
                 if (event.getSource() == aqueousNH3) {
                     TestingChemicals NH3 = new TestingChemicals("NH3");
                     Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
                     getHistory().getTubes().get(0).setLayer3(aqueousNH3);
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
+                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
                 }
                 if (event.getSource() == aqueousAgNO3) {
                     TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
                     Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
                     getHistory().getTubes().get(0).setLayer3(aqueousAgNO3);
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
+                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
                 }
                 if (event.getSource() == aqueousBaCl2) {
                     TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
                     Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
                     getHistory().getTubes().get(0).setLayer3(aqueousBaCl2);
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setColor3("lightgrey");
-                    ((TubePane) getExperimentSpace().getChildren().get(0)).setTransparency3(0.5);
+                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
                 }
             } else {
                 Alert noTestTube = new Alert(Alert.AlertType.WARNING);
@@ -239,6 +251,7 @@ public class ExperimentSpace implements Initializable {
                 noTestTube.showAndWait();
             }
         } catch (NullPointerException e) {
+            e.printStackTrace();
             Alert noSelectedTube = new Alert(Alert.AlertType.WARNING);
             noSelectedTube.setTitle("Warning");
             noSelectedTube.setHeaderText("No select test tube");
