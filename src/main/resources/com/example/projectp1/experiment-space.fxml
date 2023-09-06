@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -19,9 +20,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.ExperimentSpace">
     <children>
-        <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutY="23.0" prefHeight="377.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <MenuBar>
+                <MenuBar prefHeight="25.0" prefWidth="600.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="Home">
                             <items>
@@ -169,9 +170,12 @@
                                     </VBox>
                                     <VBox alignment="CENTER" prefHeight="67.0" prefWidth="117.0">
                                        <children>
-                                          <RadioButton mnemonicParsing="false" text="Tube 1" toggleGroup="$tube"/>
-                                          <RadioButton mnemonicParsing="false" text="Tube 2" toggleGroup="$tube"/>
-                                          <RadioButton mnemonicParsing="false" text="Tube 3" toggleGroup="$tube"/>
+                                          <RadioButton fx:id="tube1" mnemonicParsing="false" text="Tube 1">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="tube" />
+                                             </toggleGroup></RadioButton>
+                                          <RadioButton fx:id="tube2" mnemonicParsing="false" text="Tube 2" toggleGroup="$tube" />
+                                          <RadioButton fx:id="tube3" mnemonicParsing="false" text="Tube 3" toggleGroup="$tube" />
                                        </children>
                                     </VBox>
                                  </children>

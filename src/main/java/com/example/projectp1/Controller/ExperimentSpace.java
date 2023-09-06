@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ExperimentSpace implements Initializable {
     Database database;
@@ -35,6 +37,16 @@ public class ExperimentSpace implements Initializable {
     }
     public boolean isHasTestTube() {
         return this.hasTestTube;
+    }
+
+    private boolean addedSalt = false;
+
+    public void setAddedSalt(boolean addedSalt) {
+        this.addedSalt = addedSalt;
+    }
+
+    public boolean isAddedSalt() {
+        return addedSalt;
     }
 
     // Pane
@@ -170,6 +182,15 @@ public class ExperimentSpace implements Initializable {
     @FXML
     private ToggleGroup tube;
 
+    @FXML
+    private RadioButton tube1;
+
+    @FXML
+    private RadioButton tube2;
+
+    @FXML
+    private RadioButton tube3;
+
 
     ObservableList<String> saltsForQA = FXCollections.observableArrayList(
             "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2");
@@ -181,12 +202,13 @@ public class ExperimentSpace implements Initializable {
                 ObservableList<Node> components = getExperimentSpace().getChildren();
                 ArrayList<Node> tubes = new ArrayList<>();
                 tubes.clear();
-                for (int i = 0; i < components.size(); i++) {
-                    if (components.get(i) instanceof TubePane) {
-                        tubes.add(components.get(i));
+                for (Node component : components) {
+                    if (component instanceof TubePane) {
+                        tubes.add(component);
                     }
                 }
                 if (event.getSource() == salts) {
+                    setAddedSalt(true);
                     if (salts.getValue().equals("Random")) {
                         Random random = new Random();
                         int cationIndex = random.nextInt(Database.getNumOfCations());
@@ -214,34 +236,97 @@ public class ExperimentSpace implements Initializable {
                     } else if (salts.getValue().equals("Cu(NO3)2")) ; // blue
 
                 }
-                if (event.getSource() == aqueousNaOH) {
-                    TestingChemicals NaOH = new TestingChemicals("NaOH");
-                    Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
-                    getHistory().getTubes().get(0).setLayer3(aqueousNaOH);
-                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
-                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
+                if (isAddedSalt()) {
+                    /*
+                    TODO:
+                    Use regex for finding the index of the test tube from the name of its radiobutton
+                     */
+                    if (event.getSource() == aqueousNaOH) {
+                        TestingChemicals NaOH = new TestingChemicals("NaOH");
+                        Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
+                        getHistory().getTubes().get(0).setLayer3(aqueousNaOH);
+
+                        // Using regex to find index of test tube from its radiobutton by matching a number
+                        String text = ((RadioButton) tube.getSelectedToggle()).getText();
+                        String patternString = "[1-9]";
+                        Pattern pattern = Pattern.compile(patternString);
+                        Matcher matcher = pattern.matcher(text);
+                        if (matcher.find()){
+                            System.out.println(text.substring(matcher.start(), matcher.end()));
+                        }
+
+
+                        if (tube1.isSelected()) {
+                            ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(0)).setTransparency3(0.5);
+                        }
+                        if (tube2.isSelected()) {
+                            ((TubePane) tubes.get(1)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(1)).setTransparency3(0.5);
+                        }
+                        if (tube3.isSelected()) {
+                            ((TubePane) tubes.get(2)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(2)).setTransparency3(0.5);
+                        }
 //                    System.out.println(tube.getSelectedToggle());
-                }
-                if (event.getSource() == aqueousNH3) {
-                    TestingChemicals NH3 = new TestingChemicals("NH3");
-                    Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
-                    getHistory().getTubes().get(0).setLayer3(aqueousNH3);
-                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
-                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
-                }
-                if (event.getSource() == aqueousAgNO3) {
-                    TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
-                    Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
-                    getHistory().getTubes().get(0).setLayer3(aqueousAgNO3);
-                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
-                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
-                }
-                if (event.getSource() == aqueousBaCl2) {
-                    TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
-                    Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
-                    getHistory().getTubes().get(0).setLayer3(aqueousBaCl2);
-                    ((TubePane) tubes.get(0)).setColor3("lightgrey");
-                    ((TubePane) tubes.get(0)).setTransparency3(0.5);
+                    }
+                    if (event.getSource() == aqueousNH3) {
+                        TestingChemicals NH3 = new TestingChemicals("NH3");
+                        Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
+                        getHistory().getTubes().get(0).setLayer3(aqueousNH3);
+                        if (tube1.isSelected()) {
+                            ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(0)).setTransparency3(0.5);
+                        }
+                        if (tube2.isSelected()) {
+                            ((TubePane) tubes.get(1)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(1)).setTransparency3(0.5);
+                        }
+                        if (tube3.isSelected()) {
+                            ((TubePane) tubes.get(2)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(2)).setTransparency3(0.5);
+                        }
+                    }
+                    if (event.getSource() == aqueousAgNO3) {
+                        TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
+                        Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
+                        getHistory().getTubes().get(0).setLayer3(aqueousAgNO3);
+                        if (tube1.isSelected()) {
+                            ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(0)).setTransparency3(0.5);
+                        }
+                        if (tube2.isSelected()) {
+                            ((TubePane) tubes.get(1)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(1)).setTransparency3(0.5);
+                        }
+                        if (tube3.isSelected()) {
+                            ((TubePane) tubes.get(2)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(2)).setTransparency3(0.5);
+                        }
+                    }
+                    if (event.getSource() == aqueousBaCl2) {
+                        TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
+                        Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
+                        getHistory().getTubes().get(0).setLayer3(aqueousBaCl2);
+                        if (tube1.isSelected()) {
+                            ((TubePane) tubes.get(0)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(0)).setTransparency3(0.5);
+                        }
+                        if (tube2.isSelected()) {
+                            ((TubePane) tubes.get(1)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(1)).setTransparency3(0.5);
+                        }
+                        if (tube3.isSelected()) {
+                            ((TubePane) tubes.get(2)).setColor3("lightgrey");
+                            ((TubePane) tubes.get(2)).setTransparency3(0.5);
+                        }
+                    }
+                } else {
+                    Alert noSalt = new Alert(Alert.AlertType.WARNING);
+                    noSalt.setTitle("Warning");
+                    noSalt.setHeaderText("No salt");
+                    noSalt.setContentText("You should not add testing chemicals when no salt has been added yet!!");
+                    noSalt.showAndWait();
                 }
             } else {
                 Alert noTestTube = new Alert(Alert.AlertType.WARNING);
@@ -254,9 +339,16 @@ public class ExperimentSpace implements Initializable {
             e.printStackTrace();
             Alert noSelectedTube = new Alert(Alert.AlertType.WARNING);
             noSelectedTube.setTitle("Warning");
-            noSelectedTube.setHeaderText("No select test tube");
+            noSelectedTube.setHeaderText("No selected test tube");
             noSelectedTube.setContentText("Select a tube to add the substances to!");
             noSelectedTube.showAndWait();
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            Alert notEnoughTube = new Alert(Alert.AlertType.WARNING);
+            notEnoughTube.setTitle("Warning");
+            notEnoughTube.setHeaderText("No such test tube");
+            notEnoughTube.setContentText("Make sure the test tube is added to experiment space!");
+            notEnoughTube.showAndWait();
         }
 
         // When adding a random salt, remember to open up a tab "Question" to test for knowledge
