@@ -2,7 +2,6 @@ package com.example.projectp1.Controller;
 
 import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
-import com.example.projectp1.TestDatabase;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +29,14 @@ public class ExperimentSpace implements Initializable {
         return this.history;
     }
     // Main functionalities
+    private boolean hasHeatingEquipment = false;
+    public boolean isHasHeatingEquipment() {
+        return hasHeatingEquipment;
+    }
+    public void setHasHeatingEquipment(boolean hasHeatingEquipment) {
+        this.hasHeatingEquipment = hasHeatingEquipment;
+    }
+
     private boolean hasTestTube = false;
     public void setHasTestTube(boolean testTube) {
         this.hasTestTube = testTube;
@@ -37,6 +44,7 @@ public class ExperimentSpace implements Initializable {
     public boolean isHasTestTube() {
         return this.hasTestTube;
     }
+
 
     private boolean addedSalt = false;
 
@@ -90,78 +98,148 @@ public class ExperimentSpace implements Initializable {
         }
 
         if (event.getSource() == heatingEquipment) {
-            Lighter lighterModel = new Lighter();
-            getHistory().setLighter(lighterModel);
-            LighterPane lighter = new LighterPane(lighterModel);
-            lighter.setOnMouseDragged(e -> Platform.runLater(() -> {
-                lighter.setLayoutX(e.getSceneX());
-                lighter.setLayoutY(e.getSceneY());
-            }));
+            if (!isHasHeatingEquipment()) {
+                setHasHeatingEquipment(true);
+                Lighter lighterModel = new Lighter();
+                getHistory().setLighter(lighterModel);
+                LighterPane lighter = new LighterPane(lighterModel);
+                lighter.setOnMouseDragged(e -> Platform.runLater(() -> {
+                    lighter.setLayoutX(e.getSceneX());
+                    lighter.setLayoutY(e.getSceneY());
+                }));
 
-            BunsenBurner bunsenBurner = new BunsenBurner();
-            getHistory().setBunsenBurner(bunsenBurner);
-            BurnerPane burner = new BurnerPane(bunsenBurner);
-            getExperimentSpace().getChildren().addAll(lighter, burner);
-            burner.setLayoutY(100);
-            burner.setOnMouseDragged(e -> Platform.runLater(() -> {
-                burner.setLayoutX(e.getSceneX());
-                burner.setLayoutY(e.getSceneY());
-            }));
+                BunsenBurner bunsenBurner = new BunsenBurner();
+                getHistory().setBunsenBurner(bunsenBurner);
+                BurnerPane burner = new BurnerPane(bunsenBurner);
+                getExperimentSpace().getChildren().addAll(lighter, burner);
+                burner.setLayoutY(100);
+                burner.setOnMouseDragged(e -> Platform.runLater(() -> {
+                    burner.setLayoutX(e.getSceneX());
+                    burner.setLayoutY(e.getSceneY());
+                }));
+            } else {
+                Alert heatingEquipmentExists = new Alert(Alert.AlertType.WARNING);
+                heatingEquipmentExists.setTitle("Warning");
+                heatingEquipmentExists.setHeaderText("Cannot add heating equipment");
+                heatingEquipmentExists.setContentText("Application only allows 1 set of heating equipment!");
+                heatingEquipmentExists.showAndWait();
+            }
         }
 
         if (event.getSource() == testPH) {
             if (testPH.getValue().equals("Red litmus")) {
-                RedLitmus redModel = new RedLitmus();
-                RedLitmusPane red = new RedLitmusPane(redModel);
-                getHistory().getRedLitmus().add(redModel);
-                getExperimentSpace().getChildren().add(red);
-                red.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    red.setLayoutX(e.getSceneX());
-                    red.setLayoutY(e.getSceneY());
-                }));
+                if (!redLitmusAvailability()) {
+                    RedLitmus redModel = new RedLitmus();
+                    RedLitmusPane red = new RedLitmusPane(redModel);
+                    getHistory().getRedLitmus().add(redModel);
+                    getExperimentSpace().getChildren().add(red);
+                    red.setOnMouseDragged(e -> Platform.runLater(() -> {
+                        red.setLayoutX(e.getSceneX());
+                        red.setLayoutY(e.getSceneY());
+                    }));
+                } else {
+                    Alert noRedAvailable = new Alert(Alert.AlertType.WARNING);
+                    noRedAvailable.setTitle("Warning");
+                    noRedAvailable.setHeaderText("Cannot add red litmus paper");
+                    noRedAvailable.setContentText("Experiment space only allows 3 red litmus papers!");
+                    noRedAvailable.showAndWait();
+                }
             } else if (testPH.getValue().equals("Blue litmus")) {
-                BlueLitmus blueModel = new BlueLitmus();
-                BlueLitmusPane blue = new BlueLitmusPane(blueModel);
-                getHistory().getBlueLitmus().add(blueModel);
-                getExperimentSpace().getChildren().add(blue);
-                blue.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    blue.setLayoutX(e.getSceneX());
-                    blue.setLayoutY(e.getSceneY());
-                }));
+                if (!blueLitmusAvailability()) {
+                    BlueLitmus blueModel = new BlueLitmus();
+                    BlueLitmusPane blue = new BlueLitmusPane(blueModel);
+                    getHistory().getBlueLitmus().add(blueModel);
+                    getExperimentSpace().getChildren().add(blue);
+                    blue.setOnMouseDragged(e -> Platform.runLater(() -> {
+                        blue.setLayoutX(e.getSceneX());
+                        blue.setLayoutY(e.getSceneY());
+                    }));
+                } else {
+                    Alert noBlueAvailable = new Alert(Alert.AlertType.WARNING);
+                    noBlueAvailable.setTitle("Warning");
+                    noBlueAvailable.setHeaderText("Cannot add blue litmus paper");
+                    noBlueAvailable.setContentText("Experiment space only allows 3 blue litmus papers!");
+                    noBlueAvailable.showAndWait();
+                }
             }
         }
 
         if (event.getSource() == splint) {
-            if (splint.getValue().equals("Glowing splint")) {
-                Splint splintModel = new Splint("glowing");
-                SplintPane splint = new SplintPane(splintModel);
-                getHistory().getSplint().add(splintModel);
-                getExperimentSpace().getChildren().add(splint);
-                splint.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    splint.setLayoutX(e.getSceneX());
-                    splint.setLayoutY(e.getSceneY());
-                }));
-            } else if (splint.getValue().equals("Lighted splint")) {
-                Splint splintModel = new Splint("lighted");
-                SplintPane splint = new SplintPane(splintModel);
-                getHistory().getSplint().add(splintModel);
-                getExperimentSpace().getChildren().add(splint);
-                splint.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    splint.setLayoutX(e.getSceneX());
-                    splint.setLayoutY(e.getSceneY());
-                }));
-            } else if (splint.getValue().equals("New splint")) {
-                Splint splintModel = new Splint("new");
-                SplintPane splint = new SplintPane(splintModel);
-                getHistory().getSplint().add(splintModel);
-                getExperimentSpace().getChildren().add(splint);
-                splint.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    splint.setLayoutX(e.getSceneX());
-                    splint.setLayoutY(e.getSceneY());
-                }));
+            if (!splintAvailability()){
+                if (splint.getValue().equals("Glowing splint")) {
+                    Splint splintModel = new Splint("glowing");
+                    SplintPane splint = new SplintPane(splintModel);
+                    getHistory().getSplint().add(splintModel);
+                    getExperimentSpace().getChildren().add(splint);
+                    splint.setOnMouseDragged(e -> Platform.runLater(() -> {
+                        splint.setLayoutX(e.getSceneX());
+                        splint.setLayoutY(e.getSceneY());
+                    }));
+                } else if (splint.getValue().equals("Lighted splint")) {
+                    Splint splintModel = new Splint("lighted");
+                    SplintPane splint = new SplintPane(splintModel);
+                    getHistory().getSplint().add(splintModel);
+                    getExperimentSpace().getChildren().add(splint);
+                    splint.setOnMouseDragged(e -> Platform.runLater(() -> {
+                        splint.setLayoutX(e.getSceneX());
+                        splint.setLayoutY(e.getSceneY());
+                    }));
+                } else if (splint.getValue().equals("New splint")) {
+                    Splint splintModel = new Splint("new");
+                    SplintPane splint = new SplintPane(splintModel);
+                    getHistory().getSplint().add(splintModel);
+                    getExperimentSpace().getChildren().add(splint);
+                    splint.setOnMouseDragged(e -> Platform.runLater(() -> {
+                        splint.setLayoutX(e.getSceneX());
+                        splint.setLayoutY(e.getSceneY());
+                    }));
+                }
+            } else {
+                Alert noSplintAvailable = new Alert(Alert.AlertType.WARNING);
+                noSplintAvailable.setTitle("Warning");
+                noSplintAvailable.setHeaderText("Cannot add splint");
+                noSplintAvailable.setContentText("Experiment space only allows 3 splints!");
+                noSplintAvailable.showAndWait();
             }
         }
 
+    }
+
+
+    public boolean redLitmusAvailability() {
+        components = getExperimentSpace().getChildren();
+        int i = 0;
+        for (Node component : components) {
+            if (component instanceof RedLitmusPane) {
+                i++;
+            }
+            if (i==3) { return false; }
+        }
+        return true;
+    }
+
+    public boolean blueLitmusAvailability() {
+        components = getExperimentSpace().getChildren();
+        int i = 0;
+        for (Node component : components) {
+            if (component instanceof BlueLitmusPane) {
+                i++;
+            }
+            if (i==3) { return false; }
+        }
+        return true;
+    }
+
+    public boolean splintAvailability() {
+        components = getExperimentSpace().getChildren();
+        int i = 0;
+        for (Node component : components) {
+            if (component instanceof SplintPane) {
+                i++;
+            }
+            if (i==3) { return false; }
+        }
+        return true;
     }
 
 

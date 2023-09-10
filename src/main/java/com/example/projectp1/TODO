@@ -12,3 +12,9 @@ use separate thread to update GUI
 
 think about resizing object
 provide a list of equipment on screen for better control
+
+use property binding to allow for rescaling of object when resizing the application window
+
+think about mixing color when adding salt and other chemicals into a test tube
+
+only allow 3 test tubes, 3 each type of litmus, 1 set of heating equipment, 1 splint
