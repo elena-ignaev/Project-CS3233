@@ -1,8 +1,12 @@
 package com.example.projectp1.Model;
 
+
+import com.example.projectp1.FXObjects.LighterPane;
+
 import java.util.Scanner;
 
 public class Lighter extends Tools {
+    private LighterPane lighter;
     private boolean on;
     private double lastingDuration; //unit: seconds
     public Lighter() {

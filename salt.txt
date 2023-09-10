@@ -1,0 +1,12 @@
+salt,anion,cation,color
+FeSO4,,,aquamarine
+MgSO4,,,ghostwhite
+ZnSO4,,,ghostwhite
+CuSO4,,,dodgerblue
+(NH4)2SO4,,,ghostwhite
+CuCO3,,,mediumturquoise
+CaCO3,,,ghostwhite
+FeCl3,,,firebrick
+NaCl,,,ghostwhite
+Cu(NO3)2,,,royalblue
+

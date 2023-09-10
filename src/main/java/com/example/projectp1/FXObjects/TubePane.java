@@ -100,6 +100,7 @@ public class TubePane extends Pane implements Paintable {
 
     public TubePane(TestTube tubeModel) {
         if (tubeModel.getLayer1() != null && tubeModel.getLayer2() != null && tubeModel.getLayer3() != null) {
+            this.tubeModel = tubeModel;
             this.color1 = tubeModel.getLayer1().getColor();
             this.color2 = tubeModel.getLayer2().getColor();
             this.color3 = tubeModel.getLayer3().getColor();

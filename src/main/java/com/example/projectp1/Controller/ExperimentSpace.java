@@ -319,6 +319,16 @@ public class ExperimentSpace implements Initializable {
     }
 
 
+    /*
+    Add substance to test tube
+    Requirements:
+    - There is at least one test tube in the experiment space
+    - There is a selected test tube for adding the substances
+    - The selected test tube already contains salt to be test on
+    If there is no test tube, pop up warning box
+    If there is no selected test tube, pop up warning box
+    If there is no salt in the test tube, p
+     */
     public void addSubstance(ActionEvent event) {
         try {
             if (isHasTestTube()) {
