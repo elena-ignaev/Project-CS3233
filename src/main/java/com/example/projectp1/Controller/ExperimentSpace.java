@@ -85,16 +85,24 @@ public class ExperimentSpace implements Initializable {
     public void addEquipment(ActionEvent event) {
         if (event.getSource() == testTube) {
             // add the tube to the main pane
-            TestTube tubeModel = new TestTube();
-            getHistory().getTubes().add(tubeModel);
-            TubePane tube = new TubePane(tubeModel);
-            getExperimentSpace().getChildren().add(tube);
-            setHasTestTube(true);
-            // drag the tube
-            tube.setOnMouseDragged(e -> Platform.runLater(() -> {
-                tube.setLayoutX(e.getSceneX());
-                tube.setLayoutY(e.getSceneY());
-            }));
+            if (testTubeAvailability()){
+                TestTube tubeModel = new TestTube();
+                getHistory().getTubes().add(tubeModel);
+                TubePane tube = new TubePane(tubeModel);
+                getExperimentSpace().getChildren().add(tube);
+                setHasTestTube(true);
+                // drag the tube
+                tube.setOnMouseDragged(e -> Platform.runLater(() -> {
+                    tube.setLayoutX(e.getSceneX());
+                    tube.setLayoutY(e.getSceneY());
+                }));
+            } else {
+                Alert tubeExists = new Alert(Alert.AlertType.WARNING);
+                tubeExists.setTitle("Warning");
+                tubeExists.setHeaderText("Cannot add test tubes");
+                tubeExists.setContentText("Application only allows 3 test tubes!");
+                tubeExists.showAndWait();
+            }
         }
 
         if (event.getSource() == heatingEquipment) {
@@ -128,7 +136,7 @@ public class ExperimentSpace implements Initializable {
 
         if (event.getSource() == testPH) {
             if (testPH.getValue().equals("Red litmus")) {
-                if (!redLitmusAvailability()) {
+                if (redLitmusAvailability()) {
                     RedLitmus redModel = new RedLitmus();
                     RedLitmusPane red = new RedLitmusPane(redModel);
                     getHistory().getRedLitmus().add(redModel);
@@ -145,7 +153,7 @@ public class ExperimentSpace implements Initializable {
                     noRedAvailable.showAndWait();
                 }
             } else if (testPH.getValue().equals("Blue litmus")) {
-                if (!blueLitmusAvailability()) {
+                if (blueLitmusAvailability()) {
                     BlueLitmus blueModel = new BlueLitmus();
                     BlueLitmusPane blue = new BlueLitmusPane(blueModel);
                     getHistory().getBlueLitmus().add(blueModel);
@@ -165,7 +173,7 @@ public class ExperimentSpace implements Initializable {
         }
 
         if (event.getSource() == splint) {
-            if (!splintAvailability()){
+            if (splintAvailability()){
                 if (splint.getValue().equals("Glowing splint")) {
                     Splint splintModel = new Splint("glowing");
                     SplintPane splint = new SplintPane(splintModel);
@@ -211,6 +219,18 @@ public class ExperimentSpace implements Initializable {
         int i = 0;
         for (Node component : components) {
             if (component instanceof RedLitmusPane) {
+                i++;
+            }
+            if (i==3) { return false; }
+        }
+        return true;
+    }
+
+    public boolean testTubeAvailability() {
+        components = getExperimentSpace().getChildren();
+        int i = 0;
+        for (Node component : components) {
+            if (component instanceof TubePane) {
                 i++;
             }
             if (i==3) { return false; }
@@ -314,25 +334,25 @@ public class ExperimentSpace implements Initializable {
                         Salt randomSalt = new Salt(new Cation(cationIndex, getDatabase()), new Anion(anionIndex, getDatabase()));
                         System.out.println(randomSalt.getName());
                     } else if (salts.getValue().equals("FeSO4")) { // blue-green
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("blue");
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("aquamarine");
                     } else if (salts.getValue().equals("MgSO4")) { // white
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                     } else if (salts.getValue().equals("ZnSO4")) { // white
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                     } else if (salts.getValue().equals("CuSO4")) { // blue
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("dodgerblue");
                     } else if (salts.getValue().equals("(NH4)2SO4")) { // white
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                     } else if (salts.getValue().equals("CuCO3")) { // blue
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("mediumturquoise");
                     } else if (salts.getValue().equals("CaCO3")) { // white
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                     } else if (salts.getValue().equals("FeCl3")) {
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("firebrick");
                     } else if (salts.getValue().equals("NaCl")) { // white
-
+                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                     } else if (salts.getValue().equals("Cu(NO3)2")) ; // blue
-
+                    ((TubePane) tubes.get(findTubeIndex())).setColor3("royalblue");
                 }
                 if (isAddedSalt()) {
                     /*
