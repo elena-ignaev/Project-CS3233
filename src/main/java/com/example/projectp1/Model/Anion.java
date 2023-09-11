@@ -1,5 +1,8 @@
 package com.example.projectp1.Model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Anion extends Substance {
     /**
      * Method either take in direct argument or index of it in the database
@@ -11,6 +14,24 @@ public class Anion extends Substance {
     private String charge; //if > 0 make it the negative, if < 0 take that value
     private String reagents;
     private String reactions;
+    public Anion(String name) {
+        super("");
+        if (validName()) {
+            Pattern pattern = Pattern.compile("[2-9]?-");
+            Matcher matcher = pattern.matcher(name);
+            if (matcher.find()) {
+                this.charge = matcher.group(0);
+            }
+            if (name.contains("(") && name.contains(")")){
+                String[] tokens = name.split("[\\(\\)]");
+                this.setName(tokens[0] + tokens[1] + tokens[2]);
+            } else {
+                this.setName(name);
+            }
+            this.reagents = "";
+            this.reactions = "";
+        }
+    }
     public Anion(String element, String charge, String reagents, String reactions) {
         super(element + charge);
         this.element = element;
@@ -70,7 +91,20 @@ public class Anion extends Substance {
 //    }
 
     @Override
-    public void reacts() {}
+    public boolean validName() {
+        boolean validElement = false;
+        String elementPatternString = "Cl|I|SO4|CO3|NO3";
+        Pattern elementPattern = Pattern.compile(elementPatternString);
+        Matcher elementMatcher = elementPattern.matcher(this.getName());
+        if (elementMatcher.find()) { validElement = true; }
+
+        boolean validCharge = false;
+        String chargePatternString = "-|2-";
+        Pattern chargePattern = Pattern.compile(chargePatternString);
+        Matcher chargeMatcher = chargePattern.matcher(this.getName());
+        if (chargeMatcher.find()) { validCharge = true; }
+        return validElement && validCharge;
+    }
 
     @Override
     public String toString() {

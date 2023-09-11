@@ -1,9 +1,9 @@
 element,charge,precipitate_with_NaOH-solubility_of_precipitate-color_of_solution,precipitate_with_NH3-solubility_of_precipitate-color_of_solution
-Fe,3+,red_brown-insoluble,red_brown-insoluble
-Ca,2+,white-insoluble,no-NA
-Mg,2+,white-insoluble,white-insoluble
-Zn,2+,white-soluble-colorless,white-soluble-colorless
-Cu,2+,light_blue-insoluble,light_blue-soluble-deep_blue
-Fe,2+,green-insoluble,green-insoluble
+Fe,3+,firebrick-insoluble,red_brown-insoluble
+Ca,2+,ghostwhite-insoluble,no-NA
+Mg,2+,ghostwhite-insoluble,white-insoluble
+Zn,2+,ghostwhite-soluble-colorless,white-soluble-colorless
+Cu,2+,dodgerblue-insoluble,light_blue-soluble-deep_blue
+Fe,2+,medium turquoise-insoluble,green-insoluble
 Pb,2+,white-soluble-colorless,white-insoluble
 Al,3+,white-soluble-colorless,white-insoluble

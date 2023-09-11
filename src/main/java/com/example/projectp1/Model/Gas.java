@@ -34,8 +34,8 @@ public class Gas extends Substance {
     }
 
     @Override
-    public void reacts() {
-
+    public boolean validName() {
+        return true;
     }
     @Override
     public String toString() {

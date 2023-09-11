@@ -19,7 +19,7 @@ public abstract class Substance implements Component {
     public void setColor(String color) {
         this.color = color;
     }
-    public abstract void reacts();
+    public abstract boolean validName();
 
     @Override
     public void add() {

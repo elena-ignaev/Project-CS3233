@@ -1,5 +1,8 @@
 package com.example.projectp1.Model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Salt extends Substance{
     private Cation cation;
     private Anion anion;
@@ -35,6 +38,7 @@ public class Salt extends Substance{
             System.out.println("Cation or Anion is invalid");
         }
     }
+
     public Cation getCation() {
         return this.cation;
     }
@@ -49,8 +53,9 @@ public class Salt extends Substance{
     }
 
     @Override
-    public void reacts() {
+    public boolean validName() {
         //get reactions from its ions
+        return true;
     }
 
     @Override

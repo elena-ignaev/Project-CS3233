@@ -27,7 +27,9 @@ public class TestingChemicals extends Substance{
         return check;
     }
     @Override
-    public void reacts() {}
+    public boolean validName() {
+        return true;
+    }
 
     public static void main(String args[]) {
         TestingChemicals testingChemical = new TestingChemicals("NaOH");

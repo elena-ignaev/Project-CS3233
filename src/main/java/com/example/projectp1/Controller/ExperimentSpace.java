@@ -103,6 +103,7 @@ public class ExperimentSpace implements Initializable {
                 TubePane tube = new TubePane(tubeModel);
                 getExperimentSpace().getChildren().add(tube);
                 setHasTestTube(true);
+                System.out.print(tube.getTubeModel()!=null);
                 // drag the tube
                 tube.setOnMouseDragged(e -> Platform.runLater(() -> {
                     tube.setLayoutX(e.getSceneX());
@@ -110,25 +111,13 @@ public class ExperimentSpace implements Initializable {
                 }));
                 // shake the tube
                 tube.setOnMouseClicked(e -> Platform.runLater(() -> {
-                    RotateTransition shake = new RotateTransition(Duration.millis(100));
+                    RotateTransition shake = new RotateTransition(Duration.millis(150));
                     shake.setNode(tube);
                     shake.setFromAngle(0);
                     shake.setToAngle(10);
-                    shake.setCycleCount(10);
+                    shake.setCycleCount(20);
                     shake.setAutoReverse(true);
-
-                    FadeTransition precipitated = new FadeTransition();
-                    precipitated.setDuration(Duration.millis(1000));
-                    precipitated.setFromValue(0.25);
-                    precipitated.setToValue(1);
-                    precipitated.setNode(tube.getLayer3());
-                    precipitated.setAutoReverse(false);
-                    precipitated.setCycleCount(1);
-
-                    ParallelTransition mix = new ParallelTransition();
-                    mix.getChildren().addAll(shake, precipitated);
-                    mix.setCycleCount(1);
-                    mix.play();
+                    shake.play();
 
                 }));
             } else {
@@ -395,24 +384,64 @@ public class ExperimentSpace implements Initializable {
                             System.out.println(randomSalt.getName());
 
                         } else if (salts.getValue().equals("FeSO4")) { // blue-green
+                            Cation Fe = new Cation("(Fe)2+");
+                            Anion SO4 = new Anion("(SO4)2-");
+                            Salt FeSO4 = new Salt(Fe, SO4);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(FeSO4,"aquamarine",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("aquamarine");
                         } else if (salts.getValue().equals("MgSO4")) { // white
+                            Cation Mg = new Cation("(Mg)2+");
+                            Anion SO4 = new Anion("(SO4)2-");
+                            Salt MgSO4 = new Salt(Mg, SO4);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(MgSO4,"ghostwhite",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                         } else if (salts.getValue().equals("ZnSO4")) { // white
+                            Cation Zn = new Cation("(Zn)2+");
+                            Anion SO4 = new Anion("(SO4)2-");
+                            Salt ZnSO4 = new Salt(Zn, SO4);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(ZnSO4,"ghostwhite",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                         } else if (salts.getValue().equals("CuSO4")) { // blue
+                            Cation Cu = new Cation("(Cu)2+");
+                            Anion SO4 = new Anion("(SO4)2-");
+                            Salt CuSO4 = new Salt(Cu, SO4);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(CuSO4,"dodgerblue",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("dodgerblue");
                         } else if (salts.getValue().equals("(NH4)2SO4")) { // white
+                            Cation NH4 = new Cation("(NH4)2+");
+                            Anion SO4 = new Anion("(SO4)2-");
+                            Salt NH42SO4 = new Salt(NH4, SO4);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(NH42SO4,"ghostwhite",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                         } else if (salts.getValue().equals("CuCO3")) { // blue
+                            Cation Cu = new Cation("(Cu)2+");
+                            Anion CO3 = new Anion("(CO3)2-");
+                            Salt CuCO3 = new Salt(Cu, CO3);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(CuCO3,"mediumturquoise",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("mediumturquoise");
                         } else if (salts.getValue().equals("CaCO3")) { // white
+                            Cation Ca = new Cation("(Ca)2+");
+                            Anion CO3 = new Anion("(CO3)2-");
+                            Salt CaCO3 = new Salt(Ca, CO3);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(CaCO3,"ghostwhite",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                         } else if (salts.getValue().equals("FeCl3")) { // red-brown
+                            Cation Fe = new Cation("(Fe)3+");
+                            Anion Cl = new Anion("(Cl)-");
+                            Salt FeCl3 = new Salt(Fe, Cl);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(FeCl3,"firebrick",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("firebrick");
                         } else if (salts.getValue().equals("NaCl")) { // white
+                            Cation Na = new Cation("(Na)+");
+                            Anion Cl = new Anion("(Cl)-");
+                            Salt NaCl = new Salt(Na, Cl);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(NaCl,"ghostwhite",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
                         } else if (salts.getValue().equals("Cu(NO3)2")) { // blue
+                            Cation Cu = new Cation("(Cu)2+");
+                            Anion NO3 = new Anion("(NO3)-");
+                            Salt CuNO32 = new Salt(Cu, NO3);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(CuNO32,"royalblue",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("royalblue");
                         }
                         if (tube.getSelectedToggle() != null) {
@@ -421,12 +450,25 @@ public class ExperimentSpace implements Initializable {
                     }
                 }
                 if (isAddedSalt()) {
+                    /*
+                    TODO:
+                    - make exception for adding NaOH to ammonium salts (releasing NH3 instead)
+                     */
+                    FadeTransition precipitate = new FadeTransition();
+                    precipitate.setFromValue(0.25);
+                    precipitate.setToValue(1);
+                    precipitate.setDuration(Duration.millis(2000));
+                    precipitate.setCycleCount(1);
+                    precipitate.setAutoReverse(false);
                     if (event.getSource() == aqueousNaOH) {
                         resetTube();
                         TestingChemicals NaOH = new TestingChemicals("NaOH");
                         Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
                         getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
                         ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                        precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                        precipitate.setDelay(Duration.millis(100));
+                        precipitate.play();
                     }
                     if (event.getSource() == aqueousNH3) {
                         resetTube();
@@ -434,6 +476,7 @@ public class ExperimentSpace implements Initializable {
                         Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
                         getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
                         ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                        precipitate.play();
                     }
                     if (event.getSource() == aqueousAgNO3) {
                         resetTube();
