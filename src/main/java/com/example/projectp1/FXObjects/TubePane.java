@@ -22,6 +22,12 @@ public class TubePane extends Pane implements Paintable {
     private double transparency1 = 1.0;
     private double transparency2 = 1.0;
     private double transparency3 = 1.0;
+    private Rectangle empty = new Rectangle(50,90);
+    private Rectangle layer1 = new Rectangle(50,25);
+    private Rectangle layer2 = new Rectangle(50,25);
+    private Shape layer3;
+    private boolean shakeOnce;
+    private boolean shakeTwice;
     public double getEmptyHeight() {
         return emptyHeight;
     }
@@ -55,10 +61,39 @@ public class TubePane extends Pane implements Paintable {
         return transparency3;
     }
 
+    public TestTube getTubeModel() {
+        return tubeModel;
+    }
+
+    public Rectangle getEmpty() {
+        return empty;
+    }
+
+    public Rectangle getLayer1() {
+        return layer1;
+    }
+
+    public Rectangle getLayer2() {
+        return layer2;
+    }
+
+    public Shape getLayer3() {
+        return layer3;
+    }
+
+    public boolean isShakeOnce() {
+        return shakeOnce;
+    }
+
+    public boolean isShakeTwice() {
+        return shakeTwice;
+    }
+
     public void setTransparency1(double transparency1) {
         this.transparency1 = transparency1;
         paint();
     }
+
 
     public void setTransparency2(double transparency2) {
         this.transparency2 = transparency2;
@@ -94,6 +129,32 @@ public class TubePane extends Pane implements Paintable {
         this.color3 = color3;
         paint();
     }
+
+    public void setTubeModel(TestTube tubeModel) {
+        this.tubeModel = tubeModel;
+    }
+
+    public void setLayer1(Rectangle layer1) {
+        this.layer1 = layer1;
+    }
+    public void setLayer2(Rectangle layer2) {
+        this.layer2 = layer2;
+    }
+    public void setLayer3(Shape layer3) {
+        this.layer3 = layer3;
+    }
+    public void setEmpty(Rectangle empty) {
+        this.empty = empty;
+    }
+
+    public void setShakeOnce(boolean shakeOnce) {
+        this.shakeOnce = shakeOnce;
+    }
+
+    public void setShakeTwice(boolean shakeTwice) {
+        this.shakeTwice = shakeTwice;
+    }
+
     public TubePane() {
         paint();
     }
@@ -129,18 +190,21 @@ public class TubePane extends Pane implements Paintable {
         empty.setFill(Color.LIGHTGREY); //empty part never change color
         empty.setX(0);
         empty.setY(0);
+        setEmpty(empty);
 
         //First layer of tube
         Rectangle layer1 = new Rectangle(this.getDiameter(), this.getLayerHeight());
         layer1.setFill(Color.web(getColor1())); //layer for appearance of gas
         layer1.setOpacity(getTransparency1());
         layer1.setY(this.getEmptyHeight());
+        setLayer1(layer1);
 
         //Second layer of tube
         Rectangle layer2 = new Rectangle(this.getDiameter(), this.getLayerHeight());
         layer2.setFill(Color.web(getColor2())); //layer for solution
         layer2.setOpacity(this.getTransparency2());
         layer2.setY(this.getLayerHeight() + this.getEmptyHeight());
+        setLayer2(layer2);
 
         //Third layer of tube
         Circle bottom = new Circle(this.getDiameter()/2);
@@ -149,9 +213,9 @@ public class TubePane extends Pane implements Paintable {
         Shape layer3 = Shape.subtract(bottom, layer2);
         layer3.setFill(Color.web(getColor3())); //layer for formation of precipitate
         layer3.setOpacity(getTransparency3());
+        setLayer3(layer3);
 
         setPrefSize(this.getEmptyHeight() + this.getLayerHeight()*3, this.getDiameter());
-
 
         getChildren().clear();
         getChildren().addAll(empty, layer1, layer2, layer3);

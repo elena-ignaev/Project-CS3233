@@ -3,6 +3,7 @@ package com.example.projectp1.Controller;
 import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
 import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -109,17 +110,26 @@ public class ExperimentSpace implements Initializable {
                 }));
                 // shake the tube
                 tube.setOnMouseClicked(e -> Platform.runLater(() -> {
-                    RotateTransition rotate = new RotateTransition(Duration.millis(100));
-                    rotate.setNode(tube);
-                    rotate.setFromAngle(0);
-                    rotate.setToAngle(10);
-                    rotate.setCycleCount(10);
-                    rotate.setAutoReverse(true);
-                    rotate.play();
-//                    rotate.setOnFinished(e -> {
-//                        FadeTransition show = new FadeTransition();
-//                        show.setNode(tube.get)
-//                    });
+                    RotateTransition shake = new RotateTransition(Duration.millis(100));
+                    shake.setNode(tube);
+                    shake.setFromAngle(0);
+                    shake.setToAngle(10);
+                    shake.setCycleCount(10);
+                    shake.setAutoReverse(true);
+
+                    FadeTransition precipitated = new FadeTransition();
+                    precipitated.setDuration(Duration.millis(1000));
+                    precipitated.setFromValue(0.25);
+                    precipitated.setToValue(1);
+                    precipitated.setNode(tube.getLayer3());
+                    precipitated.setAutoReverse(false);
+                    precipitated.setCycleCount(1);
+
+                    ParallelTransition mix = new ParallelTransition();
+                    mix.getChildren().addAll(shake, precipitated);
+                    mix.setCycleCount(1);
+                    mix.play();
+
                 }));
             } else {
                 Alert tubeExists = new Alert(Alert.AlertType.WARNING);
