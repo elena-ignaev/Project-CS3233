@@ -2,6 +2,8 @@ package com.example.projectp1.Controller;
 
 import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
+import javafx.animation.FadeTransition;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -62,6 +65,8 @@ public class ExperimentSpace implements Initializable {
     public Pane getExperimentSpace() {
         return this.experimentSpace;
     }
+    @FXML
+    private Label added;
 
     // Equipment tab
         //Equipment components
@@ -81,7 +86,13 @@ public class ExperimentSpace implements Initializable {
             "New splint", "Lighted splint", "Glowing splint"
     );
 
-        //Equipment methods
+
+    /*
+    Adding equipments to experiment space
+    Requirements:
+    - Max 3 test tubes, max 3 litmus papers of each type, max 1 set of heating equipment, max 1 splint
+    - Set equipment on click to carry out its inAction()
+     */
     public void addEquipment(ActionEvent event) {
         if (event.getSource() == testTube) {
             // add the tube to the main pane
@@ -95,6 +106,20 @@ public class ExperimentSpace implements Initializable {
                 tube.setOnMouseDragged(e -> Platform.runLater(() -> {
                     tube.setLayoutX(e.getSceneX());
                     tube.setLayoutY(e.getSceneY());
+                }));
+                // shake the tube
+                tube.setOnMouseClicked(e -> Platform.runLater(() -> {
+                    RotateTransition rotate = new RotateTransition(Duration.millis(100));
+                    rotate.setNode(tube);
+                    rotate.setFromAngle(0);
+                    rotate.setToAngle(10);
+                    rotate.setCycleCount(10);
+                    rotate.setAutoReverse(true);
+                    rotate.play();
+//                    rotate.setOnFinished(e -> {
+//                        FadeTransition show = new FadeTransition();
+//                        show.setNode(tube.get)
+//                    });
                 }));
             } else {
                 Alert tubeExists = new Alert(Alert.AlertType.WARNING);
@@ -288,13 +313,11 @@ public class ExperimentSpace implements Initializable {
     @FXML
     private RadioButton tube3;
 
-
-    ObservableList<String> saltsForQA = FXCollections.observableArrayList(
-            "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2");
-
     ObservableList<Node> components;
     ArrayList<Node> tubes = new ArrayList<>();
 
+
+    // Updating the list of test tubes in experiment screen
     public void resetTube() {
         components = getExperimentSpace().getChildren();
         tubes.clear();
@@ -305,6 +328,7 @@ public class ExperimentSpace implements Initializable {
         }
     }
 
+    // return index of the test tube selected in toggle group radiobutton
     public int findTubeIndex() {
         // Using regex to find index of test tube from its radiobutton by matching a number
         int index=0;
@@ -318,6 +342,19 @@ public class ExperimentSpace implements Initializable {
         return (index - 1);
     }
 
+    public void showAdded() {
+        added.setVisible(true);
+        FadeTransition fade = new FadeTransition();
+        fade.setNode(added);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        fade.setAutoReverse(false);
+        fade.setCycleCount(1);
+        fade.setDuration(Duration.millis(1000));
+        fade.play();
+        fade.setOnFinished(e -> added.setVisible(false));
+    }
+
 
     /*
     Add substance to test tube
@@ -325,9 +362,10 @@ public class ExperimentSpace implements Initializable {
     - There is at least one test tube in the experiment space
     - There is a selected test tube for adding the substances
     - The selected test tube already contains salt to be test on
-    If there is no test tube, pop up warning box
-    If there is no selected test tube, pop up warning box
-    If there is no salt in the test tube, p
+
+    Extra functionality:
+    - Testing chemicals and some salts are different to tell because of their color and transparency
+    --> if adding is successful, text will show and fade on screen to tell user
      */
     public void addSubstance(ActionEvent event) {
         try {
@@ -336,70 +374,73 @@ public class ExperimentSpace implements Initializable {
                 if (event.getSource() == salts) {
                     resetTube();
                     setAddedSalt(true);
-                    if (salts.getValue().equals("Random")) {
-                        resetTube();
-                        Random random = new Random();
-                        int cationIndex = random.nextInt(Database.getNumOfCations());
-                        int anionIndex = random.nextInt(Database.getNumOfAnions());
-                        Salt randomSalt = new Salt(new Cation(cationIndex, getDatabase()), new Anion(anionIndex, getDatabase()));
-                        System.out.println(randomSalt.getName());
-                    } else if (salts.getValue().equals("FeSO4")) { // blue-green
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("aquamarine");
-                    } else if (salts.getValue().equals("MgSO4")) { // white
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
-                    } else if (salts.getValue().equals("ZnSO4")) { // white
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
-                    } else if (salts.getValue().equals("CuSO4")) { // blue
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("dodgerblue");
-                    } else if (salts.getValue().equals("(NH4)2SO4")) { // white
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
-                    } else if (salts.getValue().equals("CuCO3")) { // blue
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("mediumturquoise");
-                    } else if (salts.getValue().equals("CaCO3")) { // white
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
-                    } else if (salts.getValue().equals("FeCl3")) {
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("firebrick");
-                    } else if (salts.getValue().equals("NaCl")) { // white
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
-                    } else if (salts.getValue().equals("Cu(NO3)2")) ; // blue
-                    ((TubePane) tubes.get(findTubeIndex())).setColor3("royalblue");
+                    if (salts.getValue() != null){
+                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
+                        if (salts.getValue().equals("Random")) {
+                            resetTube();
+                            Random random = new Random();
+                            int cationIndex = random.nextInt(Database.getNumOfCations());
+                            int anionIndex = random.nextInt(Database.getNumOfAnions());
+                            Salt randomSalt = new Salt(new Cation(cationIndex, getDatabase()), new Anion(anionIndex, getDatabase()));
+                            System.out.println(randomSalt.getName());
+
+                        } else if (salts.getValue().equals("FeSO4")) { // blue-green
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("aquamarine");
+                        } else if (salts.getValue().equals("MgSO4")) { // white
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
+                        } else if (salts.getValue().equals("ZnSO4")) { // white
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
+                        } else if (salts.getValue().equals("CuSO4")) { // blue
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("dodgerblue");
+                        } else if (salts.getValue().equals("(NH4)2SO4")) { // white
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
+                        } else if (salts.getValue().equals("CuCO3")) { // blue
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("mediumturquoise");
+                        } else if (salts.getValue().equals("CaCO3")) { // white
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
+                        } else if (salts.getValue().equals("FeCl3")) { // red-brown
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("firebrick");
+                        } else if (salts.getValue().equals("NaCl")) { // white
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("ghostwhite");
+                        } else if (salts.getValue().equals("Cu(NO3)2")) { // blue
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3("royalblue");
+                        }
+                        if (tube.getSelectedToggle() != null) {
+                            showAdded();
+                        }
+                    }
                 }
                 if (isAddedSalt()) {
-                    /*
-                    TODO:
-                    Use regex for finding the index of the test tube from the name of its radiobutton
-                     */
                     if (event.getSource() == aqueousNaOH) {
                         resetTube();
                         TestingChemicals NaOH = new TestingChemicals("NaOH");
                         Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
                         getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("lightgrey");
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
+                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
                     }
                     if (event.getSource() == aqueousNH3) {
                         resetTube();
                         TestingChemicals NH3 = new TestingChemicals("NH3");
                         Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
                         getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("lightgrey");
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
+                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
                     }
                     if (event.getSource() == aqueousAgNO3) {
                         resetTube();
                         TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
                         Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
                         getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("lightgrey");
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
+                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
                     }
                     if (event.getSource() == aqueousBaCl2) {
                         resetTube();
                         TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
                         Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
                         getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
-                        ((TubePane) tubes.get(findTubeIndex())).setColor3("lightgrey");
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
+                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                    }
+                    if (tube.getSelectedToggle() != null) {
+                        showAdded();
                     }
                 } else {
                     Alert noSalt = new Alert(Alert.AlertType.WARNING);
@@ -422,6 +463,10 @@ public class ExperimentSpace implements Initializable {
             noSelectedTube.setHeaderText("No selected test tube");
             noSelectedTube.setContentText("Select a tube to add the substances to!");
             noSelectedTube.showAndWait();
+            if (!noSelectedTube.isShowing()) {
+                salts.getSelectionModel().clearSelection();
+                salts.setValue(null);
+            }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             Alert notEnoughTube = new Alert(Alert.AlertType.WARNING);
@@ -429,6 +474,10 @@ public class ExperimentSpace implements Initializable {
             notEnoughTube.setHeaderText("No such test tube");
             notEnoughTube.setContentText("Make sure the test tube is added to experiment space!");
             notEnoughTube.showAndWait();
+            if (!notEnoughTube.isShowing()) {
+                salts.getSelectionModel().clearSelection();
+                salts.setValue(null);
+            }
         }
 
         // When adding a random salt, remember to open up a tab "Question" to test for knowledge
@@ -507,6 +556,8 @@ public class ExperimentSpace implements Initializable {
 
 
     // Initialize
+    ObservableList<String> saltsForQA = FXCollections.observableArrayList(
+            "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2");
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         salts.setItems(saltsForQA);
@@ -514,6 +565,7 @@ public class ExperimentSpace implements Initializable {
         splint.setItems(splintTypes);
         database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
         history = new History();
+        added.setVisible(false);
     }
 
 }

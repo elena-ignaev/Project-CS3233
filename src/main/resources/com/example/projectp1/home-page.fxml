@@ -61,25 +61,33 @@
                         <Label text="New experiment" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
                         <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="2">
                            <children>
-                              <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="23.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@chemical.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="11.0" layoutY="91.0" text="Your experiment 2" />
+                              <Label layoutX="11.0" layoutY="97.0" text="Your experiment 2" />
+                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                                 <graphic>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@chemical.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </Pane>
                         <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="1">
                            <children>
-                              <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="23.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@chemical.png" />
-                                 </image>
-                              </ImageView>
-                              <Label layoutX="11.0" layoutY="91.0" text="Your experiment 1" />
+                              <Label layoutX="11.0" layoutY="97.0" text="Your experiment 1" />
+                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                                 <graphic>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@chemical.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
                            </children>
                         </Pane>
-                        <Button mnemonicParsing="false" prefHeight="76.0" prefWidth="75.0" text="+" GridPane.halignment="CENTER">
+                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="+" GridPane.halignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -119,18 +127,44 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="New note" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                        <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@chemical.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Safety precaution" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                        <Button mnemonicParsing="false" prefHeight="76.0" prefWidth="75.0" text="+" GridPane.halignment="CENTER">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Button>
+                        <Pane prefHeight="100.0" prefWidth="120.0">
+                           <children>
+                              <Label layoutX="28.0" layoutY="97.0" text="New notes" />
+                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="+">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label layoutX="11.0" layoutY="97.0" text="Safety precautions" />
+                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                                 <graphic>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@chemical.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="2">
+                           <children>
+                              <Label layoutX="35.0" layoutY="97.0" text="QA notes" />
+                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                                 <graphic>
+                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@chemical.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
                      </children>
                   </GridPane>
                </children>

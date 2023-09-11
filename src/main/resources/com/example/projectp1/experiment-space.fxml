@@ -46,7 +46,10 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-            <Pane fx:id="experimentSpace" prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS" />
+            <Pane fx:id="experimentSpace" prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="added" layoutX="286.0" layoutY="131.0" text="Added!" />
+               </children></Pane>
             <TabPane prefHeight="117.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
               <tabs>
                 <Tab closable="false" text="Equipment">
@@ -154,7 +157,7 @@
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <Button fx:id="AqueousAgNO3" mnemonicParsing="false" onAction="#addSubstance" text="Aqueous AgNO3">
+                                                <Button fx:id="aqueousAgNO3" mnemonicParsing="false" onAction="#addSubstance" text="Aqueous AgNO3">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>

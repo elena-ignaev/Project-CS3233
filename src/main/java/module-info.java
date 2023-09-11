@@ -7,15 +7,14 @@ module com.example.projectp1 {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
 
-    opens com.example.projectp1 to javafx.fxml;
-    exports com.example.projectp1;
-
     exports com.example.projectp1.Model;
     opens com.example.projectp1.Model to javafx.fxml;
 
     exports com.example.projectp1.Controller;
     opens com.example.projectp1.Controller to javafx.fxml;
 
+    exports com.example.projectp1;
+    opens com.example.projectp1 to javafx.fxml;
 
 
 }
