@@ -9,20 +9,18 @@ public class Cation extends Substance{
     private String withNaOH;
     private String withNH3;
     public Cation(String name) {
-        super("");
+        super(name);
         if (validName()) {
-            Pattern pattern = Pattern.compile("[2-9]?\\+");
-            Matcher matcher = pattern.matcher(name);
-            if (matcher.find()) {
-                this.charge = matcher.group(0);
-            }
             if (name.contains("(") && name.contains(")")){
                 String[] tokens = name.split("[\\(\\)]");
                 this.setName(tokens[0] + tokens[1] + tokens[2]);
+                this.charge = tokens[2];
+                this.element = tokens[1];
             } else {
                 this.setName(name);
+                this.charge = name.substring(name.length()-2);
+                this.element = name.substring(0, name.length()-2);
             }
-            System.out.println(this.getName());
             this.withNaOH = "";
             this.withNH3 = "";
         }
@@ -94,8 +92,7 @@ public class Cation extends Substance{
         String elementPatternString = "(Fe|Ca|Mg|Zn|NH4|Cu)";
         Pattern elementPattern = Pattern.compile(elementPatternString);
         Matcher elementMatcher = elementPattern.matcher(this.getName());
-        if (elementMatcher.find()) { validElement = true;
-            System.out.println(elementMatcher.group(0));}
+        if (elementMatcher.find()) { validElement = true;}
         boolean validCharge = false;
         String chargePatternString = "\\+|2\\+|3\\+";
         Pattern chargePattern = Pattern.compile(chargePatternString);

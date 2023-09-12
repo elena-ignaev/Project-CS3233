@@ -35,6 +35,7 @@ public class Salt extends Substance{
             this.cation = cation;
             this.anion = anion;
         } catch (NullPointerException ex) {
+            ex.printStackTrace();
             System.out.println("Cation or Anion is invalid");
         }
     }

@@ -15,18 +15,17 @@ public class Anion extends Substance {
     private String reagents;
     private String reactions;
     public Anion(String name) {
-        super("");
+        super(name);
         if (validName()) {
-            Pattern pattern = Pattern.compile("[2-9]?-");
-            Matcher matcher = pattern.matcher(name);
-            if (matcher.find()) {
-                this.charge = matcher.group(0);
-            }
             if (name.contains("(") && name.contains(")")){
                 String[] tokens = name.split("[\\(\\)]");
                 this.setName(tokens[0] + tokens[1] + tokens[2]);
+                this.element = tokens[1];
+                this.charge = tokens[2];
             } else {
                 this.setName(name);
+                this.charge = name.substring(name.length()-2);
+                this.element = name.substring(0, name.length()-2);
             }
             this.reagents = "";
             this.reactions = "";
