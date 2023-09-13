@@ -67,6 +67,15 @@ public class History {
         this.splint = splint;
     }
 
+    public void clearAll() {
+        this.getTubes().clear();
+        this.getSplint().clear();
+        this.getRedLitmus().clear();
+        this.setLighter(null);
+        this.getBlueLitmus().clear();
+        this.setBunsenBurner(null);
+    }
+
     //    private ArrayList<Cation> cations;
 //    public ArrayList<Cation> getCations() {
 //        return cations;

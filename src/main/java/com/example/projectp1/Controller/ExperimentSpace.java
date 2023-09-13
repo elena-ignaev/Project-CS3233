@@ -4,7 +4,6 @@ import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
 import com.example.projectp1.TestExperimentSpace;
 import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -367,10 +366,6 @@ public class ExperimentSpace implements Initializable {
     - There is at least one test tube in the experiment space
     - There is a selected test tube for adding the substances
     - The selected test tube already contains salt to be test on
-
-    Extra functionality:
-    - Testing chemicals and some salts are different to tell because of their color and transparency
-    --> if adding is successful, text will show and fade on screen to tell user
      */
     public void addSubstance(ActionEvent event) {
         try {
@@ -570,6 +565,22 @@ public class ExperimentSpace implements Initializable {
         }
     }
 
+    public void saveQueries(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("note.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
+            Scene scene = new Scene(root);
+//            scene.getStylesheets().add(TestExperimentSpace.class.getResource("View/logInPage.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("About the Programmer");
+            stage.showAndWait();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 
 
 
@@ -612,6 +623,11 @@ public class ExperimentSpace implements Initializable {
 
     @FXML
     private MenuItem aboutProgrammer;
+
+    public void clearAll(ActionEvent event) {
+        getExperimentSpace().getChildren().clear();
+        getHistory().clearAll();
+    }
 
     public void aboutPage(ActionEvent event) {
         try {

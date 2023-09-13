@@ -36,7 +36,7 @@
                             <items>
                                 <MenuItem fx:id="delete" mnemonicParsing="false" text="Delete" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="clearAll" mnemonicParsing="false" text="Clear all" />
+                        <MenuItem fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" text="Clear all" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
@@ -208,7 +208,7 @@
                                           </Label>
                                           <TextField fx:id="cationAns" prefWidth="124.0" promptText="Example: (Na)+">
                                              <VBox.margin>
-                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                                <Insets left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
                                           </TextField>
                                        </children>
@@ -222,7 +222,7 @@
                                           </Label>
                                           <TextField fx:id="anionAns" promptText="Example: (SO3)2-">
                                              <VBox.margin>
-                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                                <Insets left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
                                           </TextField>
                                        </children>
@@ -236,7 +236,7 @@
                                           </Label>
                                           <TextField fx:id="saltAns" promptText="Example: (Na)2(SO4)">
                                              <VBox.margin>
-                                                <Insets left="5.0" right="5.0" top="10.0" />
+                                                <Insets left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
                                           </TextField>
                                        </children>
@@ -277,7 +277,7 @@
                                           <Insets left="10.0" top="2.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Button fx:id="saveQueries" mnemonicParsing="false" text="Save queries">
+                                    <Button fx:id="saveQueries" mnemonicParsing="false" onAction="#saveQueries" text="Save queries">
                                        <VBox.margin>
                                           <Insets left="10.0" top="2.0" />
                                        </VBox.margin>
