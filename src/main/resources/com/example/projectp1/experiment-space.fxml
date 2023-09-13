@@ -41,7 +41,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem fx:id="aboutProgrammer" mnemonicParsing="false" text="About the programmer" />
+                                <MenuItem fx:id="aboutProgrammer" mnemonicParsing="false" onAction="#aboutPage" text="About the programmer" />
                             </items>
                         </Menu>
                     </menus>
@@ -192,21 +192,28 @@
                            <children>
                               <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="95.0">
+                                       <children>
+                                          <RadioButton fx:id="questionTube1" mnemonicParsing="false" text="Tube 1" />
+                                          <RadioButton fx:id="questionTube2" mnemonicParsing="false" text="Tube 2" />
+                                          <RadioButton fx:id="questionTube3" mnemonicParsing="false" text="Tube 3" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="67.0" prefWidth="136.0">
                                        <children>
                                           <Label alignment="CENTER" text="What cation is present?">
                                              <VBox.margin>
                                                 <Insets left="5.0" right="5.0" top="10.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <TextField fx:id="cationAns" promptText="Example: (Na)+">
+                                          <TextField fx:id="cationAns" prefWidth="124.0" promptText="Example: (Na)+">
                                              <VBox.margin>
                                                 <Insets left="5.0" right="5.0" top="10.0" />
                                              </VBox.margin>
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                    <VBox prefHeight="67.0" prefWidth="133.0">
                                        <children>
                                           <Label alignment="CENTER" text="What anion is present?">
                                              <VBox.margin>
@@ -220,7 +227,7 @@
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                    <VBox prefHeight="67.0" prefWidth="135.0">
                                        <children>
                                           <Label alignment="CENTER" text="What is the salt?">
                                              <VBox.margin>
@@ -234,16 +241,16 @@
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="150.0">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="99.0">
                                        <children>
-                                          <Button fx:id="checkAns" mnemonicParsing="false" text="Check">
+                                          <Button fx:id="checkAns" mnemonicParsing="false" onAction="#question" text="Check">
                                              <VBox.margin>
-                                                <Insets left="50.0" top="5.0" />
+                                                <Insets left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
                                           </Button>
-                                          <Button fx:id="showExplanation" mnemonicParsing="false" text="Explain">
+                                          <Button fx:id="showExplanation" mnemonicParsing="false" onAction="#question" text="Explain">
                                              <VBox.margin>
-                                                <Insets left="50.0" top="5.0" />
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
                                           </Button>
                                        </children>

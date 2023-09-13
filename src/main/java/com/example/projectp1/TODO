@@ -16,3 +16,7 @@ use property binding to allow for rescaling of object when resizing the applicat
 if the application is to be extended, could implement allowing teacher to add their own salts of interest, providing them with the legal color list in javafx
 
 add animation to buttons in substance
+
+When adding a known salt, remember to open up a tab "Explanation"
+
+When adding a random salt, remember to open up a tab "Question" to test for knowledge

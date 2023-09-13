@@ -2,6 +2,7 @@ package com.example.projectp1.Controller;
 
 import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
+import com.example.projectp1.TestExperimentSpace;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.RotateTransition;
@@ -10,10 +11,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -532,36 +538,37 @@ public class ExperimentSpace implements Initializable {
                 salts.setValue(null);
             }
         }
-
-        // When adding a random salt, remember to open up a tab "Question" to test for knowledge
-        // When adding a known salt, remember to open up a tab "Explanation"
-
     }
-
-
-
-
-
-
-
-
-
 
     // Question tab
     @FXML
     private TextField cationAns;
-
     @FXML
     private TextField anionAns;
-
     @FXML
     private TextField saltAns;
-
     @FXML
     private Button checkAns;
-
     @FXML
     private Button showExplanation;
+    @FXML
+    private RadioButton questionTube1;
+    @FXML
+    private RadioButton questionTube2;
+    @FXML
+    private RadioButton questionTube3;
+    public void question(ActionEvent event) {
+        if (event.getSource() == checkAns) {
+            String cation = cationAns.getText();
+            String anion = anionAns.getText();
+            String salt = saltAns.getText();
+
+        }
+
+        if (event.getSource() == showExplanation) {
+
+        }
+    }
 
 
 
@@ -606,6 +613,21 @@ public class ExperimentSpace implements Initializable {
     @FXML
     private MenuItem aboutProgrammer;
 
+    public void aboutPage(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("about-programmer.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
+            Scene scene = new Scene(root);
+//            scene.getStylesheets().add(TestExperimentSpace.class.getResource("View/logInPage.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("About the Programmer");
+            stage.showAndWait();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
 
     // Initialize
