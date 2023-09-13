@@ -6,18 +6,12 @@ add blue litmus class
 using regex for formatting of database document
 use arraylist instead of array in database --> related problems in cation and anion --> need to change in part 1
 
-use fill transition for color change
 use media for tutorial on how to use the application
 use separate thread to update GUI
 
 think about resizing object
-provide a list of equipment on screen for better control
 
 use property binding to allow for rescaling of object when resizing the application window
-
-think about mixing color when adding salt and other chemicals into a test tube
-
-only allow 3 test tubes, 3 each type of litmus, 1 set of heating equipment, 1 splint
 
 if the application is to be extended, could implement allowing teacher to add their own salts of interest, providing them with the legal color list in javafx
 
