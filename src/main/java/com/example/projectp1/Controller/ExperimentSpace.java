@@ -123,7 +123,6 @@ public class ExperimentSpace implements Initializable {
                     shake.setCycleCount(20);
                     shake.setAutoReverse(true);
                     shake.play();
-
                 }));
             } else {
                 Alert tubeExists = new Alert(Alert.AlertType.WARNING);
@@ -462,36 +461,44 @@ public class ExperimentSpace implements Initializable {
                     precipitate.setCycleCount(1);
                     precipitate.setAutoReverse(false);
                     if (event.getSource() == aqueousNaOH) {
-                        resetTube();
-                        TestingChemicals NaOH = new TestingChemicals("NaOH");
-                        Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
-                        getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
-                        precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
-                        precipitate.setDelay(Duration.millis(100));
-                        precipitate.play();
+                        Platform.runLater(() -> {
+                            resetTube();
+                            TestingChemicals NaOH = new TestingChemicals("NaOH");
+                            Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
+                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                            precipitate.setDelay(Duration.millis(100));
+                            precipitate.play();
+                        });
                     }
                     if (event.getSource() == aqueousNH3) {
-                        resetTube();
-                        TestingChemicals NH3 = new TestingChemicals("NH3");
-                        Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
-                        getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
-                        precipitate.play();
+                        Platform.runLater(()->{
+                            resetTube();
+                            TestingChemicals NH3 = new TestingChemicals("NH3");
+                            Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
+                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            precipitate.play();
+                        });
                     }
                     if (event.getSource() == aqueousAgNO3) {
-                        resetTube();
-                        TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
-                        Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
-                        getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                        Platform.runLater(() -> {
+                            resetTube();
+                            TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
+                            Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
+                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                        });
                     }
                     if (event.getSource() == aqueousBaCl2) {
-                        resetTube();
-                        TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
-                        Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
-                        getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                        Platform.runLater(() -> {
+                            resetTube();
+                            TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
+                            Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
+                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                        });
                     }
                     if (tube.getSelectedToggle() != null) {
                         showAdded();
