@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -27,7 +28,17 @@ public class QuickNote implements Initializable {
     private MenuItem clearAll;
 
     @FXML
+    private TextArea note;
+
+    @FXML
     private MenuItem aboutProgrammer;
+
+    public void exit(ActionEvent event) {
+
+    }
+    public void clearAll(ActionEvent event) {
+        note.clear();
+    }
 
     public void aboutPopUp(ActionEvent event) {
         try {
@@ -39,7 +50,7 @@ public class QuickNote implements Initializable {
                 Scene scene = new Scene(root);
 //            scene.getStylesheets().add(TestExperimentSpace.class.getResource("View/logInPage.css").toExternalForm());
                 stage.setScene(scene);
-                stage.setTitle("About the Programmer");
+                stage.setTitle("Save queries");
                 stage.showAndWait();
             }
         } catch (IOException e) {

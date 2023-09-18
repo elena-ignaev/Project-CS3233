@@ -24,13 +24,13 @@
                         <MenuItem fx:id="saveProgress" mnemonicParsing="false" text="Save" />
                         <MenuItem fx:id="export" mnemonicParsing="false" text="Export" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />
+                        <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="Exit" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Edit">
                      <items>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="clearAll" mnemonicParsing="false" text="Clear all" />
+                        <MenuItem fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" text="Clear all" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Help">
@@ -48,19 +48,19 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextArea prefHeight="300.0" prefWidth="590.0" promptText="Enter your note here:">
+            <TextArea fx:id="note" prefHeight="300.0" prefWidth="590.0" promptText="Enter your note here:">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </TextArea>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Save">
+                  <Button fx:id="save" alignment="CENTER" mnemonicParsing="false" text="Save">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Clear">
+                  <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearAll" text="Clear">
                      <HBox.margin>
                         <Insets bottom="5.0" right="5.0" />
                      </HBox.margin>
