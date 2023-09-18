@@ -11,6 +11,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +35,7 @@ public class QuickNote implements Initializable {
     private MenuItem aboutProgrammer;
 
     public void exit(ActionEvent event) {
-
+        note.getScene().getWindow().hide();
     }
     public void clearAll(ActionEvent event) {
         note.clear();

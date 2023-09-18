@@ -123,6 +123,10 @@ public class ExperimentSpace implements Initializable {
                     shake.setCycleCount(20);
                     shake.setAutoReverse(true);
                     shake.play();
+                    shake.setOnFinished(event1 -> {
+                        added.setText("Precipitated!");
+                        showAdded();
+                    });
                 }));
             } else {
                 Alert tubeExists = new Alert(Alert.AlertType.WARNING);
@@ -353,6 +357,7 @@ public class ExperimentSpace implements Initializable {
         fade.setToValue(0);
         fade.setAutoReverse(false);
         fade.setCycleCount(1);
+        fade.setDelay(Duration.millis(1000));
         fade.setDuration(Duration.millis(1000));
         fade.play();
         fade.setOnFinished(e -> added.setVisible(false));
@@ -543,6 +548,14 @@ public class ExperimentSpace implements Initializable {
     }
 
     // Question tab
+    private boolean openedQueries = false;
+
+    public boolean isOpenedQueries() {
+        return openedQueries;
+    }
+    public void setOpenedQueries(boolean openedQueries) {
+        this.openedQueries = openedQueries;
+    }
     @FXML
     private TextField cationAns;
     @FXML
@@ -573,18 +586,23 @@ public class ExperimentSpace implements Initializable {
     }
 
     public void saveQueries(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("note.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
-            Scene scene = new Scene(root);
+        if (!isOpenedQueries()){
+            try {
+                setOpenedQueries(true);
+                FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("note.fxml"));
+                Parent root = fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
+                Scene scene = new Scene(root);
 //            scene.getStylesheets().add(TestExperimentSpace.class.getResource("View/logInPage.css").toExternalForm());
-            stage.setScene(scene);
-            stage.setTitle("About the Programmer");
-            stage.showAndWait();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+                stage.setScene(scene);
+                stage.setTitle("About the Programmer");
+                stage.showAndWait();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+
         }
     }
 
