@@ -147,6 +147,12 @@ public class ExperimentSpace implements Initializable {
                     lighter.setLayoutX(e.getSceneX());
                     lighter.setLayoutY(e.getSceneY());
                 }));
+                lighter.setOnMouseClicked(e -> Platform.runLater(() -> {
+                    added.setText("Lighter switched status!");
+                    showAdded();
+                    lighter.getLighter().setOn(!lighter.getLighter().isOn());
+                    lighter.setLighter(lighterModel);
+                }));
 
                 BunsenBurner bunsenBurner = new BunsenBurner();
                 getHistory().setBunsenBurner(bunsenBurner);
@@ -652,6 +658,9 @@ public class ExperimentSpace implements Initializable {
     public void clearAll(ActionEvent event) {
         getExperimentSpace().getChildren().clear();
         getHistory().clearAll();
+        setHasTestTube(false);
+        setAddedSalt(false);
+        setHasHeatingEquipment(false);
     }
 
     public void aboutPage(ActionEvent event) {
