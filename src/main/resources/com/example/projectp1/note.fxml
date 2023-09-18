@@ -22,23 +22,20 @@
                   <Menu mnemonicParsing="false" text="Home">
                      <items>
                         <MenuItem fx:id="saveProgress" mnemonicParsing="false" text="Save" />
-                        <MenuItem fx:id="viewNotes" mnemonicParsing="false" text="Export" />
+                        <MenuItem fx:id="export" mnemonicParsing="false" text="Export" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Edit">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Bold" />
-                        <MenuItem mnemonicParsing="false" text="Italic" />
-                        <MenuItem fx:id="delete" mnemonicParsing="false" text="Underline" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="clearAll" mnemonicParsing="false" text="Clear" />
+                        <MenuItem fx:id="clearAll" mnemonicParsing="false" text="Clear all" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Help">
                      <items>
-                        <MenuItem fx:id="aboutProgrammer" mnemonicParsing="false" text="About the programmer" />
+                        <MenuItem fx:id="aboutProgrammer" mnemonicParsing="false" onAction="#aboutPopUp" text="About the programmer" />
                      </items>
                   </Menu>
                </menus>
