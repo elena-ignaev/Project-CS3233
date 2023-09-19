@@ -89,14 +89,20 @@ public class LighterPane extends Pane implements Paintable {
         Rectangle button = new Rectangle(10,15);
         button.setX(96);
         button.setY(10);
+        FadeTransition light = new FadeTransition();
+        light.setNode(fire);
+        light.setAutoReverse(false);
+        light.setCycleCount(1);
+        light.setDuration(Duration.millis(500));
         if (!this.getLighter().isOn()){
-            button.setFill(Color.BLACK);
+            light.setFromValue(1);
+            light.setToValue(0);
         } else {
             Line line = new Line();
             line.setStartX(101);
-            line.setStartY(17);
+            line.setStartY(17.5);
             line.setEndX(111);
-            line.setEndY(17);
+            line.setEndY(17.5);
             PathTransition path = new PathTransition();
             path.setPath(line);
             path.setNode(button);
@@ -104,16 +110,10 @@ public class LighterPane extends Pane implements Paintable {
             path.setCycleCount(2);
             path.setDuration(Duration.millis(1000));
             Platform.runLater(path::play);
-
-            FadeTransition light = new FadeTransition();
-            light.setNode(fire);
-            light.setAutoReverse(false);
-            light.setCycleCount(1);
             light.setFromValue(0);
             light.setToValue(1);
-            light.setDuration(Duration.millis(500));
-            light.play();
         }
+        Platform.runLater(light::play);
 
         //Head of the lighter where fire comes out
         Rectangle head = new Rectangle(160, 10);

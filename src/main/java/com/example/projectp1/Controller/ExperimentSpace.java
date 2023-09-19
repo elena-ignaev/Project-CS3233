@@ -148,10 +148,15 @@ public class ExperimentSpace implements Initializable {
                     lighter.setLayoutY(e.getSceneY());
                 }));
                 lighter.setOnMouseClicked(e -> Platform.runLater(() -> {
-                    added.setText("Lighter switched status!");
-                    showAdded();
+
                     lighter.getLighter().setOn(!lighter.getLighter().isOn());
                     lighter.setLighter(lighterModel);
+                    if (lighter.getLighter().isOn()) {
+                        added.setText("Lighter is on!");
+                    } else {
+                        added.setText("Lighter is off!");
+                    }
+                    showAdded();
                 }));
 
                 BunsenBurner bunsenBurner = new BunsenBurner();
