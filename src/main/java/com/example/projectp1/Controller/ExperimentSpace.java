@@ -26,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -121,10 +122,10 @@ public class ExperimentSpace implements Initializable {
                     shake.setCycleCount(20);
                     shake.setAutoReverse(true);
                     shake.play();
-                    shake.setOnFinished(event1 -> {
-                        added.setText("Precipitated!");
-                        showAdded();
-                    });
+//                    shake.setOnFinished(event1 -> {
+//                        added.setText("Precipitated!");
+//                        showAdded();
+//                    });
                 }));
             } else {
                 Alert tubeExists = new Alert(Alert.AlertType.WARNING);
@@ -208,19 +209,13 @@ public class ExperimentSpace implements Initializable {
                     SplintPane splint = new SplintPane(splintModel);
                     getHistory().getSplint().add(splintModel);
                     getExperimentSpace().getChildren().add(splint);
-                    splint.setOnMouseDragged(e -> Platform.runLater(() -> {
-                        splint.setLayoutX(e.getSceneX());
-                        splint.setLayoutY(e.getSceneY());
-                    }));
+                    splint.setOnMouseDragged(e -> Platform.runLater(() -> splint.setDraggable(experimentSpace,e)));
                 } else if (splint.getValue().equals("New splint")) {
                     Splint splintModel = new Splint("new");
                     SplintPane splint = new SplintPane(splintModel);
                     getHistory().getSplint().add(splintModel);
                     getExperimentSpace().getChildren().add(splint);
-                    splint.setOnMouseDragged(e -> Platform.runLater(() -> {
-                        splint.setLayoutX(e.getSceneX());
-                        splint.setLayoutY(e.getSceneY());
-                    }));
+                    splint.setOnMouseDragged(e -> Platform.runLater(() -> splint.setDraggable(experimentSpace,e)));
                 }
             } else {
                 Alert noSplintAvailable = new Alert(Alert.AlertType.WARNING);
@@ -629,13 +624,138 @@ public class ExperimentSpace implements Initializable {
     private MenuItem exit;
 
     @FXML
-    private MenuItem delete;
+    private MenuItem deleteBlueLitmus;
+
+    @FXML
+    private MenuItem deleteRedLitmus;
+
+    @FXML
+    private MenuItem deleteTube1;
+
+    @FXML
+    private MenuItem deleteTube2;
+
+    @FXML
+    private MenuItem deleteTube3;
+
+    @FXML
+    private MenuItem deleteBurner;
+
+    @FXML
+    private MenuItem deleteLighter;
+
+    @FXML
+    private MenuItem deleteSplint;
 
     @FXML
     private MenuItem clearAll;
 
     @FXML
     private MenuItem aboutProgrammer;
+
+    public void delete(ActionEvent event) {
+        components = getExperimentSpace().getChildren();
+
+        Alert toolNotInPane = new Alert(Alert.AlertType.WARNING);
+        toolNotInPane.setTitle("Warning");
+        toolNotInPane.setHeaderText("Tool cannot be deleted");
+        toolNotInPane.setContentText("The tool has not been added to the experiment space!");
+
+        for (Node node : components) {
+            tubes.clear();
+            if (node instanceof TubePane) {
+                tubes.add(node);
+            }
+        }
+        if (event.getSource() == deleteBlueLitmus) {
+            if (!getHistory().getBlueLitmus().isEmpty()) {
+                getHistory().getBlueLitmus().clear();
+                components.removeIf(node -> node instanceof BlueLitmusPane);
+            } else {
+                toolNotInPane.showAndWait();
+            }
+        }
+        if (event.getSource() == deleteRedLitmus) {
+            if (!getHistory().getRedLitmus().isEmpty()) {
+                getHistory().getRedLitmus().clear();
+                components.removeIf(node -> node instanceof RedLitmusPane);
+            } else {
+                toolNotInPane.showAndWait();
+            }
+        }
+        if (event.getSource() == deleteTube1) {
+            try {
+                tubes.remove(0);
+                for (int i = 0; i < getExperimentSpace().getChildren().size(); i++) {
+                    if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
+                        getExperimentSpace().getChildren().remove(i);
+                        break;
+                    }
+                }
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                toolNotInPane.showAndWait();
+            }
+        }
+        if (event.getSource() == deleteTube2) {
+            try {
+                tubes.remove(1);
+                int count = 0;
+                for (int i = 0; i<getExperimentSpace().getChildren().size(); i++) {
+                    if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
+                        if (count == 1) {
+                            getExperimentSpace().getChildren().remove(i);
+                        }
+                        count++;
+                    }
+                }
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                toolNotInPane.showAndWait();
+            }
+        }
+        if (event.getSource() == deleteTube3) {
+            try {
+                tubes.remove(2);
+                int count = 0;
+                for (int i =0; i <getExperimentSpace().getChildren().size(); i++) {
+                    if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
+                        if (count == 2) {
+                            getExperimentSpace().getChildren().remove(i);
+                        }
+                        count++;
+                    }
+                }
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                toolNotInPane.showAndWait();
+            }
+        }
+        if (event.getSource() == deleteBurner) {
+            if (getHistory().getBunsenBurner() != null){
+                getHistory().setBunsenBurner(null);
+                components.removeIf(node -> node instanceof BurnerPane);
+            } else {
+                toolNotInPane.showAndWait();
+            }
+        }
+        if (event.getSource() == deleteLighter) {
+            if (getHistory().getBunsenBurner() != null){
+                getHistory().setLighter(null);
+                components.removeIf(node -> node instanceof LighterPane);
+            } else {
+                toolNotInPane.showAndWait();
+            }
+        }
+        if (event.getSource() == deleteSplint) {
+            if (!getHistory().getSplint().isEmpty()) {
+                getHistory().getSplint().clear();
+                components.removeIf(node -> node instanceof SplintPane);
+            } else {
+                toolNotInPane.showAndWait();
+            }
+        }
+    }
 
     public void clearAll(ActionEvent event) {
         getExperimentSpace().getChildren().clear();

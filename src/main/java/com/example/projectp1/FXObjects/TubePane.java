@@ -1,6 +1,7 @@
 package com.example.projectp1.FXObjects;
 
 import com.example.projectp1.Model.TestTube;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -226,9 +227,11 @@ public class TubePane extends DraggablePane implements Paintable {
     @Override
     public void setDraggable(Pane parent, MouseEvent e){
         Bounds bounds = parent.getLayoutBounds();
-        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX()-this.getDiameter() && bounds.getMinY() <= e.getSceneY() && e.getSceneY() <= bounds.getMaxY()-this.getHeight()) {
-            this.setLayoutX(e.getSceneX());
-            this.setLayoutY(e.getSceneY());
+        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX()-this.getDiameter() && bounds.getMinY() <= e.getSceneY() && e.getSceneY() <= bounds.getMaxY()-this.getDiameter()-this.getEmptyHeight()-this.getLayerHeight()) {
+            Platform.runLater(() -> {
+                this.setLayoutX(e.getSceneX());
+                this.setLayoutY(e.getSceneY());
+            });
         }
     }
 }

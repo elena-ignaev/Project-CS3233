@@ -1,6 +1,7 @@
 package com.example.projectp1.FXObjects;
 
 import com.example.projectp1.Model.BunsenBurner;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -148,9 +149,11 @@ public class BurnerPane extends DraggablePane implements Paintable {
     @Override
     public void setDraggable(Pane parent, MouseEvent e){
         Bounds bounds = parent.getLayoutBounds();
-        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX()-this.getPreBase().getWidth() && bounds.getMinY() <= e.getSceneY() && e.getSceneY() <= bounds.getMaxY()-this.getHeight()) {
-            this.setLayoutX(e.getSceneX());
-            this.setLayoutY(e.getSceneY());
+        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX() - this.getPreBase().getWidth() && bounds.getMinY() <= e.getSceneY()-this.getHeight() && e.getSceneY() <= bounds.getMaxY()) {
+            Platform.runLater(() -> {
+                this.setLayoutX(e.getSceneX());
+                this.setLayoutY(e.getSceneY());
+            });
         }
     }
 }

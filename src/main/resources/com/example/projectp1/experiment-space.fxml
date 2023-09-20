@@ -34,7 +34,30 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Edit">
                             <items>
-                                <MenuItem fx:id="delete" mnemonicParsing="false" text="Delete" />
+                        <Menu mnemonicParsing="false" text="Delete">
+                          <items>
+                              <Menu mnemonicParsing="false" text="Litmus paper">
+                                <items>
+                                  <MenuItem fx:id="deleteBlueLitmus" mnemonicParsing="false" onAction="#delete" text="Blue litmus paper" />
+                                            <MenuItem fx:id="deleteRedLitmus" mnemonicParsing="false" onAction="#delete" text="Red litmus paper" />
+                                </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Test tube">
+                                <items>
+                                  <MenuItem fx:id="deleteTube1" mnemonicParsing="false" onAction="#delete" text="Tube 1" />
+                                    <MenuItem fx:id="deleteTube2" mnemonicParsing="false" onAction="#delete" text="Tube 2" />
+                                    <MenuItem fx:id="deleteTube3" mnemonicParsing="false" onAction="#delete" text="Tube 3" />
+                                </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Heating equipment">
+                                <items>
+                                  <MenuItem fx:id="deleteBurner" mnemonicParsing="false" onAction="#delete" text="Bunsen burner" />
+                                    <MenuItem fx:id="deleteLighter" mnemonicParsing="false" onAction="#delete" text="Lighter" />
+                                </items>
+                              </Menu>
+                              <MenuItem fx:id="deleteSplint" mnemonicParsing="false" onAction="#delete" text="Splint" />
+                          </items>
+                        </Menu>
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="clearAll" mnemonicParsing="false" onAction="#clearAll" text="Clear all" />
                             </items>
