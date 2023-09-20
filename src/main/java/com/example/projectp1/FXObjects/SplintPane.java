@@ -1,12 +1,14 @@
 package com.example.projectp1.FXObjects;
 
 import com.example.projectp1.Model.Splint;
+import javafx.geometry.Bounds;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
-public class SplintPane extends Pane implements Paintable {
+public class SplintPane extends DraggablePane implements Paintable {
     private Splint splint;
     private double splintThickness = 5;
     private double splintLength = 170;
@@ -74,9 +76,16 @@ public class SplintPane extends Pane implements Paintable {
 //                fire.setOpacity(0);
 //            }
         }
-
         getChildren().clear();
         getChildren().addAll(rectangle, fire);
-
     }
+    @Override
+    public void setDraggable(Pane parent, MouseEvent e){
+        Bounds bounds = parent.getLayoutBounds();
+        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX()-this.getSplintLength() && bounds.getMinY() <= e.getSceneY() && e.getSceneY() <= bounds.getMaxY()-this.getSplintThickness()) {
+            this.setLayoutX(e.getSceneX());
+            this.setLayoutY(e.getSceneY());
+        }
+    }
+
 }

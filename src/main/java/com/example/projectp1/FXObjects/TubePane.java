@@ -1,13 +1,15 @@
 package com.example.projectp1.FXObjects;
 
 import com.example.projectp1.Model.TestTube;
+import javafx.geometry.Bounds;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
-public class TubePane extends Pane implements Paintable {
+public class TubePane extends DraggablePane implements Paintable {
     /** TODO
      * Figure out how to get color from string
      * change() function, take in color and transparency, only 0.5 and 1 transparency are legal values
@@ -220,5 +222,13 @@ public class TubePane extends Pane implements Paintable {
 
         getChildren().clear();
         getChildren().addAll(empty, layer1, layer2, layer3);
+    }
+    @Override
+    public void setDraggable(Pane parent, MouseEvent e){
+        Bounds bounds = parent.getLayoutBounds();
+        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX()-this.getDiameter() && bounds.getMinY() <= e.getSceneY() && e.getSceneY() <= bounds.getMaxY()-this.getHeight()) {
+            this.setLayoutX(e.getSceneX());
+            this.setLayoutY(e.getSceneY());
+        }
     }
 }

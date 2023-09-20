@@ -2,11 +2,13 @@ package com.example.projectp1.FXObjects;
 
 import com.example.projectp1.Model.BlueLitmus;
 import com.example.projectp1.Model.RedLitmus;
+import javafx.geometry.Bounds;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class BlueLitmusPane extends Pane implements Paintable {
+public class BlueLitmusPane extends DraggablePane implements Paintable {
     private BlueLitmus blueLitmus;
     public BlueLitmusPane() {
         paint();
@@ -45,5 +47,13 @@ public class BlueLitmusPane extends Pane implements Paintable {
 
         getChildren().clear();
         getChildren().addAll(paper, changeable);
+    }
+    @Override
+    public void setDraggable(Pane parent, MouseEvent e){
+        Bounds bounds = parent.getLayoutBounds();
+        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX()-this.getWidth() && bounds.getMinY() <= e.getSceneY() && e.getSceneY() <= bounds.getMaxY()-this.getHeight()) {
+            this.setLayoutX(e.getSceneX());
+            this.setLayoutY(e.getSceneY());
+        }
     }
 }

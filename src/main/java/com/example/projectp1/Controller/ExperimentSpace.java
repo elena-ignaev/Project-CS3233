@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -110,10 +111,7 @@ public class ExperimentSpace implements Initializable {
                 setHasTestTube(true);
                 System.out.print(tube.getTubeModel()!=null);
                 // drag the tube
-                tube.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    tube.setLayoutX(e.getSceneX());
-                    tube.setLayoutY(e.getSceneY());
-                }));
+                tube.setOnMouseDragged(e -> Platform.runLater(() -> tube.setDraggable(experimentSpace,e)));
                 // shake the tube
                 tube.setOnMouseClicked(e -> Platform.runLater(() -> {
                     RotateTransition shake = new RotateTransition(Duration.millis(150));
@@ -143,12 +141,9 @@ public class ExperimentSpace implements Initializable {
                 Lighter lighterModel = new Lighter();
                 getHistory().setLighter(lighterModel);
                 LighterPane lighter = new LighterPane(lighterModel);
-                lighter.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    lighter.setLayoutX(e.getSceneX());
-                    lighter.setLayoutY(e.getSceneY());
-                }));
+                lighter.getFire().setVisible(lighter.getLighter().isOn());
+                lighter.setOnMouseDragged(e -> Platform.runLater(() -> lighter.setDraggable(experimentSpace,e)));
                 lighter.setOnMouseClicked(e -> Platform.runLater(() -> {
-
                     lighter.getLighter().setOn(!lighter.getLighter().isOn());
                     lighter.setLighter(lighterModel);
                 }));
@@ -157,11 +152,8 @@ public class ExperimentSpace implements Initializable {
                 getHistory().setBunsenBurner(bunsenBurner);
                 BurnerPane burner = new BurnerPane(bunsenBurner);
                 getExperimentSpace().getChildren().addAll(lighter, burner);
-                burner.setLayoutY(100);
-                burner.setOnMouseDragged(e -> Platform.runLater(() -> {
-                    burner.setLayoutX(e.getSceneX());
-                    burner.setLayoutY(e.getSceneY());
-                }));
+                burner.setLayoutY(110);
+                burner.setOnMouseDragged(e -> Platform.runLater(() -> burner.setDraggable(experimentSpace,e)));
             } else {
                 Alert heatingEquipmentExists = new Alert(Alert.AlertType.WARNING);
                 heatingEquipmentExists.setTitle("Warning");
@@ -178,10 +170,7 @@ public class ExperimentSpace implements Initializable {
                     RedLitmusPane red = new RedLitmusPane(redModel);
                     getHistory().getRedLitmus().add(redModel);
                     getExperimentSpace().getChildren().add(red);
-                    red.setOnMouseDragged(e -> Platform.runLater(() -> {
-                        red.setLayoutX(e.getSceneX());
-                        red.setLayoutY(e.getSceneY());
-                    }));
+                    red.setOnMouseDragged(e -> Platform.runLater(() -> red.setDraggable(experimentSpace,e)));
                 } else {
                     Alert noRedAvailable = new Alert(Alert.AlertType.WARNING);
                     noRedAvailable.setTitle("Warning");
@@ -195,10 +184,7 @@ public class ExperimentSpace implements Initializable {
                     BlueLitmusPane blue = new BlueLitmusPane(blueModel);
                     getHistory().getBlueLitmus().add(blueModel);
                     getExperimentSpace().getChildren().add(blue);
-                    blue.setOnMouseDragged(e -> Platform.runLater(() -> {
-                        blue.setLayoutX(e.getSceneX());
-                        blue.setLayoutY(e.getSceneY());
-                    }));
+                    blue.setOnMouseDragged(e -> Platform.runLater(() -> blue.setDraggable(experimentSpace,e)));
                 } else {
                     Alert noBlueAvailable = new Alert(Alert.AlertType.WARNING);
                     noBlueAvailable.setTitle("Warning");
@@ -216,10 +202,7 @@ public class ExperimentSpace implements Initializable {
                     SplintPane splint = new SplintPane(splintModel);
                     getHistory().getSplint().add(splintModel);
                     getExperimentSpace().getChildren().add(splint);
-                    splint.setOnMouseDragged(e -> Platform.runLater(() -> {
-                        splint.setLayoutX(e.getSceneX());
-                        splint.setLayoutY(e.getSceneY());
-                    }));
+                    splint.setOnMouseDragged(e -> Platform.runLater(() -> splint.setDraggable(experimentSpace,e)));
                 } else if (splint.getValue().equals("Lighted splint")) {
                     Splint splintModel = new Splint("lighted");
                     SplintPane splint = new SplintPane(splintModel);
@@ -660,6 +643,9 @@ public class ExperimentSpace implements Initializable {
         setHasTestTube(false);
         setAddedSalt(false);
         setHasHeatingEquipment(false);
+        salts.getSelectionModel().clearSelection();
+        testPH.getSelectionModel().clearSelection();
+        splint.getSelectionModel().clearSelection();
     }
 
     public void aboutPage(ActionEvent event) {

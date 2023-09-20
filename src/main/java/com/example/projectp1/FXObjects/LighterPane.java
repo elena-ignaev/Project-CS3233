@@ -4,6 +4,8 @@ import com.example.projectp1.Model.Lighter;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
+import javafx.geometry.Bounds;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -12,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
-public class LighterPane extends Pane implements Paintable {
+public class LighterPane extends DraggablePane implements Paintable {
     private Rectangle head = new Rectangle(160, 10);
     private Rectangle body = new Rectangle(100, 40);
     private Rectangle space = new Rectangle(40,24);
@@ -78,8 +80,8 @@ public class LighterPane extends Pane implements Paintable {
         fire.setCenterY(5);
         fire.setFill(Color.ORANGERED);
         fire.setOpacity(0);
-        if (this.lighter != null){
-            if (lighter.isOn()) {
+        if (this.getLighter() != null){
+            if (this.getLighter().isOn()) {
                 fire.setOpacity(0.5);
             } else {
                 fire.setOpacity(0);
@@ -94,26 +96,29 @@ public class LighterPane extends Pane implements Paintable {
         light.setAutoReverse(false);
         light.setCycleCount(1);
         light.setDuration(Duration.millis(500));
-        if (!this.getLighter().isOn()){
-            light.setFromValue(1);
-            light.setToValue(0);
-        } else {
-            Line line = new Line();
-            line.setStartX(101);
-            line.setStartY(17.5);
-            line.setEndX(111);
-            line.setEndY(17.5);
-            PathTransition path = new PathTransition();
-            path.setPath(line);
-            path.setNode(button);
-            path.setAutoReverse(true);
-            path.setCycleCount(2);
-            path.setDuration(Duration.millis(1000));
-            Platform.runLater(path::play);
-            light.setFromValue(0);
-            light.setToValue(1);
+        if (this.getLighter() != null){
+            if (!this.getLighter().isOn()) {
+                light.setFromValue(0.5);
+                light.setToValue(0);
+                Platform.runLater(light::play);
+            } else {
+                Line line = new Line();
+                line.setStartX(101);
+                line.setStartY(17.5);
+                line.setEndX(111);
+                line.setEndY(17.5);
+                PathTransition path = new PathTransition();
+                path.setPath(line);
+                path.setNode(button);
+                path.setAutoReverse(true);
+                path.setCycleCount(2);
+                path.setDuration(Duration.millis(1000));
+                Platform.runLater(path::play);
+                light.setFromValue(0);
+                light.setToValue(0.5);
+                Platform.runLater(light::play);
+            }
         }
-        Platform.runLater(light::play);
 
         //Head of the lighter where fire comes out
         Rectangle head = new Rectangle(160, 10);
@@ -136,5 +141,13 @@ public class LighterPane extends Pane implements Paintable {
 
         getChildren().clear();
         getChildren().addAll(head, actualBody, button,fire);
+    }
+    @Override
+    public void setDraggable(Pane parent, MouseEvent e) {
+        Bounds bounds = parent.getLayoutBounds();
+        if (bounds.getMinX() <= e.getSceneX() && e.getSceneX() <= bounds.getMaxX()-this.getWidth() && bounds.getMinY() <= e.getSceneY() && e.getSceneY() <= bounds.getMaxY()-this.getHeight()) {
+            this.setLayoutX(e.getSceneX());
+            this.setLayoutY(e.getSceneY());
+        }
     }
 }
