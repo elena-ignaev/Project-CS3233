@@ -4,6 +4,7 @@ import com.example.projectp1.FXObjects.*;
 import com.example.projectp1.Model.*;
 import com.example.projectp1.TestExperimentSpace;
 import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -20,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -181,7 +183,7 @@ public class ExperimentSpace implements Initializable {
                     }
                 });
                 burner.setOnMouseClicked(event2-> {
-                    System.out.println(event2.getSceneX() + ", " + event2.getSceneY());
+                    System.out.println(event2.getX() + ", " + event2.getY());
                 });
 
 
@@ -405,7 +407,6 @@ public class ExperimentSpace implements Initializable {
                             Salt randomSalt = new Salt(cation, anion);
                             Layer newLayer = new Layer(randomSalt, false);
                             ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(newLayer);
-
                             ((TubePane) tubes.get(findTubeIndex())).setColor3(newLayer.getColor());
                             System.out.println(randomSalt.getName() + ", " + newLayer.getColor());
                         } else if (salts.getValue().equals("FeSO4")) { // blue-green
@@ -485,6 +486,13 @@ public class ExperimentSpace implements Initializable {
                     precipitate.setDuration(Duration.millis(2000));
                     precipitate.setCycleCount(1);
                     precipitate.setAutoReverse(false);
+
+                    FillTransition changeColor = new FillTransition(Duration.millis(2000), ((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                    changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
+                    changeColor.setDelay(Duration.millis(1000));
+                    changeColor.setCycleCount(1);
+                    changeColor.setAutoReverse(false);
+
                     if (event.getSource() == aqueousNaOH) {
                         Platform.runLater(() -> {
                             resetTube();
@@ -516,9 +524,17 @@ public class ExperimentSpace implements Initializable {
                             Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
-                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
-                            precipitate.setDelay(Duration.millis(100));
-                            precipitate.play();
+                            System.out.println(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName());
+                            if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("Cl")){
+                                changeColor.setToValue(Color.GHOSTWHITE);
+                                changeColor.play();
+                            } else if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("I")) {
+                                changeColor.setToValue(Color.KHAKI);
+                                changeColor.play();
+                                changeColor.setOnFinished(e -> {
+                                    System.out.println("Completed");
+                                });
+                            }
                         });
                     }
                     if (event.getSource() == aqueousBaCl2) {
@@ -528,9 +544,9 @@ public class ExperimentSpace implements Initializable {
                             Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
-                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
-                            precipitate.setDelay(Duration.millis(100));
-                            precipitate.play();
+//                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+//                            precipitate.setDelay(Duration.millis(100));
+//                            precipitate.play();
                         });
                     }
                     if (tube.getSelectedToggle() != null) {
