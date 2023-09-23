@@ -136,7 +136,6 @@ public class LighterPane extends DraggablePane implements Paintable {
         Shape actualBody = Shape.subtract(body, space);
         actualBody.setFill(Color.RED);
 
-
         setPrefSize(160,40);
 
         getChildren().clear();

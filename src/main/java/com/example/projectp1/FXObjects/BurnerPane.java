@@ -131,12 +131,16 @@ public class BurnerPane extends DraggablePane implements Paintable {
 
         if (this.getBunsenBurner() != null) {
             if (this.getBunsenBurner().getHeat()) {
-                getFire().setOpacity(1);
-                getFire().setFill(Color.ORANGERED);
+                if (this.getBunsenBurner().getFire()){
+                    getFire().setOpacity(1);
+                    getFire().setFill(Color.ORANGERED);
+                }
                 getAirHole().setFill(Color.WHITESMOKE);
             } else if (this.getBunsenBurner().getAirHole()) {
-                getFire().setOpacity(0.5);
-                getFire().setFill(Color.LIGHTSKYBLUE);
+                if (this.getBunsenBurner().getFire()){
+                    getFire().setOpacity(0.5);
+                    getFire().setFill(Color.LIGHTSKYBLUE);
+                }
                 getAirHole().setFill(Color.LIGHTGREY);
             } else {
                 getFire().setOpacity(0);

@@ -43,7 +43,7 @@ public class Layer {
         return "Layer properties: "
                 + "\nContent: " + this.getContent()
                 + "\nColor: " + this.getColor()
-                + "\nPrecipitate?: " + !this.isClear()
+                + "\nClear?: " + !this.isClear()
                 + "\n";
 
     }

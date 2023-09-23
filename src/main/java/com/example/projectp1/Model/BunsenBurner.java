@@ -7,10 +7,12 @@ Click on the bunsen burner:
 public class BunsenBurner extends Tools {
     private boolean airHole;
     private boolean heat;
+    private boolean fire;
     public BunsenBurner() {
         super("Bunsen burner");
         this.airHole = false;
         this.heat = false;
+        this.fire = false;
     }
 
     //closed air hole, luminous flame, heating flame
@@ -21,11 +23,17 @@ public class BunsenBurner extends Tools {
     public boolean getHeat() {
         return this.heat;
     }
+    public boolean getFire() {
+        return this.fire;
+    }
     public void setAirHole(boolean airHole) {
         this.airHole = airHole;
     }
     public void setHeat(boolean heat) {
         this.heat = heat;
+    }
+    public void setFire(boolean fire) {
+        this.fire = fire;
     }
     @Override
     public void inAction() { // shift position in state, if true, bunsen burner on action
@@ -34,6 +42,7 @@ public class BunsenBurner extends Tools {
     @Override
     public String toString() {
         return this.getName() + " properties:"
+                +"\nFire is on: " + this.getFire()
                 + "\nAir hole is open: " + this.getAirHole()
                 + "\nHeating flame is on: " + this.getHeat()
                 + "\n";

@@ -6,9 +6,13 @@ public class TestTube extends Tools {
     private Layer layer3;
     public TestTube() {
         super("Test Tube");
+        this.layer1 = new Layer(null, "lightgrey", false);
+        this.layer2 = new Layer(null, "lightgrey", false);
+        this.layer3 = new Layer(null, "lightgrey", false);
+
     }
     public TestTube(Layer layer1, Layer layer2, Layer layer3) {
-        this();
+        super("Test Tube");
         this.layer1 = layer1;
         this.layer2 = layer2;
         this.layer3 = layer3;

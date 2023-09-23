@@ -1,6 +1,7 @@
 package com.example.projectp1.Model;
 
 public class BlueLitmus extends Tools {
+    private String name;
     private boolean changed; // whether or not litmus has changed form its original color
     private boolean damp;
     public BlueLitmus() {
@@ -12,8 +13,7 @@ public class BlueLitmus extends Tools {
     public BlueLitmus(boolean changed, boolean damp) {
         super("Blue litmus paper");
         this.changed = changed;
-        this.damp = damp;
-    }
+        this.damp = damp;}
 
     public boolean isChanged() {
         return this.changed;

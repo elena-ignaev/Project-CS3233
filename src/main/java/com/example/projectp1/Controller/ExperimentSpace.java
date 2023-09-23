@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -122,6 +123,7 @@ public class ExperimentSpace implements Initializable {
                     shake.setCycleCount(20);
                     shake.setAutoReverse(true);
                     shake.play();
+                    shake.setOnFinished(event1 -> System.out.println(tubeModel));
 //                    shake.setOnFinished(event1 -> {
 //                        added.setText("Precipitated!");
 //                        showAdded();
@@ -139,6 +141,11 @@ public class ExperimentSpace implements Initializable {
         if (event.getSource() == heatingEquipment) {
             if (!isHasHeatingEquipment()) {
                 setHasHeatingEquipment(true);
+
+                BunsenBurner bunsenBurner = new BunsenBurner();
+                getHistory().setBunsenBurner(bunsenBurner);
+                BurnerPane burner = new BurnerPane(bunsenBurner);
+
                 Lighter lighterModel = new Lighter();
                 getHistory().setLighter(lighterModel);
                 LighterPane lighter = new LighterPane(lighterModel);
@@ -147,11 +154,14 @@ public class ExperimentSpace implements Initializable {
                 lighter.setOnMouseClicked(e -> Platform.runLater(() -> {
                     lighter.getLighter().setOn(!lighter.getLighter().isOn());
                     lighter.setLighter(lighterModel);
+                    if (lighter.getLighter().isOn()) {
+                        bunsenBurner.setAirHole(true);
+                        bunsenBurner.setHeat(false);
+                        bunsenBurner.setFire(false);
+                        burner.paint();
+                    }
                 }));
 
-                BunsenBurner bunsenBurner = new BunsenBurner();
-                getHistory().setBunsenBurner(bunsenBurner);
-                BurnerPane burner = new BurnerPane(bunsenBurner);
                 getExperimentSpace().getChildren().addAll(lighter, burner);
                 burner.setLayoutY(110);
                 burner.setOnMouseDragged(e -> Platform.runLater(() -> burner.setDraggable(experimentSpace,e)));
@@ -557,10 +567,21 @@ public class ExperimentSpace implements Initializable {
     private RadioButton questionTube3;
     public void question(ActionEvent event) {
         if (event.getSource() == checkAns) {
-            String cation = cationAns.getText();
-            String anion = anionAns.getText();
-            String salt = saltAns.getText();
+            try {
+                String cation = cationAns.getText();
+                String anion = anionAns.getText();
+                String salt = saltAns.getText();
 
+
+                System.out.println("Your answer: " + cation + ", " + anion + ", " + salt + "\nCorrect answer: " + ((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName());
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                Alert noSelectedTube = new Alert(Alert.AlertType.WARNING);
+                noSelectedTube.setTitle("Warning");
+                noSelectedTube.setHeaderText("No selected test tube");
+                noSelectedTube.setContentText("Select a tube to add the substances to!");
+                noSelectedTube.showAndWait();
+            }
         }
 
         if (event.getSource() == showExplanation) {

@@ -42,5 +42,6 @@ public class TestIonsAndSalts {
         Anion SO4 = new Anion("(SO4)2-");
         System.out.println(SO4.getName());
         Salt NH42SO4 = new Salt(NH4, SO4);
+        System.out.println(NH42SO4.getName());
     }
 }
