@@ -15,7 +15,7 @@ public class TestExperimentSpace extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("ChemQAnalytica");
         stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
-//        scene.getStylesheets().add(TestGUI.class.getResource("View/logInPage.css").toExternalForm());
+//        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

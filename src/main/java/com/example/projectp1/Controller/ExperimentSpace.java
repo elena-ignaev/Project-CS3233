@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -68,6 +69,9 @@ public class ExperimentSpace implements Initializable {
         return addedSalt;
     }
 
+    @FXML
+    private AnchorPane anchorPane;
+
     // Pane
     @FXML
     private Pane experimentSpace;
@@ -94,6 +98,10 @@ public class ExperimentSpace implements Initializable {
     ObservableList<String> splintTypes = FXCollections.observableArrayList(
             "New splint", "Lighted splint", "Glowing splint"
     );
+
+    @FXML
+    private Button lightUp;
+
 
 
     /*
@@ -161,6 +169,21 @@ public class ExperimentSpace implements Initializable {
                         burner.paint();
                     }
                 }));
+
+                lightUp.setVisible(true);
+                lightUp.setOnAction(e -> {
+                    if (!lighter.getLighter().isOn()) {
+                        Alert lighterNotOn = new Alert(Alert.AlertType.WARNING);
+                        lighterNotOn.setTitle("Warning");
+                        lighterNotOn.setHeaderText("Lighter is not on yet");
+                        lighterNotOn.setContentText("Must turn on lighter before lighting bunsen burner");
+                        lighterNotOn.showAndWait();
+                    }
+                });
+                burner.setOnMouseClicked(event2-> {
+                    System.out.println(event2.getSceneX() + ", " + event2.getSceneY());
+                });
+
 
                 getExperimentSpace().getChildren().addAll(lighter, burner);
                 burner.setLayoutY(110);
@@ -341,7 +364,6 @@ public class ExperimentSpace implements Initializable {
         }
         return (index - 1);
     }
-
     public void showAdded() {
         added.setVisible(true);
         FadeTransition fade = new FadeTransition();
@@ -380,7 +402,6 @@ public class ExperimentSpace implements Initializable {
                             int anionIndex = random.nextInt(Database.getNumOfAnions());
                             Salt randomSalt = new Salt(new Cation(cationIndex, getDatabase()), new Anion(anionIndex, getDatabase()));
                             System.out.println(randomSalt.getName());
-
                         } else if (salts.getValue().equals("FeSO4")) { // blue-green
                             Cation Fe = new Cation("(Fe)2+");
                             Anion SO4 = new Anion("(SO4)2-");
@@ -463,7 +484,7 @@ public class ExperimentSpace implements Initializable {
                             resetTube();
                             TestingChemicals NaOH = new TestingChemicals("NaOH");
                             Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
-                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
+//                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
                             precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
                             precipitate.setDelay(Duration.millis(100));
@@ -475,8 +496,10 @@ public class ExperimentSpace implements Initializable {
                             resetTube();
                             TestingChemicals NH3 = new TestingChemicals("NH3");
                             Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
-                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
+//                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                            precipitate.setDelay(Duration.millis(100));
                             precipitate.play();
                         });
                     }
@@ -485,8 +508,11 @@ public class ExperimentSpace implements Initializable {
                             resetTube();
                             TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
                             Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
-                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
+//                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                            precipitate.setDelay(Duration.millis(100));
+                            precipitate.play();
                         });
                     }
                     if (event.getSource() == aqueousBaCl2) {
@@ -494,8 +520,11 @@ public class ExperimentSpace implements Initializable {
                             resetTube();
                             TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
                             Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
-                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
+//                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                            precipitate.setDelay(Duration.millis(100));
+                            precipitate.play();
                         });
                     }
                     if (tube.getSelectedToggle() != null) {
@@ -560,26 +589,37 @@ public class ExperimentSpace implements Initializable {
     @FXML
     private Button showExplanation;
     @FXML
+    private ToggleGroup questionTube;
+    @FXML
     private RadioButton questionTube1;
     @FXML
     private RadioButton questionTube2;
     @FXML
     private RadioButton questionTube3;
+    public int findTubeAnsIndex() {
+        int index=0;
+        String text = ((RadioButton) questionTube.getSelectedToggle()).getText();
+        String patternString = "[1-9]";
+        Pattern pattern = Pattern.compile(patternString);
+        Matcher matcher = pattern.matcher(text);
+        if (matcher.find()) {
+            index = Integer.parseInt(text.substring(matcher.start(), matcher.end()));
+        }
+        return (index - 1);
+    }
     public void question(ActionEvent event) {
         if (event.getSource() == checkAns) {
             try {
                 String cation = cationAns.getText();
                 String anion = anionAns.getText();
                 String salt = saltAns.getText();
-
-
-                System.out.println("Your answer: " + cation + ", " + anion + ", " + salt + "\nCorrect answer: " + ((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName());
+                System.out.println("Your answer: " + cation + ", " + anion + ", " + salt + "\nCorrect answer: " + ((TubePane) tubes.get(findTubeAnsIndex())).getTubeModel().getLayer3().getContent().getName());
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 Alert noSelectedTube = new Alert(Alert.AlertType.WARNING);
                 noSelectedTube.setTitle("Warning");
                 noSelectedTube.setHeaderText("No selected test tube");
-                noSelectedTube.setContentText("Select a tube to add the substances to!");
+                noSelectedTube.setContentText("Select or add a tube!");
                 noSelectedTube.showAndWait();
             }
         }
@@ -605,15 +645,8 @@ public class ExperimentSpace implements Initializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else {
-
         }
     }
-
-
-
-
-
 
 
 
@@ -764,6 +797,7 @@ public class ExperimentSpace implements Initializable {
             if (getHistory().getBunsenBurner() != null){
                 getHistory().setLighter(null);
                 components.removeIf(node -> node instanceof LighterPane);
+                lightUp.setVisible(false);
             } else {
                 toolNotInPane.showAndWait();
             }
@@ -814,6 +848,7 @@ public class ExperimentSpace implements Initializable {
         salts.setItems(saltsForQA);
         testPH.setItems(litmusPaperType);
         splint.setItems(splintTypes);
+        lightUp.setVisible(false);
         database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
         history = new History();
         added.setVisible(false);

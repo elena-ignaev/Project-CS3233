@@ -77,25 +77,34 @@
               <tabs>
                 <Tab closable="false" text="Equipment">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0" style="-fx-background-color: whitesmoke;">
+                    <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0" style="-fx-background-color: whitesmoke;">
                            <children>
                               <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <HBox prefHeight="67.0" prefWidth="203.0">
+                                    <VBox prefHeight="67.0" prefWidth="222.0">
                                        <children>
-                                          <Label text="Test pH:">
-                                             <HBox.margin>
-                                                <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <ComboBox fx:id="testPH" onAction="#addEquipment" prefHeight="25.0" prefWidth="103.0">
-                                             <HBox.margin>
-                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="263.0">
+                                             <children>
+                                                <Label text="Litmus paper">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <ComboBox fx:id="testPH" onAction="#addEquipment" prefHeight="25.0" prefWidth="103.0">
+                                                   <HBox.margin>
+                                                      <Insets top="5.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="263.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                    <VBox prefHeight="67.0" prefWidth="133.0">
+                                    </VBox>
+                                    <VBox prefHeight="67.0" prefWidth="149.0">
                                        <children>
                                           <Button fx:id="testTube" mnemonicParsing="false" onAction="#addEquipment" text="Test tube">
                                              <VBox.margin>
@@ -112,20 +121,32 @@
                                           <Insets />
                                        </HBox.margin>
                                     </VBox>
-                                    <HBox prefHeight="67.0" prefWidth="263.0">
+                                    <VBox prefHeight="67.0" prefWidth="199.0">
                                        <children>
-                                          <Label text="Splint:">
-                                             <HBox.margin>
-                                                <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <ComboBox fx:id="splint" onAction="#addEquipment" prefHeight="25.0" prefWidth="103.0">
-                                             <HBox.margin>
-                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="263.0">
+                                             <children>
+                                                <Label text="Splint:">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <ComboBox fx:id="splint" onAction="#addEquipment" prefHeight="25.0" prefWidth="119.0">
+                                                   <HBox.margin>
+                                                      <Insets top="5.0" />
+                                                   </HBox.margin>
+                                                </ComboBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="263.0">
+                                             <children>
+                                                <Button fx:id="lightUp" mnemonicParsing="false" text="Light up!" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </HBox>
                                        </children>
-                                    </HBox>
+                                    </VBox>
                                  </children>
                               </HBox>
                            </children>
@@ -138,21 +159,21 @@
                            <children>
                               <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <HBox prefHeight="67.0" prefWidth="196.0">
+                                    <HBox prefHeight="67.0" prefWidth="185.0">
                                        <children>
                                           <Label text="Salt:">
                                              <HBox.margin>
                                                 <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <ComboBox fx:id="salts" onAction="#addSubstance" prefHeight="25.0" prefWidth="133.0" promptText="Choose your salt">
+                                          <ComboBox fx:id="salts" onAction="#addSubstance" prefHeight="25.0" prefWidth="132.0" promptText="Choose your salt">
                                              <HBox.margin>
-                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                                                <Insets bottom="20.0" left="5.0" right="5.0" top="20.0" />
                                              </HBox.margin>
                                           </ComboBox>
                                        </children>
                                     </HBox>
-                                    <VBox prefHeight="67.0" prefWidth="287.0">
+                                    <VBox prefHeight="67.0" prefWidth="301.0">
                                        <children>
                                           <HBox prefHeight="34.0" prefWidth="283.0">
                                              <children>
@@ -168,7 +189,7 @@
                                                 </Button>
                                                 <Button fx:id="aqueousNH3" mnemonicParsing="false" onAction="#addSubstance" text="Aqueous NH3">
                                                    <HBox.margin>
-                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                      <Insets left="15.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Button>
                                              </children>
@@ -180,7 +201,7 @@
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <Button fx:id="aqueousAgNO3" mnemonicParsing="false" onAction="#addSubstance" text="Aqueous AgNO3">
+                                                <Button fx:id="aqueousAgNO3" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="115.0" text="Aqueous AgNO3">
                                                    <HBox.margin>
                                                       <Insets left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
@@ -194,7 +215,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="117.0">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="109.0">
                                        <children>
                                           <RadioButton fx:id="tube1" mnemonicParsing="false" text="Tube 1">
                                              <toggleGroup>
@@ -217,9 +238,12 @@
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="67.0" prefWidth="95.0">
                                        <children>
-                                          <RadioButton fx:id="questionTube1" mnemonicParsing="false" text="Tube 1" />
-                                          <RadioButton fx:id="questionTube2" mnemonicParsing="false" text="Tube 2" />
-                                          <RadioButton fx:id="questionTube3" mnemonicParsing="false" text="Tube 3" />
+                                          <RadioButton fx:id="questionTube1" mnemonicParsing="false" text="Tube 1">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="questionTube" />
+                                             </toggleGroup></RadioButton>
+                                          <RadioButton fx:id="questionTube2" mnemonicParsing="false" text="Tube 2" toggleGroup="$questionTube" />
+                                          <RadioButton fx:id="questionTube3" mnemonicParsing="false" text="Tube 3" toggleGroup="$questionTube" />
                                        </children>
                                     </VBox>
                                     <VBox prefHeight="67.0" prefWidth="136.0">

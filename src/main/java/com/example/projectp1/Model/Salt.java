@@ -20,17 +20,23 @@ public class Salt extends Substance{
 
             String name = "";
 
-            if (oxidationStateAnion != 1) {
-                name = name.concat("(" + cation.getElement() + ")" + oxidationStateAnion);
+            if (oxidationStateAnion != oxidationStateCation){
+                if (oxidationStateAnion != 1) {
+                    name = name.concat("(" + cation.getElement() + ")" + oxidationStateAnion);
+                } else {
+                    name = name.concat(cation.getElement());
+                }
+
+                if (oxidationStateCation != 1) {
+                    name = name.concat("(" + anion.getElement() + ")" + oxidationStateCation);
+                } else {
+                    name = name.concat(anion.getElement());
+                }
             } else {
-                name = name.concat(cation.getElement());
+                name = name.concat(cation.getElement() + anion.getElement());
             }
 
-            if (oxidationStateCation != 1) {
-                name = name.concat("(" + anion.getElement() + ")" + oxidationStateCation);
-            } else {
-                name = name.concat(anion.getElement());
-            }
+
             this.setName(name);
             this.cation = cation;
             this.anion = anion;
