@@ -36,16 +36,12 @@ public class Cation extends Substance{
     public Cation(int location, Database database) {
         super("");
         try {
-            if (validName()){
                 this.element = database.getCationElements().get(location);
                 this.charge = database.getCationCharge().get(location);
                 this.setName(database.getCationElements().get(location)
                         + database.getCationCharge().get(location));
                 this.withNaOH = database.getCationReactWithNaOH().get(location);
                 this.withNH3 = database.getCationReactWithNH3().get(location);
-            } else {
-                System.err.println("Invalid Cation name");
-            }
         } catch (IndexOutOfBoundsException ex) {
             System.out.println("Choose a number from 0-"+ (database.getCationElements().size() - 1) + " only");
         }

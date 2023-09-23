@@ -398,10 +398,16 @@ public class ExperimentSpace implements Initializable {
                         if (salts.getValue().equals("Random")) {
                             resetTube();
                             Random random = new Random();
-                            int cationIndex = random.nextInt(Database.getNumOfCations());
-                            int anionIndex = random.nextInt(Database.getNumOfAnions());
-                            Salt randomSalt = new Salt(new Cation(cationIndex, getDatabase()), new Anion(anionIndex, getDatabase()));
-                            System.out.println(randomSalt.getName());
+                            int cationIndex = random.nextInt(getDatabase().getCationCharge().size());
+                            Cation cation = new Cation(cationIndex, getDatabase());
+                            int anionIndex = random.nextInt(getDatabase().getAnionCharge().size());
+                            Anion anion = new Anion(anionIndex, getDatabase());
+                            Salt randomSalt = new Salt(cation, anion);
+                            Layer newLayer = new Layer(randomSalt, false);
+                            ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(newLayer);
+
+                            ((TubePane) tubes.get(findTubeIndex())).setColor3(newLayer.getColor());
+                            System.out.println(randomSalt.getName() + ", " + newLayer.getColor());
                         } else if (salts.getValue().equals("FeSO4")) { // blue-green
                             Cation Fe = new Cation("(Fe)2+");
                             Anion SO4 = new Anion("(SO4)2-");

@@ -35,8 +35,6 @@ public class Salt extends Substance{
             } else {
                 name = name.concat(cation.getElement() + anion.getElement());
             }
-
-
             this.setName(name);
             this.cation = cation;
             this.anion = anion;

@@ -5,5 +5,3 @@ Mg,2+,ghostwhite-insoluble,white-insoluble
 Zn,2+,ghostwhite-soluble-colorless,white-soluble-colorless
 Cu,2+,dodgerblue-insoluble,light_blue-soluble-deep_blue
 Fe,2+,medium turquoise-insoluble,green-insoluble
-Pb,2+,white-soluble-colorless,white-insoluble
-Al,3+,white-soluble-colorless,white-insoluble
