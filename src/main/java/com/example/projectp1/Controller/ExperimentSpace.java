@@ -394,9 +394,8 @@ public class ExperimentSpace implements Initializable {
                 // "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2"
                 if (event.getSource() == salts) {
                     resetTube();
-                    setAddedSalt(true);
-                    if (salts.getValue() != null){
-                        ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
+                    if (salts.getValue() != null ){
+                        setAddedSalt(true);
                         if (salts.getValue().equals("Random")) {
                             resetTube();
                             Random random = new Random();
@@ -475,7 +474,7 @@ public class ExperimentSpace implements Initializable {
                         }
                     }
                 }
-                if (isAddedSalt()) {
+                if (isAddedSalt() && tube.getSelectedToggle() != null) {
                     /*
                     TODO:
                     - make exception for adding NaOH to ammonium salts (releasing NH3 instead)
@@ -487,8 +486,7 @@ public class ExperimentSpace implements Initializable {
                     precipitate.setCycleCount(1);
                     precipitate.setAutoReverse(false);
 
-                    FillTransition changeColor = new FillTransition(Duration.millis(2000), ((TubePane) tubes.get(findTubeIndex())).getLayer3());
-                    changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
+                    FillTransition changeColor = new FillTransition(Duration.millis(2000));
                     changeColor.setDelay(Duration.millis(1000));
                     changeColor.setCycleCount(1);
                     changeColor.setAutoReverse(false);
@@ -525,6 +523,8 @@ public class ExperimentSpace implements Initializable {
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
                             System.out.println(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName());
+                            changeColor.setShape(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                            changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("Cl")){
                                 changeColor.setToValue(Color.GHOSTWHITE);
                                 changeColor.play();
@@ -550,9 +550,10 @@ public class ExperimentSpace implements Initializable {
                         });
                     }
                     if (tube.getSelectedToggle() != null) {
+                        added.setText("");
                         showAdded();
                     }
-                } else {
+                } else if (!isAddedSalt()) {
                     Alert noSalt = new Alert(Alert.AlertType.WARNING);
                     noSalt.setTitle("Warning");
                     noSalt.setHeaderText("No salt");
@@ -575,7 +576,6 @@ public class ExperimentSpace implements Initializable {
             noSelectedTube.showAndWait();
             if (!noSelectedTube.isShowing()) {
                 salts.getSelectionModel().clearSelection();
-                salts.setValue(null);
             }
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
@@ -843,6 +843,8 @@ public class ExperimentSpace implements Initializable {
         salts.getSelectionModel().clearSelection();
         testPH.getSelectionModel().clearSelection();
         splint.getSelectionModel().clearSelection();
+        tube.getSelectedToggle().setSelected(false);
+
     }
 
     public void aboutPage(ActionEvent event) {
