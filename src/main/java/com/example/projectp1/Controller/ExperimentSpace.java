@@ -5,6 +5,7 @@ import com.example.projectp1.Model.*;
 import com.example.projectp1.TestExperimentSpace;
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
+import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -23,6 +24,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -104,7 +107,8 @@ public class ExperimentSpace implements Initializable {
     @FXML
     private Button lightUp;
 
-
+    @FXML
+    private Rectangle aluminiumFoil;
 
     /*
     Adding equipments to experiment space
@@ -180,6 +184,8 @@ public class ExperimentSpace implements Initializable {
                         lighterNotOn.setHeaderText("Lighter is not on yet");
                         lighterNotOn.setContentText("Must turn on lighter before lighting bunsen burner");
                         lighterNotOn.showAndWait();
+                    } else {
+                        burner.getFire().setOpacity(1);
                     }
                 });
                 burner.setOnMouseClicked(event2-> {
@@ -388,6 +394,7 @@ public class ExperimentSpace implements Initializable {
     - There is a selected test tube for adding the substances
     - The selected test tube already contains salt to be test on
      */
+    private boolean ammoniaProduced = false;
     public void addSubstance(ActionEvent event) {
         try {
             if (isHasTestTube()) {
@@ -498,9 +505,27 @@ public class ExperimentSpace implements Initializable {
                             Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
-                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
-                            precipitate.setDelay(Duration.millis(100));
-                            precipitate.play();
+                            if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NO3")){
+                                aluminiumFoil.setVisible(true);
+                                lightUp.setText("Add foil");
+                                lightUp.setVisible(true);
+                                lightUp.setOnAction(e -> {
+                                    aluminiumFoil.setX(((TubePane) tubes.get(findTubeIndex())).getLayoutX());
+                                    Path path = new Path();
+
+                                    PathTransition pathTransition = new PathTransition(Duration.millis(2000), aluminiumFoil);
+
+                                });
+                            }
+                            if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NH4")){
+                                ammoniaProduced = true;
+                                Layer ammonia = new Layer(new Gas("NH3", database), true);
+                                ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
+                            } else {
+                                precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                                precipitate.setDelay(Duration.millis(100));
+                                precipitate.play();
+                            }
                         });
                     }
                     if (event.getSource() == aqueousNH3) {
@@ -528,8 +553,9 @@ public class ExperimentSpace implements Initializable {
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("Cl")){
                                 changeColor.setToValue(Color.GHOSTWHITE);
                                 changeColor.play();
-                            } else if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("I")) {
-                                changeColor.setToValue(Color.KHAKI);
+                            }
+                            if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("I")) {
+                                changeColor.setToValue(Color.YELLOW);
                                 changeColor.play();
                                 changeColor.setOnFinished(e -> {
                                     System.out.println("Completed");
@@ -544,6 +570,12 @@ public class ExperimentSpace implements Initializable {
                             Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            changeColor.setShape((((TubePane) tubes.get(findTubeIndex())).getLayer3()));
+                            changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
+                            if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("SO4")){
+                                changeColor.setToValue(Color.GHOSTWHITE);
+                                changeColor.play();
+                            }
 //                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
 //                            precipitate.setDelay(Duration.millis(100));
 //                            precipitate.play();
@@ -876,6 +908,7 @@ public class ExperimentSpace implements Initializable {
         database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
         history = new History();
         added.setVisible(false);
+        aluminiumFoil.setVisible(false);
     }
 
 }

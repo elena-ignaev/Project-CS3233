@@ -14,6 +14,19 @@ public class Gas extends Substance {
         }
     }
 
+    public Gas(String name, Database database) {
+        super(name);
+        for (int i = 0; i < database.getGasName().size(); i++) {
+            if (name.equals(database.getGasName().get(i))) {
+                this.test = database.getGasTest().get(i);
+                this.result = database.getGasResult().get(i);
+            } else {
+                System.out.println("Invalid gas name");
+            }
+        }
+
+    }
+
     public Gas(String name, String test, String result) {
         super(name);
         this.test = test;
