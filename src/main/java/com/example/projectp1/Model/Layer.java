@@ -31,19 +31,21 @@ public class Layer {
     public Layer(Substance content, boolean isClear) {
         this.content = content;
             // Fe(II), Ca, Mg, Zn, Fe(III), Cu
+        if (content instanceof Salt) {
             if (((Salt) content).getName().contains("Cu")) {
-                this.color="dodgerblue";
+                this.color = "dodgerblue";
             } else if (((Salt) content).getCation().getName().contains("(Fe)3+")) {
-                this.color="aquamarine";
+                this.color = "aquamarine";
             } else if (((Salt) content).getName().contains("Ca")) {
-                this.color="whitesmoke";
+                this.color = "whitesmoke";
             } else if (((Salt) content).getName().contains("Mg")) {
-                this.color="whitesmoke";
+                this.color = "whitesmoke";
             } else if (((Salt) content).getName().contains("Zn")) {
-                this.color="whitesmoke";
+                this.color = "whitesmoke";
             } else if (((Salt) content).getCation().getName().contains("(Fe)2+")) {
-                this.color="firebrick";
+                this.color = "firebrick";
             }
+        }
         this.isClear = isClear;
     }
 

@@ -16,13 +16,17 @@ public class Gas extends Substance {
 
     public Gas(String name, Database database) {
         super(name);
+        boolean validGas = false;
         for (int i = 0; i < database.getGasName().size(); i++) {
             if (name.equals(database.getGasName().get(i))) {
                 this.test = database.getGasTest().get(i);
                 this.result = database.getGasResult().get(i);
-            } else {
-                System.out.println("Invalid gas name");
+                validGas = true;
+                break;
             }
+        }
+        if (!validGas) {
+            System.out.println("Invalid gas name");
         }
 
     }

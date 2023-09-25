@@ -511,10 +511,15 @@ public class ExperimentSpace implements Initializable {
                                 lightUp.setVisible(true);
                                 lightUp.setOnAction(e -> {
                                     aluminiumFoil.setX(((TubePane) tubes.get(findTubeIndex())).getLayoutX());
-                                    Path path = new Path();
-
-                                    PathTransition pathTransition = new PathTransition(Duration.millis(2000), aluminiumFoil);
-
+                                    aluminiumFoil.setOnMouseDragged(event1 -> {
+                                        Bounds bounds = getExperimentSpace().getLayoutBounds();
+                                        if (bounds.getMinX() <= event1.getSceneX() && event1.getSceneX() <= bounds.getMaxX()-aluminiumFoil.getWidth() && bounds.getMinY() <= event1.getSceneY() && event1.getSceneY() <= bounds.getMaxY()-aluminiumFoil.getHeight()) {
+                                            Platform.runLater(() -> {
+                                                aluminiumFoil.setLayoutX(event1.getSceneX());
+                                                aluminiumFoil.setLayoutY(event1.getSceneY());
+                                            });
+                                        }
+                                    });
                                 });
                             }
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NH4")){
