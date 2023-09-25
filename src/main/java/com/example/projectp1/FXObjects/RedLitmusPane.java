@@ -30,12 +30,16 @@ public class RedLitmusPane extends DraggablePane implements Paintable {
 
     @Override
     public void paint() {
-        Rectangle paper = new Rectangle(40,80);
+        Rectangle paper = new Rectangle(40,120);
         paper.setFill(Color.SALMON);
+        paper.setStroke(Color.BLACK);
+        paper.setStrokeWidth(0.5);
 
-        Rectangle changeable = new Rectangle(40, 80);
+        Rectangle changeable = new Rectangle(40, 40);
         changeable.setFill(Color.SALMON);
-        changeable.setY(80);
+        changeable.setY(120);
+        changeable.setStroke(Color.BLACK);
+        changeable.setStrokeWidth(0.5);
 
         if (this.getRedLitmus() != null){
             if (this.getRedLitmus().isChanged()) {
@@ -44,6 +48,7 @@ public class RedLitmusPane extends DraggablePane implements Paintable {
         }
 
         setPrefSize(40,160);
+
 
         getChildren().clear();
         getChildren().addAll(paper, changeable);

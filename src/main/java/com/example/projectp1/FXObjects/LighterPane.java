@@ -123,6 +123,8 @@ public class LighterPane extends DraggablePane implements Paintable {
         //Head of the lighter where fire comes out
         Rectangle head = new Rectangle(160, 10);
         head.setFill(Color.DARKGRAY);
+        head.setStroke(Color.BLACK);
+        head.setStrokeWidth(0.5);
 
         //Body of the lighter
         Rectangle body = new Rectangle(100, 40);
@@ -135,6 +137,8 @@ public class LighterPane extends DraggablePane implements Paintable {
 
         Shape actualBody = Shape.subtract(body, space);
         actualBody.setFill(Color.RED);
+        actualBody.setStroke(Color.BLACK);
+        actualBody.setStrokeWidth(0.5);
 
         setPrefSize(160,40);
 

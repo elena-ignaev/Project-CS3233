@@ -60,6 +60,8 @@ public class SplintPane extends DraggablePane implements Paintable {
         rectangle.setArcHeight(35.0d);
         rectangle.setArcWidth(35.0d);
         rectangle.setFill(Color.BISQUE);
+        rectangle.setStroke(Color.BLACK);
+        rectangle.setStrokeWidth(0.5);
 
         Circle fire = new Circle(5);
         fire.setCenterY(this.getSplintThickness()/2);

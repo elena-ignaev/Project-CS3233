@@ -101,28 +101,38 @@ public class BurnerPane extends DraggablePane implements Paintable {
 
         Shape base = Shape.subtract(preBase, cutBase);
         base.setFill(Color.BLUE);
+        base.setStroke(Color.BLACK);
+        base.setStrokeWidth(0.5);
 
         getHolePlace().setX(20);
         getHolePlace().setY(-40);
         getHolePlace().setFill(Color.DARKGRAY);
         getHolePlace().setArcHeight(5.0d);
         getHolePlace().setArcWidth(5.0d);
+        getHolePlace().setStroke(Color.BLACK);
+        getHolePlace().setStrokeWidth(0.5);
 
         getAirHole().setCenterX(35);
         getAirHole().setCenterY(-15);
         getAirHole().setFill(Color.DARKGRAY);
+        getAirHole().setStroke(Color.BLACK);
+        getAirHole().setStrokeWidth(0.5);
 
         getSecondLevel().setX(25);
         getSecondLevel().setY(-80);
         getSecondLevel().setFill(Color.DARKGRAY);
         getSecondLevel().setArcWidth(5.0d);
         getSecondLevel().setArcHeight(5.0d);
+        getSecondLevel().setStroke(Color.BLACK);
+        getSecondLevel().setStrokeWidth(0.5);
 
         getThirdLevel().setX(30);
         getThirdLevel().setY(-105);
         getThirdLevel().setFill(Color.DARKGRAY);
         getThirdLevel().setArcWidth(5.0d);
         getThirdLevel().setArcHeight(5.0d);
+        getThirdLevel().setStroke(Color.BLACK);
+        getThirdLevel().setStrokeWidth(0.5);
 
         getFire().setCenterX(35);
         getFire().setCenterY(-105);

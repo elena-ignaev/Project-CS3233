@@ -31,12 +31,16 @@ public class BlueLitmusPane extends DraggablePane implements Paintable {
 
     @Override
     public void paint() {
-        Rectangle paper = new Rectangle(40,80);
+        Rectangle paper = new Rectangle(40,120);
         paper.setFill(Color.LIGHTSKYBLUE);
+        paper.setStroke(Color.BLACK);
+        paper.setStrokeWidth(0.5);
 
-        Rectangle changeable = new Rectangle(40, 80);
+        Rectangle changeable = new Rectangle(40, 40);
         changeable.setFill(Color.LIGHTSKYBLUE);
         changeable.setY(80);
+        changeable.setStroke(Color.BLACK);
+        changeable.setStrokeWidth(0.5);
 
         if (this.getBlueLitmus() != null){
             if (this.getBlueLitmus().isChanged()) {
