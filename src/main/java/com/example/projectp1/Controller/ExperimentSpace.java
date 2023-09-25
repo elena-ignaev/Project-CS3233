@@ -5,7 +5,6 @@ import com.example.projectp1.Model.*;
 import com.example.projectp1.TestExperimentSpace;
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
-import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -15,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,17 +23,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -188,11 +183,7 @@ public class ExperimentSpace implements Initializable {
                         burner.getFire().setOpacity(1);
                     }
                 });
-                burner.setOnMouseClicked(event2-> {
-                    System.out.println(event2.getX() + ", " + event2.getY());
-                });
-
-
+                burner.setOnMouseClicked(event2-> System.out.println(event2.getX() + ", " + event2.getY()));
                 getExperimentSpace().getChildren().addAll(lighter, burner);
                 burner.setLayoutY(110);
                 burner.setOnMouseDragged(e -> Platform.runLater(() -> burner.setDraggable(experimentSpace,e)));
@@ -373,6 +364,7 @@ public class ExperimentSpace implements Initializable {
         return (index - 1);
     }
     public void showAdded() {
+        added.setAlignment(Pos.CENTER);
         added.setVisible(true);
         FadeTransition fade = new FadeTransition();
         fade.setNode(added);
@@ -380,7 +372,7 @@ public class ExperimentSpace implements Initializable {
         fade.setToValue(0);
         fade.setAutoReverse(false);
         fade.setCycleCount(1);
-        fade.setDelay(Duration.millis(1000));
+        fade.setDelay(Duration.millis(3000));
         fade.setDuration(Duration.millis(1000));
         fade.play();
         fade.setOnFinished(e -> added.setVisible(false));
@@ -392,7 +384,7 @@ public class ExperimentSpace implements Initializable {
     Requirements:
     - There is at least one test tube in the experiment space
     - There is a selected test tube for adding the substances
-    - The selected test tube already contains salt to be test on
+    - The selected test tube already contains salt to be tested on
      */
     private boolean ammoniaProduced = false;
     public void addSubstance(ActionEvent event) {
@@ -507,20 +499,25 @@ public class ExperimentSpace implements Initializable {
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NO3")){
                                 aluminiumFoil.setVisible(true);
+                                added.setText("You are provided with aluminium foil");
+                                added.setVisible(true);
+                                showAdded();
+
                                 lightUp.setText("Add foil");
                                 lightUp.setVisible(true);
-                                lightUp.setOnAction(e -> {
-                                    aluminiumFoil.setX(((TubePane) tubes.get(findTubeIndex())).getLayoutX());
+                                lightUp.setOnAction(e -> Platform.runLater(() ->{
+                                    aluminiumFoil.setX(tubes.get(findTubeIndex()).getLayoutX());
+                                    aluminiumFoil.setY(tubes.get(findTubeIndex()).getLayoutY());
                                     aluminiumFoil.setOnMouseDragged(event1 -> {
                                         Bounds bounds = getExperimentSpace().getLayoutBounds();
                                         if (bounds.getMinX() <= event1.getSceneX() && event1.getSceneX() <= bounds.getMaxX()-aluminiumFoil.getWidth() && bounds.getMinY() <= event1.getSceneY() && event1.getSceneY() <= bounds.getMaxY()-aluminiumFoil.getHeight()) {
                                             Platform.runLater(() -> {
-                                                aluminiumFoil.setLayoutX(event1.getSceneX());
-                                                aluminiumFoil.setLayoutY(event1.getSceneY());
+                                                aluminiumFoil.setLayoutX(event1.getX());
+                                                aluminiumFoil.setLayoutY(event1.getY());
                                             });
                                         }
                                     });
-                                });
+                                }));
                             }
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NH4")){
                                 ammoniaProduced = true;
@@ -673,6 +670,20 @@ public class ExperimentSpace implements Initializable {
                 String anion = anionAns.getText();
                 String salt = saltAns.getText();
                 System.out.println("Your answer: " + cation + ", " + anion + ", " + salt + "\nCorrect answer: " + ((TubePane) tubes.get(findTubeAnsIndex())).getTubeModel().getLayer3().getContent().getName());
+                if (salt.equals(((TubePane) tubes.get(findTubeAnsIndex())).getTubeModel().getLayer3().getContent().getName())) {
+                    Alert correctAnswer = new Alert(Alert.AlertType.INFORMATION);
+                    correctAnswer.setTitle("Correct answer");
+                    correctAnswer.setHeaderText("Good job! You got the salt");
+                    correctAnswer.setContentText("Proceed to Explanation tab for reasons why");
+                } else {
+                    Alert wrongAnswer = new Alert(Alert.AlertType.ERROR);
+                    wrongAnswer.setTitle("Wrong answer");
+                    wrongAnswer.setHeaderText("Your answer is not correct. Try again!");
+                    wrongAnswer.setContentText("Continue the experiment or refer to explanation");
+                    saltAns.clear();
+                    anionAns.clear();
+                    cationAns.clear();
+                }
             } catch (NullPointerException e) {
                 e.printStackTrace();
                 Alert noSelectedTube = new Alert(Alert.AlertType.WARNING);
@@ -680,6 +691,13 @@ public class ExperimentSpace implements Initializable {
                 noSelectedTube.setHeaderText("No selected test tube");
                 noSelectedTube.setContentText("Select or add a tube!");
                 noSelectedTube.showAndWait();
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                Alert noSuchTube = new Alert(Alert.AlertType.WARNING);
+                noSuchTube.setTitle("Warning");
+                noSuchTube.setHeaderText("Tube is not in experiment space");
+                noSuchTube.setContentText("Make sure the tube has been added!");
+                noSuchTube.showAndWait();
             }
         }
 
@@ -884,6 +902,10 @@ public class ExperimentSpace implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event
+     */
     public void aboutPage(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("about-programmer.fxml"));

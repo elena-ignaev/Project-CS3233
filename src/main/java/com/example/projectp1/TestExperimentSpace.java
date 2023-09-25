@@ -12,7 +12,7 @@ public class TestExperimentSpace extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("experiment-space.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load(),900,600);
         stage.setTitle("ChemQAnalytica");
         stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
 //        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());

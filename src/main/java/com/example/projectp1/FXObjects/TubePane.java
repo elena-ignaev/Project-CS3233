@@ -195,6 +195,8 @@ public class TubePane extends DraggablePane implements Paintable {
         empty.setX(0);
         empty.setY(0);
         setEmpty(empty);
+        empty.setStroke(Color.BLACK);
+        empty.setStrokeWidth(1.0);
 
         //First layer of tube
         Rectangle layer1 = new Rectangle(this.getDiameter(), this.getLayerHeight());
@@ -202,6 +204,8 @@ public class TubePane extends DraggablePane implements Paintable {
         layer1.setOpacity(getTransparency1());
         layer1.setY(this.getEmptyHeight());
         setLayer1(layer1);
+        layer1.setStroke(Color.BLACK);
+        layer1.setStrokeWidth(1.0);
 
         //Second layer of tube
         Rectangle layer2 = new Rectangle(this.getDiameter(), this.getLayerHeight());
@@ -209,20 +213,28 @@ public class TubePane extends DraggablePane implements Paintable {
         layer2.setOpacity(this.getTransparency2());
         layer2.setY(this.getLayerHeight() + this.getEmptyHeight());
         setLayer2(layer2);
+        layer2.setStroke(Color.BLACK);
+        layer2.setStrokeWidth(1.0);
 
         //Third layer of tube
         Circle bottom = new Circle(this.getDiameter()/2);
+
         bottom.setCenterX(this.getDiameter()/2);
         bottom.setCenterY(this.getLayerHeight()*2 + this.getEmptyHeight());
-        Shape layer3 = Shape.subtract(bottom, layer2);
-        layer3.setFill(Color.web(getColor3())); //layer for formation of precipitate
-        layer3.setOpacity(getTransparency3());
-        setLayer3(layer3);
+        bottom.setFill(Color.web(getColor3())); //layer for formation of precipitate
+        bottom.setOpacity(getTransparency3());
+        bottom.setStroke(Color.BLACK);
+        bottom.setStrokeWidth(1.0);
+        setLayer3(bottom);
+        bottom.toBack();
+        layer2.toFront();
+        layer1.toFront();
 
-        setPrefSize(this.getEmptyHeight() + this.getLayerHeight()*3, this.getDiameter());
+        setPrefSize(this.getDiameter(), this.getEmptyHeight() + this.getLayerHeight()*3);
 
         getChildren().clear();
-        getChildren().addAll(empty, layer1, layer2, layer3);
+        getChildren().addAll(empty, layer1, bottom, layer2);
+        this.setOpacity(0.75);
     }
     @Override
     public void setDraggable(Pane parent, MouseEvent e){
