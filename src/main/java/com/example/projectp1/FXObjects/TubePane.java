@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
@@ -197,6 +198,13 @@ public class TubePane extends DraggablePane implements Paintable {
         setEmpty(empty);
         empty.setStroke(Color.BLACK);
         empty.setStrokeWidth(1.0);
+        Line line = new Line();
+        line.setStartX(0);
+        line.setEndX(getDiameter());
+        line.setStartY(getEmptyHeight());
+        line.setEndY(getEmptyHeight());
+        line.setFill(Color.LIGHTGREY);
+        line.setOpacity(0.75);
 
         //First layer of tube
         Rectangle layer1 = new Rectangle(this.getDiameter(), this.getLayerHeight());

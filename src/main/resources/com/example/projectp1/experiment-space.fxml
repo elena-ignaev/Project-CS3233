@@ -106,16 +106,16 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="67.0" prefWidth="149.0">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="149.0">
                                        <children>
-                                          <Button fx:id="testTube" mnemonicParsing="false" onAction="#addEquipment" text="Test tube">
+                                          <Button fx:id="testTube" alignment="CENTER" mnemonicParsing="false" onAction="#addEquipment" text="Test tube" VBox.vgrow="ALWAYS">
                                              <VBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                <Insets bottom="3.0" />
                                              </VBox.margin>
                                           </Button>
-                                          <Button fx:id="heatingEquipment" mnemonicParsing="false" onAction="#addEquipment" text="Heating Equipment">
+                                          <Button fx:id="heatingEquipment" alignment="CENTER" mnemonicParsing="false" onAction="#addEquipment" text="Heating Equipment" VBox.vgrow="ALWAYS">
                                              <VBox.margin>
-                                                <Insets bottom="5.0" left="5.0" right="5.0" />
+                                                <Insets top="3.0" />
                                              </VBox.margin>
                                           </Button>
                                        </children>
@@ -123,7 +123,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox prefHeight="67.0" prefWidth="199.0">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="199.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="263.0">
                                              <children>
@@ -175,45 +175,51 @@
                                           </ComboBox>
                                        </children>
                                     </HBox>
-                                    <VBox prefHeight="67.0" prefWidth="301.0">
+                                    <VBox alignment="CENTER" prefHeight="50.0" prefWidth="301.0">
                                        <children>
-                                          <HBox prefHeight="34.0" prefWidth="283.0">
+                                          <HBox alignment="CENTER" prefHeight="25.0" prefWidth="301.0">
                                              <children>
-                                                <Label text="For cation:">
+                                                <Label prefHeight="20.0" prefWidth="60.0" text="For cation:">
                                                    <HBox.margin>
-                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <Button fx:id="aqueousNaOH" mnemonicParsing="false" onAction="#addSubstance" text="Aqueous NaOH">
+                                                <Button fx:id="aqueousNaOH" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="110.0" text="Aqueous NaOH">
                                                    <HBox.margin>
-                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Button fx:id="aqueousNH3" mnemonicParsing="false" onAction="#addSubstance" text="Aqueous NH3">
+                                                <Button fx:id="aqueousNH3" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="110.0" text="Aqueous NH3">
                                                    <HBox.margin>
-                                                      <Insets left="15.0" right="5.0" top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Button>
                                              </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
                                           </HBox>
-                                          <HBox prefHeight="100.0" prefWidth="200.0">
+                                          <HBox alignment="CENTER" prefHeight="25.0" prefWidth="301.0">
                                              <children>
-                                                <Label text="For anion:">
+                                                <Label prefHeight="20.0" prefWidth="60.0" text="For anion:">
                                                    <HBox.margin>
-                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                      <Insets top="5.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <Button fx:id="aqueousAgNO3" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="115.0" text="Aqueous AgNO3">
+                                                <Button fx:id="aqueousAgNO3" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="110.0" text="Aqueous AgNO3">
                                                    <HBox.margin>
-                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Button fx:id="aqueousBaCl2" mnemonicParsing="false" onAction="#addSubstance" text="Aqueous BaCl2">
+                                                <Button fx:id="aqueousBaCl2" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="110.0" text="Aqueous BaCl2">
                                                    <HBox.margin>
-                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                    </HBox.margin>
                                                 </Button>
                                              </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
                                           </HBox>
                                        </children>
                                     </VBox>
@@ -222,8 +228,14 @@
                                           <RadioButton fx:id="tube1" mnemonicParsing="false" text="Tube 1">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="tube" />
-                                             </toggleGroup></RadioButton>
-                                          <RadioButton fx:id="tube2" mnemonicParsing="false" text="Tube 2" toggleGroup="$tube" />
+                                             </toggleGroup>
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin></RadioButton>
+                                          <RadioButton fx:id="tube2" mnemonicParsing="false" text="Tube 2" toggleGroup="$tube">
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin></RadioButton>
                                           <RadioButton fx:id="tube3" mnemonicParsing="false" text="Tube 3" toggleGroup="$tube" />
                                        </children>
                                     </VBox>
@@ -243,8 +255,14 @@
                                           <RadioButton fx:id="questionTube1" mnemonicParsing="false" text="Tube 1">
                                              <toggleGroup>
                                                 <ToggleGroup fx:id="questionTube" />
-                                             </toggleGroup></RadioButton>
-                                          <RadioButton fx:id="questionTube2" mnemonicParsing="false" text="Tube 2" toggleGroup="$questionTube" />
+                                             </toggleGroup>
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin></RadioButton>
+                                          <RadioButton fx:id="questionTube2" mnemonicParsing="false" text="Tube 2" toggleGroup="$questionTube">
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin></RadioButton>
                                           <RadioButton fx:id="questionTube3" mnemonicParsing="false" text="Tube 3" toggleGroup="$questionTube" />
                                        </children>
                                     </VBox>
