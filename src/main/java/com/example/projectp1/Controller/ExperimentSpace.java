@@ -675,11 +675,13 @@ public class ExperimentSpace implements Initializable {
                     correctAnswer.setTitle("Correct answer");
                     correctAnswer.setHeaderText("Good job! You got the salt");
                     correctAnswer.setContentText("Proceed to Explanation tab for reasons why");
+                    correctAnswer.show();
                 } else {
                     Alert wrongAnswer = new Alert(Alert.AlertType.ERROR);
                     wrongAnswer.setTitle("Wrong answer");
                     wrongAnswer.setHeaderText("Your answer is not correct. Try again!");
                     wrongAnswer.setContentText("Continue the experiment or refer to explanation");
+                    wrongAnswer.show();
                     saltAns.clear();
                     anionAns.clear();
                     cationAns.clear();

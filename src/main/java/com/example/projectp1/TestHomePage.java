@@ -15,6 +15,7 @@ public class TestHomePage extends Application {
         stage.setTitle("ChemQAnalytica");
 //        scene.getStylesheets().add(TestGUI.class.getResource("View/logInPage.css").toExternalForm());
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 }

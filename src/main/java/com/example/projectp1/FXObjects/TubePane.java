@@ -235,8 +235,6 @@ public class TubePane extends DraggablePane implements Paintable {
         bottom.setStrokeWidth(1.0);
         setLayer3(bottom);
         bottom.toBack();
-        layer2.toFront();
-        layer1.toFront();
 
         setPrefSize(this.getDiameter(), this.getEmptyHeight() + this.getLayerHeight()*3);
 

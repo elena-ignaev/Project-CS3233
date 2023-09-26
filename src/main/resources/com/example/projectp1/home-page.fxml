@@ -62,11 +62,11 @@
                         <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="2">
                            <children>
                               <Label layoutX="11.0" layoutY="97.0" text="Your experiment 2" />
-                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                              <Button fx:id="experiment2" layoutX="17.0" layoutY="17.0" mnemonicParsing="false" onAction="#accessSpace" prefHeight="80.0" prefWidth="80.0">
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@chemical.png" />
+                                          <Image url="@avatarChemistry.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -76,18 +76,18 @@
                         <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="1">
                            <children>
                               <Label layoutX="11.0" layoutY="97.0" text="Your experiment 1" />
-                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0">
+                              <Button fx:id="experiment1" layoutX="17.0" layoutY="17.0" mnemonicParsing="false" onAction="#accessSpace" prefHeight="80.0" prefWidth="80.0">
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@chemical.png" />
+                                          <Image url="@avatarChemistry.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
                            </children>
                         </Pane>
-                        <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="+" GridPane.halignment="CENTER">
+                        <Button fx:id="newSpace" mnemonicParsing="false" onAction="#createNew" prefHeight="80.0" prefWidth="80.0" text="+" GridPane.halignment="CENTER">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -130,7 +130,7 @@
                         <Pane prefHeight="100.0" prefWidth="120.0">
                            <children>
                               <Label layoutX="28.0" layoutY="97.0" text="New notes" />
-                              <Button layoutX="17.0" layoutY="17.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" text="+">
+                              <Button fx:id="newNote" layoutX="17.0" layoutY="17.0" mnemonicParsing="false" onAction="#createNew" prefHeight="80.0" prefWidth="80.0" text="+">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
@@ -144,7 +144,7 @@
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@chemical.png" />
+                                          <Image url="@avatarChemistry.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
@@ -158,7 +158,7 @@
                                  <graphic>
                                     <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@chemical.png" />
+                                          <Image url="@avatarChemistry.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
