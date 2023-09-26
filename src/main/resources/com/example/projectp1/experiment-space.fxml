@@ -27,7 +27,7 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="Home">
                             <items>
-                                <MenuItem fx:id="saveProgress" mnemonicParsing="false" text="Save progress" />
+                                <MenuItem fx:id="saveProgress" mnemonicParsing="false" onAction="#save" text="Save progress" />
                         <MenuItem fx:id="viewNotes" mnemonicParsing="false" text="View your quick-note" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="exit" mnemonicParsing="false" text="Exit" />

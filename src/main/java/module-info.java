@@ -6,6 +6,7 @@ module com.example.projectp1 {
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.desktop;
 
     exports com.example.projectp1.Model;
     opens com.example.projectp1.Model to javafx.fxml;

@@ -24,9 +24,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -749,6 +752,7 @@ public class ExperimentSpace implements Initializable {
     // Menu bar
     @FXML
     private MenuItem saveProgress;
+    FileChooser fileChooser = new FileChooser();
 
     @FXML
     private MenuItem viewNotes;
@@ -785,6 +789,19 @@ public class ExperimentSpace implements Initializable {
 
     @FXML
     private MenuItem aboutProgrammer;
+    public void save(ActionEvent event) {
+        Window stage = anchorPane.getScene().getWindow();
+        fileChooser.setTitle("Save Experiment space");
+        fileChooser.setInitialFileName("My Experiment Space");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("ChemQAnalytica Experiment Space", "*.cqa"));
+        try {
+            File file = fileChooser.showSaveDialog(stage);
+            fileChooser.setInitialDirectory(file.getParentFile());
+        } catch (Exception e) {
+
+        }
+
+    }
 
     public void delete(ActionEvent event) {
         components = getExperimentSpace().getChildren();
@@ -938,6 +955,7 @@ public class ExperimentSpace implements Initializable {
         history = new History();
         added.setVisible(false);
         aluminiumFoil.setVisible(false);
+        fileChooser.setInitialDirectory(new File("C:\\temp"));
     }
 
 }
