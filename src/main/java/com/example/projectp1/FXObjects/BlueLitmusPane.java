@@ -39,7 +39,7 @@ public class BlueLitmusPane extends DraggablePane implements Paintable {
 
         Rectangle changeable = new Rectangle(40, 40);
         changeable.setFill(Color.LIGHTSKYBLUE);
-        changeable.setY(80);
+        changeable.setY(120);
 //        changeable.setStroke(Color.BLACK);
 //        changeable.setStrokeWidth(0.5);
 
@@ -75,8 +75,9 @@ public class BlueLitmusPane extends DraggablePane implements Paintable {
 
         setPrefSize(40,160);
 
+
         getChildren().clear();
-        getChildren().addAll(topLine, bottomLine, leftLine, rightLine, paper, changeable);
+        getChildren().addAll(topLine, bottomLine, rightLine, leftLine, paper, changeable);
     }
     @Override
     public void setDraggable(Pane parent, MouseEvent e){

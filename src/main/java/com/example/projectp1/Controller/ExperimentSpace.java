@@ -471,9 +471,7 @@ public class ExperimentSpace implements Initializable {
                             ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer3(new Layer(CuNO32,"royalblue",false));
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("royalblue");
                         }
-                        if (tube.getSelectedToggle() != null) {
-                            showAdded();
-                        }
+                        ((TubePane) tubes.get(findTubeIndex())).getArc().setOpacity(0);
                     }
                 }
                 if (isAddedSalt() && tube.getSelectedToggle() != null) {
@@ -499,7 +497,7 @@ public class ExperimentSpace implements Initializable {
                             TestingChemicals NaOH = new TestingChemicals("NaOH");
                             Layer aqueousNaOH = new Layer(NaOH, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNaOH);
-                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NO3")){
                                 aluminiumFoil.setVisible(true);
                                 added.setText("You are provided with aluminium foil");
@@ -527,7 +525,7 @@ public class ExperimentSpace implements Initializable {
                                 Layer ammonia = new Layer(new Gas("NH3", database), true);
                                 ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
                             } else {
-                                precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                                precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getArc());
                                 precipitate.setDelay(Duration.millis(100));
                                 precipitate.play();
                             }
@@ -540,7 +538,7 @@ public class ExperimentSpace implements Initializable {
                             Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
-                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getArc());
                             precipitate.setDelay(Duration.millis(100));
                             precipitate.play();
                         });
@@ -553,7 +551,7 @@ public class ExperimentSpace implements Initializable {
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
                             System.out.println(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName());
-                            changeColor.setShape(((TubePane) tubes.get(findTubeIndex())).getLayer3());
+                            changeColor.setShape(((TubePane) tubes.get(findTubeIndex())).getArc());
                             changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("Cl")){
                                 changeColor.setToValue(Color.GHOSTWHITE);
@@ -575,7 +573,7 @@ public class ExperimentSpace implements Initializable {
                             Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
                             ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
-                            changeColor.setShape((((TubePane) tubes.get(findTubeIndex())).getLayer3()));
+                            changeColor.setShape((((TubePane) tubes.get(findTubeIndex())).getArc()));
                             changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("SO4")){
                                 changeColor.setToValue(Color.GHOSTWHITE);
@@ -720,6 +718,7 @@ public class ExperimentSpace implements Initializable {
                 Stage stage = new Stage();
                 stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
                 Scene scene = new Scene(root);
+                stage.setResizable(false);
 //            scene.getStylesheets().add(TestExperimentSpace.class.getResource("View/logInPage.css").toExternalForm());
                 stage.setScene(scene);
                 stage.setTitle("About the Programmer");
@@ -909,15 +908,23 @@ public class ExperimentSpace implements Initializable {
     }
 
     public void clearAll(ActionEvent event) {
-        getExperimentSpace().getChildren().clear();
-        getHistory().clearAll();
-        setHasTestTube(false);
-        setAddedSalt(false);
-        setHasHeatingEquipment(false);
-        salts.getSelectionModel().clearSelection();
-        testPH.getSelectionModel().clearSelection();
-        splint.getSelectionModel().clearSelection();
-        tube.getSelectedToggle().setSelected(false);
+        try {
+            getExperimentSpace().getChildren().clear();
+            getHistory().clearAll();
+            setHasTestTube(false);
+            setAddedSalt(false);
+            setHasHeatingEquipment(false);
+            salts.getSelectionModel().clearSelection();
+            testPH.getSelectionModel().clearSelection();
+            splint.getSelectionModel().clearSelection();
+            tube.getSelectedToggle().setSelected(false);
+        } catch (NullPointerException e) {
+            Alert toolNotInPane = new Alert(Alert.AlertType.WARNING);
+            toolNotInPane.setTitle("Warning");
+            toolNotInPane.setHeaderText("Tool cannot be deleted");
+            toolNotInPane.setContentText("The tool has not been added to the experiment space!");
+            toolNotInPane.showAndWait();
+        }
 
     }
 
@@ -939,6 +946,10 @@ public class ExperimentSpace implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void exit(ActionEvent event) {
+        ((Stage) anchorPane.getScene().getWindow()).close();
     }
 
 

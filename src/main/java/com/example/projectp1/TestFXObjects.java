@@ -15,12 +15,13 @@ public class TestFXObjects extends Application {
         LighterPane lighterPane = new LighterPane();
 
         RedLitmusPane redLitmusPane = new RedLitmusPane();
+        BlueLitmusPane blueLitmusPane = new BlueLitmusPane();
         BurnerPane burnerPane = new BurnerPane();
         SplintPane splintPane = new SplintPane();
 
         AnchorPane pane = new AnchorPane();
 
-        pane.getChildren().addAll(tubePane, lighterPane, redLitmusPane, burnerPane, splintPane);
+        pane.getChildren().addAll(tubePane, lighterPane, redLitmusPane, burnerPane, splintPane, blueLitmusPane);
 
         tubePane.setLayoutX(100);
         tubePane.setLayoutY(100);

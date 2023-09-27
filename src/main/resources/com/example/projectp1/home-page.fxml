@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.HomeController">
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.HomeController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,9 +25,9 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Home">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="New..." />
-                        <MenuItem mnemonicParsing="false" text="Find..." />
-                        <MenuItem mnemonicParsing="false" text="Exit" />
+                    <MenuItem fx:id="createNewSpace" mnemonicParsing="false" onAction="#createNew" text="New..." />
+                        <MenuItem fx:id="findSpace" mnemonicParsing="false" text="Find..." />
+                        <MenuItem fx:id="exitHome" mnemonicParsing="false" text="Exit" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">

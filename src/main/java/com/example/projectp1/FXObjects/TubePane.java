@@ -6,10 +6,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 
 public class TubePane extends DraggablePane implements Paintable {
     /** TODO
@@ -29,9 +26,15 @@ public class TubePane extends DraggablePane implements Paintable {
     private Rectangle empty = new Rectangle(50,90);
     private Rectangle layer1 = new Rectangle(50,25);
     private Rectangle layer2 = new Rectangle(50,25);
-    private Shape layer3;
+    private Circle bottom = new Circle(25);
+    Arc arc = new Arc(25, 140, 25, 25, 215, 110);
+//    Arc arc = new Arc(getDiameter()/2, getEmptyHeight()+getLayerHeight()+getLayerHeight(), getDiameter()/2, getDiameter()/2, 215, 110);
     private boolean shakeOnce;
     private boolean shakeTwice;
+    private Line bottomLine = new Line();
+    private Line topLine = new Line();
+    private Line leftLine = new Line();
+    private Line rightLine = new Line();
     public double getEmptyHeight() {
         return emptyHeight;
     }
@@ -81,16 +84,36 @@ public class TubePane extends DraggablePane implements Paintable {
         return layer2;
     }
 
-    public Shape getLayer3() {
-        return layer3;
-    }
-
     public boolean isShakeOnce() {
         return shakeOnce;
     }
 
     public boolean isShakeTwice() {
         return shakeTwice;
+    }
+
+    public Arc getArc() {
+        return arc;
+    }
+
+    public Circle getBottom() {
+        return bottom;
+    }
+
+    public Line getBottomLine() {
+        return bottomLine;
+    }
+
+    public Line getTopLine() {
+        return topLine;
+    }
+
+    public Line getLeftLine() {
+        return leftLine;
+    }
+
+    public Line getRightLine() {
+        return rightLine;
     }
 
     public void setTransparency1(double transparency1) {
@@ -144,9 +167,6 @@ public class TubePane extends DraggablePane implements Paintable {
     public void setLayer2(Rectangle layer2) {
         this.layer2 = layer2;
     }
-    public void setLayer3(Shape layer3) {
-        this.layer3 = layer3;
-    }
     public void setEmpty(Rectangle empty) {
         this.empty = empty;
     }
@@ -157,6 +177,30 @@ public class TubePane extends DraggablePane implements Paintable {
 
     public void setShakeTwice(boolean shakeTwice) {
         this.shakeTwice = shakeTwice;
+    }
+
+    public void setArc(Arc arc) {
+        this.arc = arc;
+    }
+
+    public void setBottom(Circle bottom) {
+        this.bottom = bottom;
+    }
+
+    public void setBottomLine(Line bottomLine) {
+        this.bottomLine = bottomLine;
+    }
+
+    public void setTopLine(Line topLine) {
+        this.topLine = topLine;
+    }
+
+    public void setLeftLine(Line leftLine) {
+        this.leftLine = leftLine;
+    }
+
+    public void setRightLine(Line rightLine) {
+        this.rightLine = rightLine;
     }
 
     public TubePane() {
@@ -191,63 +235,64 @@ public class TubePane extends DraggablePane implements Paintable {
     @Override
     public void paint() {
         //Empty part of tube
-        Rectangle empty = new Rectangle(this.getDiameter(), this.getEmptyHeight());
-        empty.setFill(Color.LIGHTGREY); //empty part never change color
-        empty.setX(0);
-        empty.setY(0);
-        setEmpty(empty);
-        Line topLine = new Line();
-        topLine.setStartX(0);
-        topLine.setLayoutX(0);
-        topLine.setLayoutY(0);
-        topLine.setEndX(getDiameter());
-        topLine.setStartY(0);
-        topLine.setEndY(0);
-        topLine.setFill(Color.BLACK);
+        getEmpty().setWidth(getDiameter());
+        getEmpty().setHeight(getEmptyHeight());
+        getEmpty().setFill(Color.LIGHTGREY); //empty part never change color
+        getEmpty().setX(0);
+        getEmpty().setY(0);
+
+        getTopLine().setStartX(0);
+        getTopLine().setLayoutX(0);
+        getTopLine().setLayoutY(0);
+        getTopLine().setEndX(getDiameter());
+        getTopLine().setStartY(0);
+        getTopLine().setEndY(0);
+        getTopLine().setFill(Color.BLACK);
 
         //First layer of tube
-        Rectangle layer1 = new Rectangle(this.getDiameter(), this.getLayerHeight());
-        layer1.setFill(Color.web(getColor1())); //layer for appearance of gas
-        layer1.setOpacity(getTransparency1());
-        layer1.setY(this.getEmptyHeight());
-        setLayer1(layer1);
+        getLayer1().setWidth(getDiameter());
+        getLayer1().setHeight(getLayerHeight());
+        getLayer1().setFill(Color.web(getColor1())); //layer for appearance of gas
+        getLayer1().setOpacity(getTransparency1());
+        getLayer1().setY(this.getEmptyHeight());
 
         //Second layer of tube
-        Rectangle layer2 = new Rectangle(this.getDiameter(), this.getLayerHeight());
-        layer2.setFill(Color.web(getColor2())); //layer for solution
-        layer2.setOpacity(this.getTransparency2());
-        layer2.setY(this.getLayerHeight() + this.getEmptyHeight());
-        setLayer2(layer2);
+        getLayer2().setWidth(getDiameter());
+        getLayer2().setHeight(getLayerHeight());
+        getLayer2().setFill(Color.web(getColor2())); //layer for solution
+        getLayer2().setOpacity(getTransparency2());
+        getLayer2().setY(getLayerHeight() + getEmptyHeight());
 
         //Third layer of tube
-        Circle bottom = new Circle(this.getDiameter()/2);
+        getBottom().setRadius(getDiameter()/2);
+        getBottom().setCenterX(getDiameter()/2);
+        getBottom().setCenterY(getLayerHeight()*2 + getEmptyHeight());
+        getBottom().setFill(Color.web(getColor3())); //layer for formation of precipitate
+        getBottom().setOpacity(getTransparency3());
+        getBottom().toBack();
+        getBottom().setStroke(Color.BLACK);
+        getBottom().setStrokeWidth(0.5);
 
-        bottom.setCenterX(this.getDiameter()/2);
-        bottom.setCenterY(this.getLayerHeight()*2 + this.getEmptyHeight());
-        bottom.setFill(Color.web(getColor3())); //layer for formation of precipitate
-        bottom.setOpacity(getTransparency3());
-        setLayer3(bottom);
-        bottom.toBack();
-        bottom.setStroke(Color.BLACK);
-        bottom.setStrokeWidth(0.5);
+        getLeftLine().setStartX(0);
+        getLeftLine().setStartY(0);
+        getLeftLine().setEndX(0);
+        getLeftLine().setEndY(getEmptyHeight()+getLayerHeight()+getLayerHeight());
 
-        Line leftLine = new Line();
-        leftLine.setStartX(0);
-        leftLine.setStartY(0);
-        leftLine.setEndX(0);
-        leftLine.setEndY(getEmptyHeight()+getLayerHeight()+getLayerHeight());
+        getRightLine().setStartX(getDiameter());
+        getRightLine().setStartY(0);
+        getRightLine().setEndX(getDiameter());
+        getRightLine().setEndY(getEmptyHeight()+getLayerHeight()+getLayerHeight());
 
-        Line rightLine = new Line();
-        rightLine.setStartX(getDiameter());
-        rightLine.setStartY(0);
-        rightLine.setEndX(getDiameter());
-        rightLine.setEndY(getEmptyHeight()+getLayerHeight()+getLayerHeight());
+        getArc().setType(ArcType.OPEN);
+        getArc().setFill(Color.web(getColor3()));
+        getArc().setOpacity(0.5);
+
 
 
         setPrefSize(this.getDiameter(), this.getEmptyHeight() + this.getLayerHeight()*3);
 
         getChildren().clear();
-        getChildren().addAll(topLine, leftLine, rightLine, empty, layer1, bottom, layer2);
+        getChildren().addAll( getTopLine(), getLeftLine(), getRightLine(), getBottom(), getEmpty(), getLayer1(), getLayer2(), getArc());
         this.setOpacity(0.75);
     }
     @Override
