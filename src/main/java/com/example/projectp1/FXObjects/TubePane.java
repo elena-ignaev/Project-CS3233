@@ -196,15 +196,14 @@ public class TubePane extends DraggablePane implements Paintable {
         empty.setX(0);
         empty.setY(0);
         setEmpty(empty);
-        empty.setStroke(Color.BLACK);
-        empty.setStrokeWidth(1.0);
-        Line line = new Line();
-        line.setStartX(0);
-        line.setEndX(getDiameter());
-        line.setStartY(getEmptyHeight());
-        line.setEndY(getEmptyHeight());
-        line.setFill(Color.LIGHTGREY);
-        line.setOpacity(0.75);
+        Line topLine = new Line();
+        topLine.setStartX(0);
+        topLine.setLayoutX(0);
+        topLine.setLayoutY(0);
+        topLine.setEndX(getDiameter());
+        topLine.setStartY(0);
+        topLine.setEndY(0);
+        topLine.setFill(Color.BLACK);
 
         //First layer of tube
         Rectangle layer1 = new Rectangle(this.getDiameter(), this.getLayerHeight());
@@ -212,8 +211,6 @@ public class TubePane extends DraggablePane implements Paintable {
         layer1.setOpacity(getTransparency1());
         layer1.setY(this.getEmptyHeight());
         setLayer1(layer1);
-        layer1.setStroke(Color.BLACK);
-        layer1.setStrokeWidth(1.0);
 
         //Second layer of tube
         Rectangle layer2 = new Rectangle(this.getDiameter(), this.getLayerHeight());
@@ -221,8 +218,6 @@ public class TubePane extends DraggablePane implements Paintable {
         layer2.setOpacity(this.getTransparency2());
         layer2.setY(this.getLayerHeight() + this.getEmptyHeight());
         setLayer2(layer2);
-        layer2.setStroke(Color.BLACK);
-        layer2.setStrokeWidth(1.0);
 
         //Third layer of tube
         Circle bottom = new Circle(this.getDiameter()/2);
@@ -231,15 +226,28 @@ public class TubePane extends DraggablePane implements Paintable {
         bottom.setCenterY(this.getLayerHeight()*2 + this.getEmptyHeight());
         bottom.setFill(Color.web(getColor3())); //layer for formation of precipitate
         bottom.setOpacity(getTransparency3());
-        bottom.setStroke(Color.BLACK);
-        bottom.setStrokeWidth(1.0);
         setLayer3(bottom);
         bottom.toBack();
+        bottom.setStroke(Color.BLACK);
+        bottom.setStrokeWidth(0.5);
+
+        Line leftLine = new Line();
+        leftLine.setStartX(0);
+        leftLine.setStartY(0);
+        leftLine.setEndX(0);
+        leftLine.setEndY(getEmptyHeight()+getLayerHeight()+getLayerHeight());
+
+        Line rightLine = new Line();
+        rightLine.setStartX(getDiameter());
+        rightLine.setStartY(0);
+        rightLine.setEndX(getDiameter());
+        rightLine.setEndY(getEmptyHeight()+getLayerHeight()+getLayerHeight());
+
 
         setPrefSize(this.getDiameter(), this.getEmptyHeight() + this.getLayerHeight()*3);
 
         getChildren().clear();
-        getChildren().addAll(empty, layer1, bottom, layer2);
+        getChildren().addAll(topLine, leftLine, rightLine, empty, layer1, bottom, layer2);
         this.setOpacity(0.75);
     }
     @Override

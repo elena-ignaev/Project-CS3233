@@ -3,6 +3,7 @@ package com.example.projectp1;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ public class TestHomePage extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("home-page.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("ChemQAnalytica");
+        stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
 //        scene.getStylesheets().add(TestGUI.class.getResource("View/logInPage.css").toExternalForm());
         stage.setScene(scene);
         stage.setResizable(false);

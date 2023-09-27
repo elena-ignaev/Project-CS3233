@@ -1,0 +1,145 @@
+package com.example.projectp1;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+
+import java.awt.*;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class SaveTest extends Application{
+        @Override
+        public void start(final Stage primaryStage) {
+            final HBox root = new HBox(5);
+            root.setPadding(new Insets(5));
+            final Button button = new Button("Browse");
+            final FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialDirectory(new File(System
+                    .getProperty("user.home")));
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter( "*.cqa", "*.CQA"),
+                    new FileChooser.ExtensionFilter("*.pdf", "*.PDF"));
+            fileChooser.setTitle("Save");
+            fileChooser.setInitialFileName("Experiment 1");
+            try {
+                readFromFile(fileChooser.showOpenDialog(primaryStage));
+            } catch (IOException e) {
+
+            }
+            button.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    final File file = fileChooser.showOpenDialog(primaryStage);
+                    try {
+                        Desktop.getDesktop().open(file);
+                    } catch (IOException e) {
+
+                    }
+                }
+
+            });
+
+            root.getChildren().add(button);
+            primaryStage.setScene(new Scene(root, 150, 75));
+            primaryStage.show();
+        }
+
+
+
+        public static void main(String[] args) throws Exception {
+            System.setProperty("javafx.macosx.embedded", "true");
+            Toolkit.getDefaultToolkit();
+            launch(args);
+        }
+
+        public static void writeToFile(File f, Map<String, byte[]> map)
+                throws IOException {
+
+            // Create an output stream
+            DataOutputStream stream = new DataOutputStream(
+                    new BufferedOutputStream(new FileOutputStream(f))
+            );
+
+            // Delegate writing to the stream to a separate method
+            writeToStream(stream, map);
+
+            // Always be sure to flush & close the stream.
+            stream.flush();
+            stream.close();
+        }
+
+        public static Map<String, byte[]> readFromFile(File f)
+                throws IOException {
+
+            // Create an input stream
+            DataInputStream stream = new DataInputStream(
+                    new BufferedInputStream(new FileInputStream(f))
+            );
+
+            // Delegate reading from the stream to a separate method
+            Map<String, byte[]> map = readFromStream(stream);
+
+            // Always be sure to close the stream.
+            stream.close();
+
+            return map;
+        }
+
+        public static void writeToStream(DataOutputStream stream, Map<String, byte[]> map)
+                throws IOException {
+
+            // First, write the number of entries in the map.
+            stream.writeInt(map.size());
+
+            // Next, iterate through all the entries in the map
+            for (Map.Entry<String, byte[]> entry : map.entrySet()) {
+
+                // Write the name of this piece of data.
+                stream.writeUTF(entry.getKey());
+
+                // Write the data represented by this name, making sure to
+                // prefix the data with an integer representing its length.
+                byte[] data = entry.getValue();
+                stream.writeInt(data.length);
+                stream.write(data);
+            }
+
+        }
+
+        public static Map<String, byte[]> readFromStream(DataInputStream stream)
+                throws IOException {
+
+            // Create the data structure to contain the data from my custom file
+            Map<String, byte[]> map = new HashMap<String, byte[]>();
+
+            // Read the number of entries in this file
+            int entryCount = stream.readInt();
+
+            // Iterate through all the entries in the file, and add them to the map
+            for (int i = 0; i < entryCount; i++) {
+
+                // Read the name of this entry
+                String name = stream.readUTF();
+
+                // Read the data associated with this name, remembering that the
+                // data has an integer prefix representing the array length.
+                int dataLength = stream.readInt();
+                byte[] data = new byte[dataLength];
+                stream.read(data, 0, dataLength);
+
+                // Add this entry to the map
+                map.put(name, data);
+            }
+
+            return map;
+        }
+}
