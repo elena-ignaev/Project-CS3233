@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -64,7 +65,13 @@ public class HomeController {
     private MenuItem rename;
     @FXML
     private MenuItem delete;
-
+    private int count = 0;
+    public int getCount() {
+        return count;
+    }
+    public void setCount(int count) {
+        this.count = count;
+    }
 
     public Stage getStage() {
         return stage;
@@ -89,18 +96,25 @@ public class HomeController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            Button button = new Button();
-            button.setPrefWidth(80.0);
-            button.setPrefHeight(80.0);
-            Image image = new Image(TestHomePage.class.getResourceAsStream("avatarChemistry.png"));
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(80.0);
-            imageView.setFitHeight(80.0);
-//            imageView.setPreserveRatio(true);
-            button.setGraphic(imageView);
-            experimentGrid1.add(button, 3,0);
+            Button button = newExperimentSpace();
+            experimentGrid1.add(button,3,0);
             button.setAlignment(Pos.CENTER);
+//            if(getCount()<experimentGrid1.getColumnCount()) {
+//                if (getCount() == 0){
+//                    setCount(3);
+//                }
+//                experimentGrid1.add(button,experimentGrid1.getColumnCount(),experimentGrid1.getRowCount());
+//                setCount(getCount()+1);
+//                if (getCount() == experimentGrid1.getColumnCount()) {
+//                    setCount(0);
+//                    if (getCount()<experimentGrid2.getColumnCount()) {
+//                        experimentGrid2.add(button,experimentGrid2.getColumnCount(),experimentGrid2.getRowCount());
+//                        setCount(getCount()+1);
+//                    }
+//                }
+//            }
+
+
         }
 
         if (event.getSource() == newNote) {
@@ -126,6 +140,20 @@ public class HomeController {
         }
 
     }
+
+    public Button newExperimentSpace() {
+        Button button = new Button();
+        button.setPrefWidth(80.0);
+        button.setPrefHeight(80.0);
+        Image image = new Image(TestHomePage.class.getResourceAsStream("avatarChemistry.png"));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(70.0);
+        imageView.setFitHeight(70.0);
+//            imageView.setPreserveRatio(true);
+        button.setGraphic(imageView);
+        return button;
+    }
+
 
     public void openSearch(ActionEvent event) {
 
