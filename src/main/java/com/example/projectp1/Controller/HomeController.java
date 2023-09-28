@@ -97,7 +97,7 @@ public class HomeController {
             ImageView imageView = new ImageView(image);
             imageView.setFitWidth(80.0);
             imageView.setFitHeight(80.0);
-            imageView.setPreserveRatio(true);
+//            imageView.setPreserveRatio(true);
             button.setGraphic(imageView);
             experimentGrid1.add(button, 3,0);
             button.setAlignment(Pos.CENTER);

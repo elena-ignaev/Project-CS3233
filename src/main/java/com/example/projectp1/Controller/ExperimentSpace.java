@@ -892,7 +892,18 @@ public class ExperimentSpace implements Initializable {
             if (getHistory().getBunsenBurner() != null){
                 getHistory().setLighter(null);
                 components.removeIf(node -> node instanceof LighterPane);
-                lightUp.setVisible(false);
+                lightUp.setText("Heat up");
+                lightUp.setOnAction(e -> {
+                    getHistory().getBunsenBurner().setHeat(true);
+                    for (Node node : getExperimentSpace().getChildren()){
+                        if (node instanceof BurnerPane) {
+                            ((BurnerPane) node).paint();
+                            Bounds bounds = getExperimentSpace().getLayoutBounds();
+                            node.setLayoutX((bounds.getMaxX()-bounds.getMinX())/2);
+                            node.setLayoutY((bounds.getMaxY()-bounds.getMinY())/2);
+                        }
+                    }
+                });
             } else {
                 toolNotInPane.showAndWait();
             }
