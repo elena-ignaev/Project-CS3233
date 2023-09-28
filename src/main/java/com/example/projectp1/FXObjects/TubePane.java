@@ -35,6 +35,7 @@ public class TubePane extends DraggablePane implements Paintable {
     private Line topLine = new Line();
     private Line leftLine = new Line();
     private Line rightLine = new Line();
+    private Arc arcOutline = new Arc(25, 140, 25, 25, 180, 180);
     public double getEmptyHeight() {
         return emptyHeight;
     }
@@ -114,6 +115,10 @@ public class TubePane extends DraggablePane implements Paintable {
 
     public Line getRightLine() {
         return rightLine;
+    }
+
+    public Arc getArcOutline() {
+        return arcOutline;
     }
 
     public void setTransparency1(double transparency1) {
@@ -203,6 +208,10 @@ public class TubePane extends DraggablePane implements Paintable {
         this.rightLine = rightLine;
     }
 
+    public void setArcOutline(Arc arcOutline) {
+        this.arcOutline = arcOutline;
+    }
+
     public TubePane() {
         paint();
     }
@@ -287,13 +296,23 @@ public class TubePane extends DraggablePane implements Paintable {
         getArc().setFill(Color.web(getColor3()));
         getArc().setOpacity(0.5);
 
+        getArcOutline().setType(ArcType.OPEN);
+        getArcOutline().setStroke(Color.BLACK);
+        getArcOutline().setFill(Color.TRANSPARENT);
+        getArcOutline().setOpacity(1);
+
 
 
         setPrefSize(this.getDiameter(), this.getEmptyHeight() + this.getLayerHeight()*3);
 
         getChildren().clear();
-        getChildren().addAll( getTopLine(), getLeftLine(), getRightLine(), getBottom(), getEmpty(), getLayer1(), getLayer2(), getArc());
+        getChildren().addAll( getTopLine(), getLeftLine(), getRightLine(), getBottom(), getEmpty(), getLayer1(), getLayer2(), getArc(), getArcOutline());
         this.setOpacity(0.75);
+        getTopLine().setOpacity(1);
+        getBottomLine().setOpacity(1);
+        getLeftLine().setOpacity(1);
+        getRightLine().setOpacity(1);
+        getArcOutline().setStrokeWidth(0.5);
     }
     @Override
     public void setDraggable(Pane parent, MouseEvent e){

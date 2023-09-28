@@ -34,16 +34,16 @@ public class Layer {
         if (content instanceof Salt) {
             if (((Salt) content).getName().contains("Cu")) {
                 this.color = "dodgerblue";
-            } else if (((Salt) content).getCation().getName().contains("(Fe)3+")) {
-                this.color = "aquamarine";
+            } else if (((Salt) content).getName().contains("Fe") && ((Salt) content).getName().contains(")3")) {
+                this.color = "firebrick";
             } else if (((Salt) content).getName().contains("Ca")) {
                 this.color = "whitesmoke";
             } else if (((Salt) content).getName().contains("Mg")) {
                 this.color = "whitesmoke";
             } else if (((Salt) content).getName().contains("Zn")) {
                 this.color = "whitesmoke";
-            } else if (((Salt) content).getCation().getName().contains("(Fe)2+")) {
-                this.color = "firebrick";
+            } else if (((Salt) content).getName().contains("Fe")) {
+                this.color = "aquamarine";
             }
         }
         this.isClear = isClear;

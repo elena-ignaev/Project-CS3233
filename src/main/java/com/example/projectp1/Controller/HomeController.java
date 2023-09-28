@@ -6,6 +6,7 @@ import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -93,8 +94,13 @@ public class HomeController {
             button.setPrefWidth(80.0);
             button.setPrefHeight(80.0);
             Image image = new Image(TestHomePage.class.getResourceAsStream("avatarChemistry.png"));
-            button.setGraphic(new ImageView(image));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(80.0);
+            imageView.setFitHeight(80.0);
+            imageView.setPreserveRatio(true);
+            button.setGraphic(imageView);
             experimentGrid1.add(button, 3,0);
+            button.setAlignment(Pos.CENTER);
         }
 
         if (event.getSource() == newNote) {
