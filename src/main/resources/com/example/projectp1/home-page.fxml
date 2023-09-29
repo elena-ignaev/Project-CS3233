@@ -26,15 +26,15 @@
                 <Menu mnemonicParsing="false" text="Home">
                   <items>
                     <MenuItem fx:id="createNewSpace" mnemonicParsing="false" onAction="#createNew" text="New..." />
-                        <MenuItem fx:id="findSpace" mnemonicParsing="false" text="Find..." />
-                        <MenuItem fx:id="exitHome" mnemonicParsing="false" text="Exit" />
+                        <MenuItem fx:id="findSpace" mnemonicParsing="false" onAction="#openSearch" text="Find..." />
+                        <MenuItem fx:id="exitHome" mnemonicParsing="false" onAction="#endProgram" text="Exit" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="Change image" />
-                    <MenuItem mnemonicParsing="false" text="Rename" />
-                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <MenuItem fx:id="changeImage" mnemonicParsing="false" onAction="#edit" text="Change image" />
+                    <MenuItem fx:id="rename" mnemonicParsing="false" onAction="#edit" text="Rename" />
+                        <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#edit" text="Delete" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

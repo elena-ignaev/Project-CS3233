@@ -83,7 +83,7 @@ public class HomeController {
     }
 
     public void createNew(ActionEvent event) {
-        if (event.getSource() == newSpace){
+        if (event.getSource() == newSpace || event.getSource() == createNewSpace){
             try {
                 setStage((Stage)anchorPane.getScene().getWindow());
                 Stage stage2 = new Stage();
@@ -99,8 +99,6 @@ public class HomeController {
             }
             Pane newSpace = newExperimentSpace();
             experimentGrid1.add(newSpace,2,0);
-            GridPane.setValignment(newSpace.getChildren().get(0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               , VPos.CENTER);
-
 //            if(getCount()<experimentGrid1.getColumnCount()) {
 //                if (getCount() == 0){
 //                    setCount(3);
@@ -115,19 +113,17 @@ public class HomeController {
 //                    }
 //                }
 //            }
-
-
         }
 
         if (event.getSource() == newNote) {
             try {
                 setStage((Stage) anchorPane.getScene().getWindow());
                 Stage stage2 = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("note.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("note.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 stage2.setResizable(false);
                 stage2.setTitle("ChemQAnalytica");
-                stage2.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
+                stage2.getIcons().add(new Image(TestHomePage.class.getResourceAsStream("chemical.png")));
 //        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
                 stage2.setScene(scene);
                 stage2.showAndWait();
@@ -140,7 +136,6 @@ public class HomeController {
             button.setPrefHeight(80.0);
             button.getChildrenUnmodifiable().add(new ImageView("avatarChemistry.png"));
         }
-
     }
 
     public Pane newExperimentSpace() {
@@ -159,12 +154,12 @@ public class HomeController {
         button.setGraphic(imageView);
         button.setAlignment(Pos.CENTER);
         pane.getChildren().add(button);
-        button.setLayoutX(pane.getPrefWidth()/2 - button.getPrefWidth()/2);
-        button.setLayoutY(pane.getPrefHeight()/2 - button.getPrefHeight()/2);
+        button.setLayoutX(17);
+        button.setLayoutY(17);
 
         Label label = new Label("Your experiment");
         pane.getChildren().add(label);
-        label.setLayoutX(pane.getPrefWidth()/2-label.getPrefWidth()/2);
+        label.setLayoutX(11);
         label.setLayoutY(97);
 
         return pane;
@@ -172,14 +167,36 @@ public class HomeController {
 
 
     public void openSearch(ActionEvent event) {
-
+        try {
+            setStage((Stage) anchorPane.getScene().getWindow());
+            Stage stage2 = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("search-query.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage2.setResizable(false);
+            stage2.setTitle("ChemQAnalytica");
+            stage2.getIcons().add(new Image(TestHomePage.class.getResourceAsStream("chemical.png")));
+//        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
+            stage2.setScene(scene);
+            stage2.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void endProgram(ActionEvent event) {
-
+        ((Stage) anchorPane.getScene().getWindow()).close();
     }
 
     public void edit(ActionEvent event) {
+        if (event.getSource() == changeImage) {
+
+        }
+        if (event.getSource() == rename) {
+
+        }
+        if (event.getSource() == delete) {
+
+        }
 
     }
 
@@ -197,10 +214,21 @@ public class HomeController {
                 }
             }).start();
         }
+        if (event.getSource() == safetyPrecautions) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Desktop.getDesktop().open(new File("safety-precautions.pdf"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
     }
 
     public void accessSpace() {
-
     }
 
 }

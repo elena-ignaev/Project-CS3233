@@ -182,8 +182,9 @@ public class ExperimentSpace implements Initializable {
                         lighterNotOn.setHeaderText("Lighter is not on yet");
                         lighterNotOn.setContentText("Must turn on lighter before lighting bunsen burner");
                         lighterNotOn.showAndWait();
-                    } else {
-                        burner.getFire().setOpacity(1);
+                    } else if (lightUp.getText().contains("Light up")){
+                        burner.getFire().setFill(Color.BLUE);
+                        burner.getFire().setOpacity(0.75);
                     }
                 });
                 burner.setOnMouseClicked(event2-> System.out.println(event2.getX() + ", " + event2.getY()));
@@ -894,15 +895,22 @@ public class ExperimentSpace implements Initializable {
                 components.removeIf(node -> node instanceof LighterPane);
                 lightUp.setText("Heat up");
                 lightUp.setOnAction(e -> {
+                    getHistory().getBunsenBurner().setFire(true);
+                    getHistory().getBunsenBurner().setAirHole(true);
                     getHistory().getBunsenBurner().setHeat(true);
-                    for (Node node : getExperimentSpace().getChildren()){
-                        if (node instanceof BurnerPane) {
-                            ((BurnerPane) node).paint();
-                            Bounds bounds = getExperimentSpace().getLayoutBounds();
-                            node.setLayoutX((bounds.getMaxX()-bounds.getMinX())/2);
-                            node.setLayoutY((bounds.getMaxY()-bounds.getMinY())/2);
-                        }
-                    }
+                    Alert hotWarning = new Alert(Alert.AlertType.INFORMATION);
+                    hotWarning.setTitle("High heat!");
+                    hotWarning.setContentText("Bunsen burner is lighted with open air hole");
+                    hotWarning.setHeaderText("Be careful when handling bunsen burner");
+                    hotWarning.showAndWait();
+//                    for (Node node : getExperimentSpace().getChildren()){
+//                        if (node instanceof BurnerPane) {
+//                            ((BurnerPane) node).paint();
+//                            Bounds bounds = getExperimentSpace().getLayoutBounds();
+//                            node.setLayoutX((bounds.getMaxX()-bounds.getMinX())/2);
+//                            node.setLayoutY((bounds.getMaxY()-bounds.getMinY())/2);
+//                        }
+//                    }
                 });
             } else {
                 toolNotInPane.showAndWait();
@@ -929,12 +937,13 @@ public class ExperimentSpace implements Initializable {
             testPH.getSelectionModel().clearSelection();
             splint.getSelectionModel().clearSelection();
             tube.getSelectedToggle().setSelected(false);
+            Alert cleared = new Alert(Alert.AlertType.INFORMATION);
+            cleared.setTitle("Successful!");
+            cleared.setHeaderText("Clear all succeeded");
+            cleared.setContentText("All tools have been deleted!");
+            cleared.showAndWait();
         } catch (NullPointerException e) {
-            Alert toolNotInPane = new Alert(Alert.AlertType.WARNING);
-            toolNotInPane.setTitle("Warning");
-            toolNotInPane.setHeaderText("Tool cannot be deleted");
-            toolNotInPane.setContentText("The tool has not been added to the experiment space!");
-            toolNotInPane.showAndWait();
+            e.printStackTrace();
         }
 
     }
