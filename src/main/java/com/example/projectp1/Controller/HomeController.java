@@ -6,7 +6,9 @@ import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -98,7 +101,10 @@ public class HomeController {
             }
             Button button = newExperimentSpace();
             experimentGrid1.add(button,3,0);
-            button.setAlignment(Pos.CENTER);
+            GridPane.setHalignment(button, HPos.CENTER);
+            GridPane.setValignment(button, VPos.CENTER);
+            Label label = new Label("New experiment");
+            experimentGrid1.add(label,3,0);
 //            if(getCount()<experimentGrid1.getColumnCount()) {
 //                if (getCount() == 0){
 //                    setCount(3);
@@ -141,7 +147,7 @@ public class HomeController {
 
     }
 
-    public Button newExperimentSpace() {
+    public Pane newExperimentSpace() {
         Button button = new Button();
         button.setPrefWidth(80.0);
         button.setPrefHeight(80.0);
@@ -151,7 +157,11 @@ public class HomeController {
         imageView.setFitHeight(70.0);
 //            imageView.setPreserveRatio(true);
         button.setGraphic(imageView);
-        return button;
+
+        Label label = new Label("My experiment");
+        Pane pane = new Pane();
+        pane.getChildren().add(button);
+        return pane;
     }
 
 
