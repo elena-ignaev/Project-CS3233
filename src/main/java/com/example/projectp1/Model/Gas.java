@@ -1,5 +1,7 @@
 package com.example.projectp1.Model;
 
+import com.example.projectp1.Database.Database;
+
 public class Gas extends Substance {
     private String test;
     private String result;

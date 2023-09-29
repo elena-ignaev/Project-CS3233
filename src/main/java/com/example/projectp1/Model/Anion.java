@@ -1,5 +1,7 @@
 package com.example.projectp1.Model;
 
+import com.example.projectp1.Database.Database;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

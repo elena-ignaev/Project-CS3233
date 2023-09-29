@@ -16,6 +16,8 @@ module com.example.projectp1 {
 
     exports com.example.projectp1;
     opens com.example.projectp1 to javafx.fxml;
+    exports com.example.projectp1.Database;
+    opens com.example.projectp1.Database to javafx.fxml;
 
 
 }

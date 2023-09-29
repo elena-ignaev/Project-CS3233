@@ -1,4 +1,4 @@
-package com.example.projectp1.Model;
+package com.example.projectp1.Database;
 
 import java.io.*;
 import java.util.ArrayList;

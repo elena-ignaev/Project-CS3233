@@ -1,4 +1,6 @@
-package com.example.projectp1.Model;
+package com.example.projectp1.Database;
+
+import com.example.projectp1.Model.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public class History {
     private ArrayList<Splint> splint;
     private ArrayList<RedLitmus> redLitmus;
     private ArrayList<BlueLitmus> blueLitmus;
+    private File file;
 
     public History() {
         tubes = new ArrayList<>(5);
@@ -18,6 +21,7 @@ public class History {
         splint = new ArrayList<>(2);
         redLitmus = new ArrayList<>(3);
         blueLitmus = new ArrayList<>();
+        file = new File("notes.txt");
     }
     public ArrayList<TestTube> getTubes() {
         return this.tubes;
@@ -74,6 +78,15 @@ public class History {
         this.setLighter(null);
         this.getBlueLitmus().clear();
         this.setBunsenBurner(null);
+    }
+
+    public void write(String text) {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(text);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //    private ArrayList<Cation> cations;
