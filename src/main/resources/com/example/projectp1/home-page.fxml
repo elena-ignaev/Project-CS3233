@@ -59,20 +59,6 @@
                     </rowConstraints>
                      <children>
                         <Label text="New experiment" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-                        <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="2">
-                           <children>
-                              <Label layoutX="11.0" layoutY="97.0" text="Your experiment 2" />
-                              <Button fx:id="experiment2" layoutX="17.0" layoutY="17.0" mnemonicParsing="false" onAction="#accessSpace" prefHeight="80.0" prefWidth="80.0">
-                                 <graphic>
-                                    <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@avatarChemistry.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </Pane>
                         <Pane prefHeight="100.0" prefWidth="120.0" GridPane.columnIndex="1">
                            <children>
                               <Label layoutX="11.0" layoutY="97.0" text="Your experiment 1" />

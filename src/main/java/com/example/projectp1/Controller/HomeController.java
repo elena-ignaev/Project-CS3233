@@ -2,14 +2,11 @@ package com.example.projectp1.Controller;
 
 import com.example.projectp1.TestExperimentSpace;
 import com.example.projectp1.TestHomePage;
-import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -19,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import java.awt.*;
 import java.io.File;
@@ -99,12 +97,10 @@ public class HomeController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Button button = newExperimentSpace();
-            experimentGrid1.add(button,3,0);
-            GridPane.setHalignment(button, HPos.CENTER);
-            GridPane.setValignment(button, VPos.CENTER);
-            Label label = new Label("New experiment");
-            experimentGrid1.add(label,3,0);
+            Pane newSpace = newExperimentSpace();
+            experimentGrid1.add(newSpace,2,0);
+            GridPane.setValignment(newSpace.getChildren().get(0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               , VPos.CENTER);
+
 //            if(getCount()<experimentGrid1.getColumnCount()) {
 //                if (getCount() == 0){
 //                    setCount(3);
@@ -148,19 +144,29 @@ public class HomeController {
     }
 
     public Pane newExperimentSpace() {
+        Pane pane = new Pane();
+        pane.setPrefHeight(100);
+        pane.setPrefWidth(120);
+
         Button button = new Button();
-        button.setPrefWidth(80.0);
-        button.setPrefHeight(80.0);
         Image image = new Image(TestHomePage.class.getResourceAsStream("avatarChemistry.png"));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(70.0);
         imageView.setFitHeight(70.0);
+        button.setPrefWidth(80.0);
+        button.setPrefHeight(80.0);
 //            imageView.setPreserveRatio(true);
         button.setGraphic(imageView);
-
-        Label label = new Label("My experiment");
-        Pane pane = new Pane();
+        button.setAlignment(Pos.CENTER);
         pane.getChildren().add(button);
+        button.setLayoutX(pane.getPrefWidth()/2 - button.getPrefWidth()/2);
+        button.setLayoutY(pane.getPrefHeight()/2 - button.getPrefHeight()/2);
+
+        Label label = new Label("Your experiment");
+        pane.getChildren().add(label);
+        label.setLayoutX(pane.getPrefWidth()/2-label.getPrefWidth()/2);
+        label.setLayoutY(97);
+
         return pane;
     }
 
