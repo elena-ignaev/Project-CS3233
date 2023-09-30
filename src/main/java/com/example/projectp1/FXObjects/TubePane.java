@@ -299,6 +299,7 @@ public class TubePane extends DraggablePane implements Paintable {
         getArcOutline().setType(ArcType.OPEN);
         getArcOutline().setStroke(Color.BLACK);
         getArcOutline().setFill(Color.TRANSPARENT);
+        getArcOutline().setStrokeWidth(0.5);
         getArcOutline().setOpacity(1);
 
 

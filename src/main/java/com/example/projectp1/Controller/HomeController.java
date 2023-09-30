@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -66,6 +67,23 @@ public class HomeController {
     private MenuItem rename;
     @FXML
     private MenuItem delete;
+    @FXML
+    private MenuItem about;
+    public void aboutPopUp(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("about-programmer.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.getIcons().add(new Image(TestHomePage.class.getResourceAsStream("chemical.png")));
+            Scene scene = new Scene(root);
+//            scene.getStylesheets().add(TestExperimentSpace.class.getResource("View/logInPage.css").toExternalForm());
+            stage.setScene(scene);
+            stage.setTitle("About the Programmer");
+            stage.showAndWait();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     private int count = 0;
     public int getCount() {
         return count;

@@ -12,12 +12,14 @@ public class Anion extends Substance {
      * Throwing an exception when charge is non-negative
      * toString prints out all information about the ions
      */
+    private Database database;
     private String element;
     private String charge; //if > 0 make it the negative, if < 0 take that value
     private String reagents;
     private String reactions;
     public Anion(String name) {
         super(name);
+        database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
         if (validName()) {
             if (name.contains("(") && name.contains(")")){
                 String[] tokens = name.split("[\\(\\)]");
@@ -29,8 +31,8 @@ public class Anion extends Substance {
                 this.charge = name.substring(name.length()-2);
                 this.element = name.substring(0, name.length()-2);
             }
-            this.reagents = "";
             this.reactions = "";
+            this.reagents = "";
         }
     }
     public Anion(String element, String charge, String reagents, String reactions) {

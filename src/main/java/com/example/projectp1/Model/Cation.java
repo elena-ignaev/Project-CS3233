@@ -10,6 +10,7 @@ public class Cation extends Substance{
     private String charge;
     private String withNaOH;
     private String withNH3;
+    private Database database;
     public Cation(String name) {
         super(name);
         if (validName()) {

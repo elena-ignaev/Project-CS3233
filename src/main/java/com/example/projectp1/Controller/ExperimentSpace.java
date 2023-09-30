@@ -319,6 +319,8 @@ public class ExperimentSpace implements Initializable {
 
     // Substance tab
     @FXML
+    private Button blackPanel;
+    @FXML
     private Button aqueousNaOH;
     @FXML
     private Button aqueousNH3;
@@ -340,10 +342,20 @@ public class ExperimentSpace implements Initializable {
 
     @FXML
     private RadioButton tube3;
-
+    @FXML
+    private Rectangle blackPan;
     ObservableList<Node> components;
     ArrayList<Node> tubes = new ArrayList<>();
 
+    public void showBlackPanel(ActionEvent event) {
+        if (blackPan.isVisible()) {
+            blackPan.setVisible(false);
+            blackPanel.setText("Show black panel");
+        } else {
+            blackPan.setVisible(true);
+            blackPanel.setText("Hide black panel");
+        }
+    }
 
     // Updating the list of test tubes in experiment screen
     public void resetTube() {
@@ -673,19 +685,29 @@ public class ExperimentSpace implements Initializable {
                 String cation = cationAns.getText();
                 String anion = anionAns.getText();
                 String salt = saltAns.getText();
-                System.out.println("Your answer: " + cation + ", " + anion + ", " + salt + "\nCorrect answer: " + ((TubePane) tubes.get(findTubeAnsIndex())).getTubeModel().getLayer3().getContent().getName());
+                Salt correctSalt = (Salt) ((TubePane) tubes.get(findTubeAnsIndex())).getTubeModel().getLayer3().getContent();
+                System.out.println("Your answer: " + cation + ", " + anion + ", " + salt + "\nCorrect answer: " + correctSalt.getName());
                 if (salt.equals(((TubePane) tubes.get(findTubeAnsIndex())).getTubeModel().getLayer3().getContent().getName())) {
-                    Alert correctAnswer = new Alert(Alert.AlertType.INFORMATION);
+                    Alert correctAnswer = new Alert(Alert.AlertType.CONFIRMATION);
                     correctAnswer.setTitle("Correct answer");
                     correctAnswer.setHeaderText("Good job! You got the salt");
                     correctAnswer.setContentText("Proceed to Explanation tab for reasons why");
-                    correctAnswer.show();
+                    correctAnswer.showAndWait();
+                    if (!correctAnswer.isShowing()) {
+                        String template = "The salt has been added is " + correctSalt.getName() +
+                                ". The cation is " + correctSalt.getCation().getName() + " because " +
+                                ((TubePane) tubes.get(findTubeAnsIndex())).getColor3() +
+                                " insoluble precipitate is formed when added either NaOH or NH3.\nThe anion is " +
+                                correctSalt.getAnion().getName() + " because when tested with " +
+                                correctSalt.getAnion().getReagents() + " there is " + correctSalt.getAnion().getReactions() + ".";
+                        explanation.setText(template);
+                    }
                 } else {
                     Alert wrongAnswer = new Alert(Alert.AlertType.ERROR);
                     wrongAnswer.setTitle("Wrong answer");
                     wrongAnswer.setHeaderText("Your answer is not correct. Try again!");
                     wrongAnswer.setContentText("Continue the experiment or refer to explanation");
-                    wrongAnswer.show();
+                    wrongAnswer.showAndWait();
                     saltAns.clear();
                     anionAns.clear();
                     cationAns.clear();
@@ -988,6 +1010,7 @@ public class ExperimentSpace implements Initializable {
         history = new History();
         added.setVisible(false);
         aluminiumFoil.setVisible(false);
+        blackPan.setVisible(false);
         fileChooser.setInitialDirectory(new File("C:\\temp"));
     }
 

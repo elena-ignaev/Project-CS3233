@@ -74,6 +74,7 @@
                <children>
                   <Label fx:id="added" layoutX="286.0" layoutY="131.0" text="Added!" />
                   <Rectangle fx:id="aluminiumFoil" arcHeight="5.0" arcWidth="5.0" fill="#9fa6ac" height="51.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="27.0" />
+                  <Rectangle fx:id="blackPan" arcHeight="5.0" arcWidth="5.0" height="279.0" layoutX="400.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                </children></Pane>
             <TabPane prefHeight="117.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
               <tabs>
@@ -161,23 +162,28 @@
                            <children>
                               <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <HBox prefHeight="67.0" prefWidth="185.0">
+                                    <VBox prefHeight="67.0" prefWidth="203.0">
                                        <children>
-                                          <Label text="Salt:">
-                                             <HBox.margin>
-                                                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <ComboBox fx:id="salts" onAction="#addSubstance" prefHeight="25.0" prefWidth="132.0" promptText="Choose your salt">
-                                             <HBox.margin>
-                                                <Insets bottom="20.0" left="5.0" right="5.0" top="20.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label text="Salt: " />
+                                                <ComboBox fx:id="salts" onAction="#addSubstance" prefHeight="25.0" prefWidth="132.0" promptText="Choose your salt" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Button fx:id="blackPanel" alignment="CENTER" mnemonicParsing="false" onAction="#showBlackPanel" text="Black panel">
+                                                   <HBox.margin>
+                                                      <Insets bottom="5.0" top="5.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
                                        </children>
-                                    </HBox>
-                                    <VBox alignment="CENTER" prefHeight="50.0" prefWidth="301.0">
+                                    </VBox>
+                                    <VBox alignment="CENTER" prefHeight="72.0" prefWidth="344.0">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="25.0" prefWidth="301.0">
+                                          <HBox alignment="CENTER" prefHeight="31.0" prefWidth="327.0">
                                              <children>
                                                 <Label prefHeight="20.0" prefWidth="60.0" text="For cation:">
                                                    <HBox.margin>
@@ -199,21 +205,21 @@
                                                 <Insets />
                                              </VBox.margin>
                                           </HBox>
-                                          <HBox alignment="CENTER" prefHeight="25.0" prefWidth="301.0">
+                                          <HBox alignment="CENTER" prefHeight="21.0" prefWidth="327.0">
                                              <children>
                                                 <Label prefHeight="20.0" prefWidth="60.0" text="For anion:">
                                                    <HBox.margin>
-                                                      <Insets top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
                                                    </HBox.margin>
                                                 </Label>
                                                 <Button fx:id="aqueousAgNO3" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="110.0" text="Aqueous AgNO3">
                                                    <HBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
                                                    </HBox.margin>
                                                 </Button>
                                                 <Button fx:id="aqueousBaCl2" mnemonicParsing="false" onAction="#addSubstance" prefHeight="25.0" prefWidth="110.0" text="Aqueous BaCl2">
                                                    <HBox.margin>
-                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" />
                                                    </HBox.margin>
                                                 </Button>
                                              </children>
@@ -223,7 +229,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="109.0">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="105.0">
                                        <children>
                                           <RadioButton fx:id="tube1" mnemonicParsing="false" text="Tube 1">
                                              <toggleGroup>
@@ -273,7 +279,7 @@
                                                 <Insets left="5.0" right="5.0" top="10.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <TextField fx:id="cationAns" prefWidth="124.0" promptText="Example: (Na)+">
+                                          <TextField fx:id="cationAns" prefWidth="124.0" promptText="Example: Na+">
                                              <VBox.margin>
                                                 <Insets left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
@@ -287,7 +293,7 @@
                                                 <Insets left="5.0" right="5.0" top="10.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <TextField fx:id="anionAns" promptText="Example: (SO3)2-">
+                                          <TextField fx:id="anionAns" promptText="Example: SO42-">
                                              <VBox.margin>
                                                 <Insets left="5.0" right="5.0" top="5.0" />
                                              </VBox.margin>
