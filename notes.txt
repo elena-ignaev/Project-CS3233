@@ -1,0 +1,2 @@
+QA notes
+CUSO4 - white precipitate when tested with BaCl2

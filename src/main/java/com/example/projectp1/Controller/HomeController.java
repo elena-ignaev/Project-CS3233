@@ -6,9 +6,11 @@ import com.example.projectp1.TestHomePage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -22,8 +24,10 @@ import javafx.scene.control.Label;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HomeController {
+public class HomeController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     private Stage stage;
@@ -55,10 +59,6 @@ public class HomeController {
     private GridPane noteGrid;
     @FXML
     private MenuItem createNewSpace;
-
-    @FXML
-    private MenuItem findSpace;
-
     @FXML
     private MenuItem exitHome;
     @FXML
@@ -69,6 +69,20 @@ public class HomeController {
     private MenuItem delete;
     @FXML
     private MenuItem about;
+    private int countExperiment=0;
+    private int countNotes=2;
+    public int getCountExperiment() {
+        return countExperiment;
+    }
+    public int getCountNotes() {
+        return countNotes;
+    }
+    public void setCountExperiment(int countExperiment) {
+        this.countExperiment = countExperiment;
+    }
+    public void setCountNotes(int countNotes) {
+        this.countNotes = countNotes;
+    }
     public void aboutPopUp(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("about-programmer.fxml"));
@@ -84,14 +98,6 @@ public class HomeController {
             ex.printStackTrace();
         }
     }
-    private int count = 0;
-    public int getCount() {
-        return count;
-    }
-    public void setCount(int count) {
-        this.count = count;
-    }
-
     public Stage getStage() {
         return stage;
     }
@@ -102,6 +108,7 @@ public class HomeController {
 
     public void createNew(ActionEvent event) {
         if (event.getSource() == newSpace || event.getSource() == createNewSpace){
+            setCountExperiment(getCountExperiment()+1);
             try {
                 setStage((Stage)anchorPane.getScene().getWindow());
                 Stage stage2 = new Stage();
@@ -112,11 +119,25 @@ public class HomeController {
 //        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
                 stage2.setScene(scene);
                 stage2.showAndWait();
+                Pane newSpace = new homePageButton("My experiment " + getCountExperiment());
+                ((Button) newSpace.getChildren().get(0)).setOnAction(e -> {
+                    if (getCountExperiment()<5){
+                        experimentGrid1.add(newSpace,getCountExperiment(),0);
+                    } else if (getCountExperiment()<10) {
+                        experimentGrid2.add(newSpace,getCountExperiment()-5,0);
+                    } else if (getCountExperiment()>=10) {
+                        Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
+                        exceededLimit.setTitle("Warning");
+                        exceededLimit.setHeaderText("Cannot add more experiment space");
+                        exceededLimit.setContentText("You can only have a maximum of 9 spaces in this application!");
+                        exceededLimit.showAndWait();
+                    }
+                    stage2.showAndWait();
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Pane newSpace = new homePageButton("My experiment");
-            experimentGrid1.add(newSpace,2,0);
+
 //            if(getCount()<experimentGrid1.getColumnCount()) {
 //                if (getCount() == 0){
 //                    setCount(3);
@@ -134,6 +155,7 @@ public class HomeController {
         }
 
         if (event.getSource() == newNote) {
+            setCountNotes(getCountNotes()+1);
             try {
                 setStage((Stage) anchorPane.getScene().getWindow());
                 Stage stage2 = new Stage();
@@ -145,11 +167,22 @@ public class HomeController {
 //        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
                 stage2.setScene(scene);
                 stage2.showAndWait();
+                Pane pane = new homePageButton("New note");
+                ((Button)pane.getChildren().get(0)).setOnAction(e -> {
+                    if (getCountNotes()<5){
+                        noteGrid.add(pane, getCountNotes(), 0);
+                    } else {
+                        Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
+                        exceededLimit.setTitle("Warning");
+                        exceededLimit.setHeaderText("Cannot add more notes");
+                        exceededLimit.setContentText("You can only have a maximum of 2 notes in this application!");
+                        exceededLimit.showAndWait();
+                    }
+                    stage2.showAndWait();
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Pane pane = new homePageButton("New note");
-            noteGrid.add(pane, 3,0);
         }
     }
 
@@ -220,4 +253,9 @@ public class HomeController {
     public void accessSpace() {
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setCountExperiment(0);
+        setCountNotes(2);
+    }
 }

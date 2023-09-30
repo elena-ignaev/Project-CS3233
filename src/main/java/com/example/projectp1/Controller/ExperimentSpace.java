@@ -246,6 +246,10 @@ public class ExperimentSpace implements Initializable {
                     getExperimentSpace().getChildren().add(red);
                     red.toBack();
                     red.setOnMouseDragged(e -> Platform.runLater(() -> red.setDraggable(experimentSpace,e)));
+                    red.setOnMouseClicked(event1 -> Platform.runLater(() -> {
+                        redModel.setChanged(true);
+                        red.setRedLitmus(redModel);
+                    }));
                 } else {
                     Alert noRedAvailable = new Alert(Alert.AlertType.WARNING);
                     noRedAvailable.setTitle("Warning");
@@ -261,6 +265,10 @@ public class ExperimentSpace implements Initializable {
                     getExperimentSpace().getChildren().add(blue);
                     blue.toBack();
                     blue.setOnMouseDragged(e -> Platform.runLater(() -> blue.setDraggable(experimentSpace,e)));
+                    blue.setOnMouseClicked(event1 -> Platform.runLater(() -> {
+                        blueModel.setChanged(true);
+                        blue.setBlueLitmus(blueModel);
+                    }));
                 } else {
                     Alert noBlueAvailable = new Alert(Alert.AlertType.WARNING);
                     noBlueAvailable.setTitle("Warning");
@@ -812,26 +820,17 @@ public class ExperimentSpace implements Initializable {
     }
 
     public void saveQueries(ActionEvent event) {
-        if (!isOpenedQueries()){
-            try {
-                setOpenedQueries(true);
-                FXMLLoader fxmlLoader = new FXMLLoader(TestExperimentSpace.class.getResource("note.fxml"));
-                Parent root = fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
-                Scene scene = new Scene(root);
-                stage.setResizable(false);
-//            scene.getStylesheets().add(TestExperimentSpace.class.getResource("View/logInPage.css").toExternalForm());
-                stage.setScene(scene);
-                stage.setTitle("About the Programmer");
-                stage.showAndWait();
-                if (!stage.isShowing()) {
-                    setOpenedQueries(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Desktop.getDesktop().open(new File("notes.txt"));
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
             }
-        }
+        }).start();
     }
 
 
@@ -1040,6 +1039,9 @@ public class ExperimentSpace implements Initializable {
             blackPan.setVisible(false);
             getExperimentSpace().getChildren().removeIf(node -> !(node instanceof Rectangle));
             getHistory().clearAll();
+            explanation.setText("Explanation goes here!");
+            explanationTab.setDisable(true);
+            setAnswered(false);
             setHasTestTube(false);
             setAddedSalt(false);
             blackPanel.setText("Show black panel");
