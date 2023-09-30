@@ -224,6 +224,8 @@ public class ExperimentSpace implements Initializable {
                 });
                 burner.setOnMouseClicked(event2-> System.out.println(event2.getX() + ", " + event2.getY()));
                 getExperimentSpace().getChildren().addAll(lighter, burner);
+                lighter.toBack();
+                burner.toBack();
                 burner.setLayoutY(110);
                 burner.setOnMouseDragged(e -> Platform.runLater(() -> burner.setDraggable(experimentSpace,e)));
             } else {
@@ -242,6 +244,7 @@ public class ExperimentSpace implements Initializable {
                     RedLitmusPane red = new RedLitmusPane(redModel);
                     getHistory().getRedLitmus().add(redModel);
                     getExperimentSpace().getChildren().add(red);
+                    red.toBack();
                     red.setOnMouseDragged(e -> Platform.runLater(() -> red.setDraggable(experimentSpace,e)));
                 } else {
                     Alert noRedAvailable = new Alert(Alert.AlertType.WARNING);
@@ -256,6 +259,7 @@ public class ExperimentSpace implements Initializable {
                     BlueLitmusPane blue = new BlueLitmusPane(blueModel);
                     getHistory().getBlueLitmus().add(blueModel);
                     getExperimentSpace().getChildren().add(blue);
+                    blue.toBack();
                     blue.setOnMouseDragged(e -> Platform.runLater(() -> blue.setDraggable(experimentSpace,e)));
                 } else {
                     Alert noBlueAvailable = new Alert(Alert.AlertType.WARNING);
@@ -274,18 +278,21 @@ public class ExperimentSpace implements Initializable {
                     SplintPane splint = new SplintPane(splintModel);
                     getHistory().getSplint().add(splintModel);
                     getExperimentSpace().getChildren().add(splint);
+                    splint.toBack();
                     splint.setOnMouseDragged(e -> Platform.runLater(() -> splint.setDraggable(experimentSpace,e)));
                 } else if (splint.getValue().equals("Lighted splint")) {
                     Splint splintModel = new Splint("lighted");
                     SplintPane splint = new SplintPane(splintModel);
                     getHistory().getSplint().add(splintModel);
                     getExperimentSpace().getChildren().add(splint);
+                    splint.toBack();
                     splint.setOnMouseDragged(e -> Platform.runLater(() -> splint.setDraggable(experimentSpace,e)));
                 } else if (splint.getValue().equals("New splint")) {
                     Splint splintModel = new Splint("new");
                     SplintPane splint = new SplintPane(splintModel);
                     getHistory().getSplint().add(splintModel);
                     getExperimentSpace().getChildren().add(splint);
+                    splint.toBack();
                     splint.setOnMouseDragged(e -> Platform.runLater(() -> splint.setDraggable(experimentSpace,e)));
                 }
             } else {
@@ -585,6 +592,11 @@ public class ExperimentSpace implements Initializable {
                                 Layer ammonia = new Layer(new Gas("NH3", database), true);
                                 ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer2(ammonia);
                                 ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
+                                for (Node node:getExperimentSpace().getChildren()) {
+                                    if (node instanceof RedLitmusPane) {
+                                        if (((RedLitmusPane) node).intersects())
+                                    }
+                                }
                             }
                         });
                     }
@@ -944,8 +956,9 @@ public class ExperimentSpace implements Initializable {
                     if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
                         if (count == 1) {
                             getExperimentSpace().getChildren().remove(i);
+                        } else {
+                            count++;
                         }
-                        count++;
                     }
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -961,8 +974,9 @@ public class ExperimentSpace implements Initializable {
                     if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
                         if (count == 2) {
                             getExperimentSpace().getChildren().remove(i);
+                        } else {
+                            count++;
                         }
-                        count++;
                     }
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -984,6 +998,12 @@ public class ExperimentSpace implements Initializable {
                 components.removeIf(node -> node instanceof LighterPane);
                 lightUp.setText("Heat up");
                 lightUp.setOnAction(e -> {
+                    for(Node node:getExperimentSpace().getChildren()) {
+                        if (node instanceof BurnerPane) {
+                            ((BurnerPane) node).getFire().setFill(Color.YELLOW);
+                            break;
+                        }
+                    }
                     getHistory().getBunsenBurner().setFire(true);
                     getHistory().getBunsenBurner().setAirHole(true);
                     getHistory().getBunsenBurner().setHeat(true);
