@@ -46,6 +46,7 @@ public class BlueLitmusPane extends DraggablePane implements Paintable {
     @Override
     public void paint() {
         getPaper().setFill(Color.LIGHTSKYBLUE);
+        getChangeable().setFill(Color.LIGHTSKYBLUE);
 //        paper.setStroke(Color.BLACK);
 //        paper.setStrokeWidth(0.5);
 

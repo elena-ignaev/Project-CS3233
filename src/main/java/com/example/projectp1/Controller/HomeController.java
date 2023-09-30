@@ -118,20 +118,21 @@ public class HomeController implements Initializable {
                 stage2.getIcons().add(new Image(TestHomePage.class.getResourceAsStream("chemical.png")));
 //        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
                 stage2.setScene(scene);
-                stage2.showAndWait();
                 Pane newSpace = new homePageButton("My experiment " + getCountExperiment());
+                if (getCountExperiment()<5){
+                    stage2.showAndWait();
+                    experimentGrid1.add(newSpace,getCountExperiment(),0);
+                } else if (getCountExperiment()<10) {
+                    stage2.showAndWait();
+                    experimentGrid2.add(newSpace,getCountExperiment()-5,0);
+                } else if (getCountExperiment()>=10) {
+                    Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
+                    exceededLimit.setTitle("Warning");
+                    exceededLimit.setHeaderText("Cannot add more experiment space");
+                    exceededLimit.setContentText("You can only have a maximum of 9 spaces in this application!");
+                    exceededLimit.showAndWait();
+                }
                 ((Button) newSpace.getChildren().get(0)).setOnAction(e -> {
-                    if (getCountExperiment()<5){
-                        experimentGrid1.add(newSpace,getCountExperiment(),0);
-                    } else if (getCountExperiment()<10) {
-                        experimentGrid2.add(newSpace,getCountExperiment()-5,0);
-                    } else if (getCountExperiment()>=10) {
-                        Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
-                        exceededLimit.setTitle("Warning");
-                        exceededLimit.setHeaderText("Cannot add more experiment space");
-                        exceededLimit.setContentText("You can only have a maximum of 9 spaces in this application!");
-                        exceededLimit.showAndWait();
-                    }
                     stage2.showAndWait();
                 });
             } catch (IOException e) {
@@ -165,19 +166,18 @@ public class HomeController implements Initializable {
                 stage2.setTitle("ChemQAnalytica");
                 stage2.getIcons().add(new Image(TestHomePage.class.getResourceAsStream("chemical.png")));
 //        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
-                stage2.setScene(scene);
-                stage2.showAndWait();
-                Pane pane = new homePageButton("New note");
+                stage2.setScene(scene);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           stage2.showAndWait();
+                Pane pane = new homePageButton("New note " + (getCountNotes()-2));
+                if (getCountNotes()<5){
+                    noteGrid.add(pane, getCountNotes(), 0);
+                } else {
+                    Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
+                    exceededLimit.setTitle("Warning");
+                    exceededLimit.setHeaderText("Cannot add more notes");
+                    exceededLimit.setContentText("You can only have a maximum of 2 notes in this application!");
+                    exceededLimit.showAndWait();
+                }
                 ((Button)pane.getChildren().get(0)).setOnAction(e -> {
-                    if (getCountNotes()<5){
-                        noteGrid.add(pane, getCountNotes(), 0);
-                    } else {
-                        Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
-                        exceededLimit.setTitle("Warning");
-                        exceededLimit.setHeaderText("Cannot add more notes");
-                        exceededLimit.setContentText("You can only have a maximum of 2 notes in this application!");
-                        exceededLimit.showAndWait();
-                    }
                     stage2.showAndWait();
                 });
             } catch (IOException e) {
