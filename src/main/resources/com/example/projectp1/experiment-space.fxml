@@ -28,7 +28,7 @@
                         <Menu mnemonicParsing="false" text="Home">
                             <items>
                                 <MenuItem fx:id="saveProgress" mnemonicParsing="false" onAction="#save" text="Save progress" />
-                        <MenuItem fx:id="viewNotes" mnemonicParsing="false" text="View your quick-note" />
+                        <MenuItem fx:id="viewNotes" mnemonicParsing="false" onAction="#viewQuickNotes" text="View your quick-note" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="Exit" />
                             </items>
@@ -334,7 +334,7 @@
                         </AnchorPane>
                     </content>
                   </Tab>
-                  <Tab text="Explanation">
+                  <Tab fx:id="explanationTab" text="Explanation">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: whitesmoke;">
                            <children>

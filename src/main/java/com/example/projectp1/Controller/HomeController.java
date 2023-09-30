@@ -1,12 +1,12 @@
 package com.example.projectp1.Controller;
 
+import com.example.projectp1.FXObjects.homePageButton;
 import com.example.projectp1.TestExperimentSpace;
 import com.example.projectp1.TestHomePage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -115,7 +115,7 @@ public class HomeController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Pane newSpace = newExperimentSpace();
+            Pane newSpace = new homePageButton("My experiment");
             experimentGrid1.add(newSpace,2,0);
 //            if(getCount()<experimentGrid1.getColumnCount()) {
 //                if (getCount() == 0){
@@ -148,41 +148,10 @@ public class HomeController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            Button button = new Button();
-            button.setPrefWidth(80.0);
-            button.setPrefHeight(80.0);
-            button.getChildrenUnmodifiable().add(new ImageView("avatarChemistry.png"));
+            Pane pane = new homePageButton("New note");
+            noteGrid.add(pane, 3,0);
         }
     }
-
-    public Pane newExperimentSpace() {
-        Pane pane = new Pane();
-        pane.setPrefHeight(100);
-        pane.setPrefWidth(120);
-
-        Button button = new Button();
-        Image image = new Image(TestHomePage.class.getResourceAsStream("avatarChemistry.png"));
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(70.0);
-        imageView.setFitHeight(70.0);
-        button.setPrefWidth(80.0);
-        button.setPrefHeight(80.0);
-//            imageView.setPreserveRatio(true);
-        button.setGraphic(imageView);
-        button.setAlignment(Pos.CENTER);
-        pane.getChildren().add(button);
-        button.setLayoutX(17);
-        button.setLayoutY(17);
-
-        Label label = new Label("Your experiment");
-        pane.getChildren().add(label);
-        label.setLayoutX(11);
-        label.setLayoutY(97);
-
-        return pane;
-    }
-
 
     public void openSearch(ActionEvent event) {
         try {
@@ -224,7 +193,9 @@ public class HomeController {
                 @Override
                 public void run() {
                     try {
-                        Desktop.getDesktop().open(new File("QA Notes.pdf"));
+                        File file = new File("QA Notes.pdf");
+                        file.setWritable(false);
+                        Desktop.getDesktop().open(file);
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

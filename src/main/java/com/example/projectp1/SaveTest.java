@@ -30,15 +30,10 @@ public class SaveTest extends Application{
                     new FileChooser.ExtensionFilter("*.pdf", "*.PDF"));
             fileChooser.setTitle("Save");
             fileChooser.setInitialFileName("Experiment 1");
-            try {
-                readFromFile(fileChooser.showOpenDialog(primaryStage));
-            } catch (IOException e) {
-
-            }
             button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    final File file = fileChooser.showOpenDialog(primaryStage);
+                    final File file = fileChooser.showSaveDialog(primaryStage);
                     try {
                         Desktop.getDesktop().open(file);
                     } catch (IOException e) {

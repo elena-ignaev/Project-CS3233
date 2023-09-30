@@ -21,6 +21,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -28,10 +32,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -47,6 +52,14 @@ public class ExperimentSpace implements Initializable {
         return this.history;
     }
     // Main functionalities
+    private boolean answered = false;
+
+    public boolean isAnswered() {
+        return answered;
+    }
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+    }
     private boolean hasHeatingEquipment = false;
     public boolean isHasHeatingEquipment() {
         return hasHeatingEquipment;
@@ -173,6 +186,26 @@ public class ExperimentSpace implements Initializable {
                         bunsenBurner.setHeat(false);
                         bunsenBurner.setFire(false);
                         burner.paint();
+                    } else {
+                        lightUp.setText("Heat up");
+                        lightUp.setOnAction(e1 -> {
+                            getHistory().getBunsenBurner().setFire(true);
+                            getHistory().getBunsenBurner().setAirHole(true);
+                            getHistory().getBunsenBurner().setHeat(true);
+                            Alert hotWarning = new Alert(Alert.AlertType.INFORMATION);
+                            hotWarning.setTitle("High heat!");
+                            hotWarning.setContentText("Bunsen burner is lighted with open air hole");
+                            hotWarning.setHeaderText("Be careful when handling bunsen burner");
+                            hotWarning.showAndWait();
+//                    for (Node node : getExperimentSpace().getChildren()){
+//                        if (node instanceof BurnerPane) {
+//                            ((BurnerPane) node).paint();
+//                            Bounds bounds = getExperimentSpace().getLayoutBounds();
+//                            node.setLayoutX((bounds.getMaxX()-bounds.getMinX())/2);
+//                            node.setLayoutY((bounds.getMaxY()-bounds.getMinY())/2);
+//                        }
+//                    }
+                        });
                     }
                 }));
 
@@ -353,6 +386,15 @@ public class ExperimentSpace implements Initializable {
             blackPanel.setText("Show black panel");
         } else {
             blackPan.setVisible(true);
+            blackPan.setOnMouseDragged(event1 -> {
+                Bounds bounds = getExperimentSpace().getLayoutBounds();
+                if (bounds.getMinX() <= event1.getSceneX() && event1.getSceneX() <= bounds.getMaxX()-blackPan.getWidth() && bounds.getMinY() <= event1.getSceneY() && event1.getSceneY() <= bounds.getMaxY()-blackPan.getHeight()) {
+                    Platform.runLater(() -> {
+                        blackPan.setLayoutX(event1.getSceneX());
+                        blackPan.setLayoutY(event1.getSceneY());
+                    });
+                }
+            });
             blackPanel.setText("Hide black panel");
         }
     }
@@ -495,7 +537,7 @@ public class ExperimentSpace implements Initializable {
                     - make exception for adding NaOH to ammonium salts (releasing NH3 instead)
                      */
                     FadeTransition precipitate = new FadeTransition();
-                    precipitate.setFromValue(0.25);
+                    precipitate.setFromValue(0.5);
                     precipitate.setToValue(1);
                     precipitate.setDuration(Duration.millis(2000));
                     precipitate.setCycleCount(1);
@@ -518,7 +560,6 @@ public class ExperimentSpace implements Initializable {
                                 added.setText("You are provided with aluminium foil");
                                 added.setVisible(true);
                                 showAdded();
-
                                 lightUp.setText("Add foil");
                                 lightUp.setVisible(true);
                                 lightUp.setOnAction(e -> Platform.runLater(() ->{
@@ -534,15 +575,16 @@ public class ExperimentSpace implements Initializable {
                                         }
                                     });
                                 }));
-                            }
-                            if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NH4")){
-                                ammoniaProduced = true;
-                                Layer ammonia = new Layer(new Gas("NH3", database), true);
-                                ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
                             } else {
                                 precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getArc());
                                 precipitate.setDelay(Duration.millis(100));
                                 precipitate.play();
+                            }
+                            if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("NH4")){
+                                ammoniaProduced = true;
+                                Layer ammonia = new Layer(new Gas("NH3", database), true);
+                                ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer2(ammonia);
+                                ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
                             }
                         });
                     }
@@ -552,7 +594,7 @@ public class ExperimentSpace implements Initializable {
                             TestingChemicals NH3 = new TestingChemicals("NH3");
                             Layer aqueousNH3 = new Layer(NH3, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousNH3);
-                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.55);
                             precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getArc());
                             precipitate.setDelay(Duration.millis(100));
                             precipitate.play();
@@ -564,7 +606,7 @@ public class ExperimentSpace implements Initializable {
                             TestingChemicals AgNO3 = new TestingChemicals("AgNO3");
                             Layer aqueousAgNO3 = new Layer(AgNO3, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousAgNO3);
-                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
                             System.out.println(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName());
                             changeColor.setShape(((TubePane) tubes.get(findTubeIndex())).getArc());
                             changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
@@ -575,9 +617,9 @@ public class ExperimentSpace implements Initializable {
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("I")) {
                                 changeColor.setToValue(Color.YELLOW);
                                 changeColor.play();
-                                changeColor.setOnFinished(e -> {
-                                    System.out.println("Completed");
-                                });
+                                precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getArc());
+                                precipitate.setDelay(Duration.millis(100));
+                                precipitate.play();
                             }
                         });
                     }
@@ -587,16 +629,17 @@ public class ExperimentSpace implements Initializable {
                             TestingChemicals BaCl2 = new TestingChemicals("BaCl2");
                             Layer aqueousBaCl2 = new Layer(BaCl2, "lightgrey", false);
 //                            getHistory().getTubes().get(findTubeIndex()).setLayer3(aqueousBaCl2);
-                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.25);
+                            ((TubePane) tubes.get(findTubeIndex())).setTransparency3(0.5);
                             changeColor.setShape((((TubePane) tubes.get(findTubeIndex())).getArc()));
                             changeColor.setFromValue(Color.web(((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getColor()));
                             if (((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent().getName().contains("SO4")){
                                 changeColor.setToValue(Color.GHOSTWHITE);
                                 changeColor.play();
+                                precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getArc());
+                                precipitate.setDelay(Duration.millis(100));
+                                precipitate.play();
                             }
-//                            precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getLayer3());
-//                            precipitate.setDelay(Duration.millis(100));
-//                            precipitate.play();
+
                         });
                     }
                     if (tube.getSelectedToggle() != null) {
@@ -668,6 +711,19 @@ public class ExperimentSpace implements Initializable {
     private RadioButton questionTube2;
     @FXML
     private RadioButton questionTube3;
+    public void viewQuickNotes(ActionEvent event) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Desktop.getDesktop().open(new File("notes.txt"));
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
     public int findTubeAnsIndex() {
         int index=0;
         String text = ((RadioButton) questionTube.getSelectedToggle()).getText();
@@ -682,6 +738,7 @@ public class ExperimentSpace implements Initializable {
     public void question(ActionEvent event) {
         if (event.getSource() == checkAns) {
             try {
+                setAnswered(true);
                 String cation = cationAns.getText();
                 String anion = anionAns.getText();
                 String salt = saltAns.getText();
@@ -730,7 +787,15 @@ public class ExperimentSpace implements Initializable {
         }
 
         if (event.getSource() == showExplanation) {
-
+            if (isAnswered()){
+                explanationTab.setDisable(false);
+            } else {
+                Alert noAnswerYet = new Alert(Alert.AlertType.WARNING);
+                noAnswerYet.setTitle("Warning");
+                noAnswerYet.setHeaderText("Answers have not been submitted yet!");
+                noAnswerYet.setContentText("Click check answer to submit!");
+                noAnswerYet.showAndWait();
+            }
         }
     }
 
@@ -748,6 +813,9 @@ public class ExperimentSpace implements Initializable {
                 stage.setScene(scene);
                 stage.setTitle("About the Programmer");
                 stage.showAndWait();
+                if (!stage.isShowing()) {
+                    setOpenedQueries(false);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -776,8 +844,6 @@ public class ExperimentSpace implements Initializable {
     // Menu bar
     @FXML
     private MenuItem saveProgress;
-    FileChooser fileChooser = new FileChooser();
-
     @FXML
     private MenuItem viewNotes;
 
@@ -813,17 +879,16 @@ public class ExperimentSpace implements Initializable {
 
     @FXML
     private MenuItem aboutProgrammer;
+    private FileChooser fileChooser = new FileChooser();
     public void save(ActionEvent event) {
-        Window stage = anchorPane.getScene().getWindow();
-        fileChooser.setTitle("Save Experiment space");
-        fileChooser.setInitialFileName("My Experiment Space");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("ChemQAnalytica Experiment Space", "*.cqa"));
-        try {
-            File file = fileChooser.showSaveDialog(stage);
-            fileChooser.setInitialDirectory(file.getParentFile());
-        } catch (Exception e) {
-
-        }
+        fileChooser.setInitialDirectory(new File(System
+                .getProperty("user.home")));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter( "*.cqa", "*.CQA"),
+                new FileChooser.ExtensionFilter("*.pdf", "*.PDF"));
+        fileChooser.setTitle("Save");
+        fileChooser.setInitialFileName("Experiment 1");
+        final File file = fileChooser.showSaveDialog(anchorPane.getScene().getWindow());
 
     }
 
@@ -952,15 +1017,19 @@ public class ExperimentSpace implements Initializable {
 
     public void clearAll(ActionEvent event) {
         try {
-            getExperimentSpace().getChildren().clear();
+            blackPan.setVisible(false);
+            getExperimentSpace().getChildren().removeIf(node -> !(node instanceof Rectangle));
             getHistory().clearAll();
             setHasTestTube(false);
             setAddedSalt(false);
+            blackPanel.setText("Show black panel");
+            setAnswered(false);
             setHasHeatingEquipment(false);
             salts.getSelectionModel().clearSelection();
             testPH.getSelectionModel().clearSelection();
             splint.getSelectionModel().clearSelection();
             tube.getSelectedToggle().setSelected(false);
+
             Alert cleared = new Alert(Alert.AlertType.INFORMATION);
             cleared.setTitle("Successful!");
             cleared.setHeaderText("Clear all succeeded");
@@ -1000,8 +1069,13 @@ public class ExperimentSpace implements Initializable {
     // Initialize
     ObservableList<String> saltsForQA = FXCollections.observableArrayList(
             "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2");
+    @FXML
+    private Tab explanationTab;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        explanationTab.setDisable(true);
+        explanation.setText("Explanation goes here!");
         salts.setItems(saltsForQA);
         testPH.setItems(litmusPaperType);
         splint.setItems(splintTypes);
@@ -1013,5 +1087,4 @@ public class ExperimentSpace implements Initializable {
         blackPan.setVisible(false);
         fileChooser.setInitialDirectory(new File("C:\\temp"));
     }
-
 }
