@@ -594,7 +594,7 @@ public class ExperimentSpace implements Initializable {
                                 ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
                                 for (Node node:getExperimentSpace().getChildren()) {
                                     if (node instanceof RedLitmusPane) {
-                                        if (((RedLitmusPane) node).intersects())
+//                                        if (((RedLitmusPane) node).intersects())
                                     }
                                 }
                             }
