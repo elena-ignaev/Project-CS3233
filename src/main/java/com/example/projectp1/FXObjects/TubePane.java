@@ -29,8 +29,6 @@ public class TubePane extends DraggablePane implements Paintable {
     private Circle bottom = new Circle(25);
     Arc arc = new Arc(25, 140, 25, 25, 215, 110);
 //    Arc arc = new Arc(getDiameter()/2, getEmptyHeight()+getLayerHeight()+getLayerHeight(), getDiameter()/2, getDiameter()/2, 215, 110);
-    private boolean shakeOnce;
-    private boolean shakeTwice;
     private Line bottomLine = new Line();
     private Line topLine = new Line();
     private Line leftLine = new Line();
@@ -83,14 +81,6 @@ public class TubePane extends DraggablePane implements Paintable {
 
     public Rectangle getLayer2() {
         return layer2;
-    }
-
-    public boolean isShakeOnce() {
-        return shakeOnce;
-    }
-
-    public boolean isShakeTwice() {
-        return shakeTwice;
     }
 
     public Arc getArc() {
@@ -174,14 +164,6 @@ public class TubePane extends DraggablePane implements Paintable {
     }
     public void setEmpty(Rectangle empty) {
         this.empty = empty;
-    }
-
-    public void setShakeOnce(boolean shakeOnce) {
-        this.shakeOnce = shakeOnce;
-    }
-
-    public void setShakeTwice(boolean shakeTwice) {
-        this.shakeTwice = shakeTwice;
     }
 
     public void setArc(Arc arc) {

@@ -53,13 +53,13 @@ public class TestSplashScreen extends Application {
         progressText.setAlignment(Pos.CENTER);
         splashLayout.setStyle(
                 "-fx-padding: 5; " +
-                        "-fx-background-color: cornsilk; " +
+                        "-fx-background-color: mistyrose; " +
                         "-fx-border-width:5; " +
                         "-fx-border-color: " +
                         "linear-gradient(" +
                         "to bottom, " +
-                        "chocolate, " +
-                        "derive(chocolate, 50%)" +
+                        "palevioletred, " +
+                        "plum" +
                         ");"
         );
         splashLayout.setEffect(new DropShadow());
@@ -97,13 +97,10 @@ public class TestSplashScreen extends Application {
     private void showMainStage() {
         try {
             mainStage = new Stage(StageStyle.DECORATED);
-            mainStage.setTitle("Rotating Rectangle");
-            mainStage.getIcons().add(new Image(APPLICATION_ICON));
-
             FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("home-page.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             mainStage.setTitle("ChemQAnalytica");
-            mainStage.getIcons().add(new Image(TestExperimentSpace.class.getResourceAsStream("chemical.png")));
+            mainStage.getIcons().add(new Image(APPLICATION_ICON));
 //        scene.getStylesheets().add(TestGUI.class.getResource("View/logInPage.css").toExternalForm());
             mainStage.setScene(scene);
             mainStage.setResizable(false);

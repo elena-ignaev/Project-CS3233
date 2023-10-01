@@ -247,7 +247,12 @@ public class ExperimentSpace implements Initializable {
                     getExperimentSpace().getChildren().add(red);
                     red.toBack();
                     red.setOnMouseDragged(e -> Platform.runLater(() -> red.setDraggable(experimentSpace,e)));
-
+                    red.setOnMouseClicked(event3 -> Platform.runLater(() ->{
+                        red.setLayoutX(tubes.get(findTubeIndex()).getLayoutX());
+                        red.setLayoutY(tubes.get(findTubeIndex()).getLayoutY()/2+20);
+                        red.getRedLitmus().setChanged(true);
+                        red.getChangeable().setFill(Color.LIGHTSKYBLUE);
+                    }));
                 } else {
                     Alert noRedAvailable = new Alert(Alert.AlertType.WARNING);
                     noRedAvailable.setTitle("Warning");
@@ -573,7 +578,6 @@ public class ExperimentSpace implements Initializable {
                                 added.setText("You are provided with aluminium foil");
                                 added.setVisible(true);
                                 showAdded();
-                                lightUp.setText("Add foil");
                                 lightUp.setVisible(true);
                                 aluminiumFoil.setOnMouseDragged(event1 -> {
                                     Bounds bounds = getExperimentSpace().getLayoutBounds();
@@ -584,27 +588,21 @@ public class ExperimentSpace implements Initializable {
                                         });
                                     }
                                 });
-                                lightUp.setOnAction(e -> Platform.runLater(() ->{
-                                    aluminiumFoil.setLayoutX(tubes.get(findTubeIndex()).getLayoutX());
-                                    aluminiumFoil.setLayoutY(tubes.get(findTubeIndex()).getLayoutY());
-                                    aluminiumFoil.setOnMouseClicked(event2 -> {
-                                        ammoniaProduced = true;
-                                        Layer ammonia = new Layer(new Gas("NH3", database), true);
-                                        ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer2(ammonia);
-                                        ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
-                                        for (Node node:getExperimentSpace().getChildren()) {
-                                            if (node instanceof RedLitmusPane) {
-                                                node.setOnMouseClicked(event3 -> Platform.runLater(() ->{
-                                                    node.setLayoutX(tubes.get(findTubeIndex()).getLayoutX());
-                                                    node.setLayoutY(tubes.get(findTubeIndex()).getLayoutY()/2);
-                                                    ((RedLitmusPane) node).getRedLitmus().setChanged(true);
-                                                    ((RedLitmusPane) node).getChangeable().setFill(Color.LIGHTSKYBLUE);
-                                                }));
-                                                break;
-                                            }
-                                        }
-                                    });
-                                }));
+                                ammoniaProduced = true;
+                                Layer ammonia = new Layer(new Gas("NH3", database), true);
+                                ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer2(ammonia);
+                                ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
+                                for (Node node:getExperimentSpace().getChildren()) {
+                                    if (node instanceof RedLitmusPane) {
+                                        node.setOnMouseClicked(event3 -> Platform.runLater(() ->{
+                                            node.setLayoutX(tubes.get(findTubeIndex()).getLayoutX());
+                                            node.setLayoutY(tubes.get(findTubeIndex()).getLayoutY()/2);
+                                            ((RedLitmusPane) node).getRedLitmus().setChanged(true);
+                                            ((RedLitmusPane) node).getChangeable().setFill(Color.LIGHTSKYBLUE);
+                                        }));
+                                        break;
+                                    }
+                                }
                             } else {
                                 precipitate.setNode(((TubePane) tubes.get(findTubeIndex())).getArc());
                                 precipitate.setDelay(Duration.millis(100));
@@ -795,9 +793,18 @@ public class ExperimentSpace implements Initializable {
                         String template = "The salt has been added is " + correctSalt.getName() +
                                 ". The cation is " + correctSalt.getCation().getName() + " because " +
                                 ((TubePane) tubes.get(findTubeAnsIndex())).getColor3() +
-                                " insoluble precipitate is formed when added either NaOH or NH3.\nThe anion is " +
-                                correctSalt.getAnion().getName() + " because when tested with " +
-                                correctSalt.getAnion().getReagents() + " there is " + correctSalt.getAnion().getReactions() + ".";
+                                " insoluble precipitate is formed when added either NaOH or NH3.\nThe anion is ";
+                        if (correctSalt.getAnion().getName().equals("Cl-")) {
+                            template = template.concat(correctSalt.getAnion().getName() + " because when tested with aqueous AgNO3, there is white precipitate.");
+                        } else if (correctSalt.getAnion().getName().equals("I-")) {
+                            template = template.concat(correctSalt.getAnion().getName() + " because when tested with aqueous AgNO3, there is yellow precipitate");
+                        } else if (correctSalt.getAnion().getName().equals("SO42-")) {
+                            template = template.concat(correctSalt.getAnion().getName() + " because when tested with aqueous BaCl2, there is white precipitate");
+                        } else if (correctSalt.getAnion().getName().equals("CO32-")) {
+                            template = template.concat(correctSalt.getAnion().getName() + " because when tested with dilute acid and limewater, there is white precipitate");
+                        } else if (correctSalt.getAnion().getName().equals("NO3-")) {
+                            template = template.concat(correctSalt.getAnion().getName() + " because when tested with NaOH and heated warmly with aluminium, there is ammonia gas that turns red litmus paper blue");
+                        }
                         explanation.setText(template);
                     }
                 } else {
@@ -1023,7 +1030,9 @@ public class ExperimentSpace implements Initializable {
 
     public void clearAll(ActionEvent event) {
         try {
+            lightUp.setVisible(false);
             blackPan.setVisible(false);
+            aluminiumFoil.setVisible(false);
             getExperimentSpace().getChildren().removeIf(node -> !(node instanceof Rectangle));
             getHistory().clearAll();
             explanation.setText("Explanation goes here!");
