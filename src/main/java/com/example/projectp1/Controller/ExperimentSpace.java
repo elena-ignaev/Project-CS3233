@@ -1030,6 +1030,9 @@ public class ExperimentSpace implements Initializable {
 
     public void clearAll(ActionEvent event) {
         try {
+            saltAns.clear();
+            anionAns.clear();
+            cationAns.clear();
             lightUp.setVisible(false);
             blackPan.setVisible(false);
             aluminiumFoil.setVisible(false);
