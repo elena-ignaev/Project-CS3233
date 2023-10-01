@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -61,10 +62,6 @@ public class HomeController implements Initializable {
     private MenuItem createNewSpace;
     @FXML
     private MenuItem exitHome;
-    @FXML
-    private MenuItem changeImage;
-    @FXML
-    private MenuItem rename;
     @FXML
     private MenuItem delete;
     @FXML
@@ -163,31 +160,54 @@ public class HomeController implements Initializable {
 
         if (event.getSource() == newNote) {
             setCountNotes(getCountNotes()+1);
-            try {
-                setStage((Stage) anchorPane.getScene().getWindow());
-                Stage stage2 = new Stage();
-                FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("note.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                stage2.setResizable(false);
-                stage2.setTitle("ChemQAnalytica");
-                stage2.getIcons().add(new Image(TestHomePage.class.getResourceAsStream("chemical.png")));
-//        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
-                stage2.setScene(scene);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           stage2.showAndWait();
-                Pane pane = new homePageButton("New note " + (getCountNotes()-2));
-                if (getCountNotes()<5){
+            if (getCountNotes()==3){
+                try {
+                    File file = new File("notes1.txt");
+                    Desktop.getDesktop().open(file);
+                    Pane pane = new homePageButton("New note " + (getCountNotes() - 2));
+                    if (getCountNotes() < 5) {
                         noteGrid.add(pane, getCountNotes(), 0);
-                } else {
-                    Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
-                    exceededLimit.setTitle("Warning");
-                    exceededLimit.setHeaderText("Cannot add more notes");
-                    exceededLimit.setContentText("You can only have a maximum of 2 notes in this application!");
-                    exceededLimit.showAndWait();
+                    } else {
+                        Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
+                        exceededLimit.setTitle("Warning");
+                        exceededLimit.setHeaderText("Cannot add more notes");
+                        exceededLimit.setContentText("You can only have a maximum of 2 notes in this application!");
+                        exceededLimit.showAndWait();
+                    }
+                    ((Button) pane.getChildren().get(0)).setOnAction(e -> {
+                        try {
+                            Desktop.getDesktop().open(file);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                ((Button)pane.getChildren().get(0)).setOnAction(e -> {
-                    stage2.showAndWait();
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else if (getCountNotes()==4) {
+                try {
+                    File file = new File("notes2.txt");
+                    Desktop.getDesktop().open(file);
+                    Pane pane = new homePageButton("New note " + (getCountNotes() - 2));
+                    if (getCountNotes() < 5) {
+                        noteGrid.add(pane, getCountNotes(), 0);
+                    } else {
+                        Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
+                        exceededLimit.setTitle("Warning");
+                        exceededLimit.setHeaderText("Cannot add more notes");
+                        exceededLimit.setContentText("You can only have a maximum of 2 notes in this application!");
+                        exceededLimit.showAndWait();
+                    }
+                    ((Button) pane.getChildren().get(0)).setOnAction(e -> {
+                        try {
+                            Desktop.getDesktop().open(file);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -214,13 +234,10 @@ public class HomeController implements Initializable {
     }
 
     public void edit(ActionEvent event) {
-        if (event.getSource() == changeImage) {
-
-        }
-        if (event.getSource() == rename) {
-
-        }
         if (event.getSource() == delete) {
+            experimentGrid1.getChildren().removeIf(node -> node instanceof homePageButton);
+            experimentGrid2.getChildren().removeIf(node -> node instanceof homePageButton);
+            noteGrid.getChildren().removeIf(node -> node instanceof homePageButton);
 
         }
 

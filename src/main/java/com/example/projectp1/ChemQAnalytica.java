@@ -24,7 +24,7 @@ import java.io.IOException;
  *
  */
 public class ChemQAnalytica extends Application {
-    public static final String APPLICATION_ICON ="file:chemical.png";
+    public static final String APPLICATION_ICON ="chemical.png";
     public static final String SPLASH_IMAGE ="file:avatarChemistry.png";
 
     private Pane splashLayout;
@@ -96,7 +96,7 @@ public class ChemQAnalytica extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(TestHomePage.class.getResource("home-page.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             mainStage.setTitle("ChemQAnalytica");
-            mainStage.getIcons().add(new Image(APPLICATION_ICON));
+            mainStage.getIcons().add(new Image(ChemQAnalytica.class.getResourceAsStream(APPLICATION_ICON)));
 //        scene.getStylesheets().add(TestGUI.class.getResource("View/logInPage.css").toExternalForm());
             mainStage.setScene(scene);
             mainStage.setResizable(false);

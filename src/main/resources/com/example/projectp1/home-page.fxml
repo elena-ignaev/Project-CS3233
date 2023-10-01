@@ -31,8 +31,6 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
-                        <MenuItem fx:id="changeImage" mnemonicParsing="false" onAction="#edit" text="Change image" />
-                    <MenuItem fx:id="rename" mnemonicParsing="false" onAction="#edit" text="Rename" />
                         <MenuItem fx:id="delete" mnemonicParsing="false" onAction="#edit" text="Delete" />
                   </items>
                 </Menu>

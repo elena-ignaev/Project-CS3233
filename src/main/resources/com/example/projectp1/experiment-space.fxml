@@ -43,7 +43,7 @@
                                             <MenuItem fx:id="deleteRedLitmus" mnemonicParsing="false" onAction="#delete" text="Red litmus paper" />
                                 </items>
                               </Menu>
-                              <Menu fx:id="deleteTube1" mnemonicParsing="false" onAction="#delete" text="Test tube" />
+                              <MenuItem fx:id="deleteTube1" mnemonicParsing="false" onAction="#delete" text="Test tube" />
                               <Menu mnemonicParsing="false" text="Heating equipment">
                                 <items>
                                   <MenuItem fx:id="deleteBurner" mnemonicParsing="false" onAction="#delete" text="Bunsen burner" />

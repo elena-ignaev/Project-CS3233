@@ -21,7 +21,7 @@ public class History {
         splint = new ArrayList<>(2);
         redLitmus = new ArrayList<>(3);
         blueLitmus = new ArrayList<>();
-        file = new File("notes.txt");
+        file = new File("notes1.txt");
     }
     public ArrayList<TestTube> getTubes() {
         return this.tubes;

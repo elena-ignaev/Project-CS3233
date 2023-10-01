@@ -755,7 +755,7 @@ public class ExperimentSpace implements Initializable {
             @Override
             public void run() {
                 try {
-                    Desktop.getDesktop().open(new File("notes.txt"));
+                    Desktop.getDesktop().open(new File("notes1.txt"));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -852,7 +852,7 @@ public class ExperimentSpace implements Initializable {
             @Override
             public void run() {
                 try {
-                    Desktop.getDesktop().open(new File("notes.txt"));
+                    Desktop.getDesktop().open(new File("notes1.txt"));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -1080,8 +1080,7 @@ public class ExperimentSpace implements Initializable {
     }
 
     public void exit(ActionEvent event) {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        
+
         ((Stage) anchorPane.getScene().getWindow()).close();
     }
 
