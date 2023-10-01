@@ -1071,6 +1071,8 @@ public class ExperimentSpace implements Initializable {
     }
 
     public void exit(ActionEvent event) {
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        
         ((Stage) anchorPane.getScene().getWindow()).close();
     }
 
