@@ -1,6 +1,6 @@
 package com.example.projectp1.Model;
 
-public abstract class Substance implements Component {
+public abstract class Substance {
     private String name;
     private String color = "lightgrey";
     public Substance(String name) {
@@ -21,13 +21,5 @@ public abstract class Substance implements Component {
     }
     public abstract boolean validName();
 
-    @Override
-    public void add() {
 
-    }
-
-    @Override
-    public void delete() {
-
-    }
 }

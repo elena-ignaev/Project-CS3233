@@ -13,7 +13,6 @@ public class TestFXObjects extends Application {
     public void start(Stage stage) throws IOException {
         TubePane tubePane = new TubePane();
         LighterPane lighterPane = new LighterPane();
-
         RedLitmusPane redLitmusPane = new RedLitmusPane();
         BlueLitmusPane blueLitmusPane = new BlueLitmusPane();
         BurnerPane burnerPane = new BurnerPane();
@@ -35,7 +34,7 @@ public class TestFXObjects extends Application {
         splintPane.setLayoutX(50);
         splintPane.setLayoutY(300);
 
-
+        blueLitmusPane.setLayoutY(100);
 
         Scene scene = new Scene(pane);
         stage.setTitle("My Chemical");
