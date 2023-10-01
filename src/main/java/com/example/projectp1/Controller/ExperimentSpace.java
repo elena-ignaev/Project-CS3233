@@ -755,7 +755,7 @@ public class ExperimentSpace implements Initializable {
             @Override
             public void run() {
                 try {
-                    Desktop.getDesktop().open(new File("notes1.txt"));
+                    Desktop.getDesktop().open(new File("notes.txt"));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
