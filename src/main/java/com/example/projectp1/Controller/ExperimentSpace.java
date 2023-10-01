@@ -240,16 +240,14 @@ public class ExperimentSpace implements Initializable {
         if (event.getSource() == testPH) {
             if (testPH.getValue().equals("Red litmus")) {
                 if (redLitmusAvailability()) {
+                    int count =0;
                     RedLitmus redModel = new RedLitmus();
                     RedLitmusPane red = new RedLitmusPane(redModel);
                     getHistory().getRedLitmus().add(redModel);
                     getExperimentSpace().getChildren().add(red);
                     red.toBack();
                     red.setOnMouseDragged(e -> Platform.runLater(() -> red.setDraggable(experimentSpace,e)));
-                    red.setOnMouseClicked(event1 -> Platform.runLater(() -> {
-                        redModel.setChanged(true);
-                        red.setRedLitmus(redModel);
-                    }));
+
                 } else {
                     Alert noRedAvailable = new Alert(Alert.AlertType.WARNING);
                     noRedAvailable.setTitle("Warning");
@@ -577,16 +575,33 @@ public class ExperimentSpace implements Initializable {
                                 showAdded();
                                 lightUp.setText("Add foil");
                                 lightUp.setVisible(true);
+                                aluminiumFoil.setOnMouseDragged(event1 -> {
+                                    Bounds bounds = getExperimentSpace().getLayoutBounds();
+                                    if (bounds.getMinX() <= event1.getSceneX() && event1.getSceneX() <= bounds.getMaxX()-aluminiumFoil.getWidth() && bounds.getMinY() <= event1.getSceneY() && event1.getSceneY() <= bounds.getMaxY()-aluminiumFoil.getHeight()) {
+                                        Platform.runLater(() -> {
+                                            aluminiumFoil.setLayoutX(event1.getSceneX());
+                                            aluminiumFoil.setLayoutY(event1.getSceneY());
+                                        });
+                                    }
+                                });
                                 lightUp.setOnAction(e -> Platform.runLater(() ->{
-                                    aluminiumFoil.setX(tubes.get(findTubeIndex()).getLayoutX());
-                                    aluminiumFoil.setY(tubes.get(findTubeIndex()).getLayoutY());
-                                    aluminiumFoil.setOnMouseDragged(event1 -> {
-                                        Bounds bounds = getExperimentSpace().getLayoutBounds();
-                                        if (bounds.getMinX() <= event1.getSceneX() && event1.getSceneX() <= bounds.getMaxX()-aluminiumFoil.getWidth() && bounds.getMinY() <= event1.getSceneY() && event1.getSceneY() <= bounds.getMaxY()-aluminiumFoil.getHeight()) {
-                                            Platform.runLater(() -> {
-                                                aluminiumFoil.setLayoutX(event1.getX());
-                                                aluminiumFoil.setLayoutY(event1.getY());
-                                            });
+                                    aluminiumFoil.setLayoutX(tubes.get(findTubeIndex()).getLayoutX());
+                                    aluminiumFoil.setLayoutY(tubes.get(findTubeIndex()).getLayoutY());
+                                    aluminiumFoil.setOnMouseClicked(event2 -> {
+                                        ammoniaProduced = true;
+                                        Layer ammonia = new Layer(new Gas("NH3", database), true);
+                                        ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer2(ammonia);
+                                        ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
+                                        for (Node node:getExperimentSpace().getChildren()) {
+                                            if (node instanceof RedLitmusPane) {
+                                                node.setOnMouseClicked(event3 -> Platform.runLater(() ->{
+                                                    node.setLayoutX(tubes.get(findTubeIndex()).getLayoutX());
+                                                    node.setLayoutY(tubes.get(findTubeIndex()).getLayoutY()/2);
+                                                    ((RedLitmusPane) node).getRedLitmus().setChanged(true);
+                                                    ((RedLitmusPane) node).getChangeable().setFill(Color.LIGHTSKYBLUE);
+                                                }));
+                                                break;
+                                            }
                                         }
                                     });
                                 }));
@@ -602,7 +617,13 @@ public class ExperimentSpace implements Initializable {
                                 ((TubePane) tubes.get(findTubeIndex())).getTubeModel().setLayer1(ammonia);
                                 for (Node node:getExperimentSpace().getChildren()) {
                                     if (node instanceof RedLitmusPane) {
-//                                        if (((RedLitmusPane) node).intersects())
+                                        node.setOnMouseClicked(e -> Platform.runLater(() ->{
+                                                node.setLayoutX(tubes.get(findTubeIndex()).getLayoutX());
+                                        node.setLayoutY(tubes.get(findTubeIndex()).getLayoutY()/2);
+                                        ((RedLitmusPane) node).getRedLitmus().setChanged(true);
+                                        ((RedLitmusPane) node).getChangeable().setFill(Color.LIGHTSKYBLUE);
+                                        }));
+                                        break;
                                     }
                                 }
                             }
@@ -871,12 +892,6 @@ public class ExperimentSpace implements Initializable {
     private MenuItem deleteTube1;
 
     @FXML
-    private MenuItem deleteTube2;
-
-    @FXML
-    private MenuItem deleteTube3;
-
-    @FXML
     private MenuItem deleteBurner;
 
     @FXML
@@ -890,8 +905,16 @@ public class ExperimentSpace implements Initializable {
 
     @FXML
     private MenuItem aboutProgrammer;
+    private boolean saved=false;
+    public boolean isSaved() {
+        return saved;
+    }
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
     private FileChooser fileChooser = new FileChooser();
     public void save(ActionEvent event) {
+        setSaved(true);
         fileChooser.setInitialDirectory(new File(System
                 .getProperty("user.home")));
         fileChooser.getExtensionFilters().addAll(
@@ -940,42 +963,6 @@ public class ExperimentSpace implements Initializable {
                     if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
                         getExperimentSpace().getChildren().remove(i);
                         break;
-                    }
-                }
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-                toolNotInPane.showAndWait();
-            }
-        }
-        if (event.getSource() == deleteTube2) {
-            try {
-                tubes.remove(1);
-                int count = 0;
-                for (int i = 0; i<getExperimentSpace().getChildren().size(); i++) {
-                    if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
-                        if (count == 1) {
-                            getExperimentSpace().getChildren().remove(i);
-                        } else {
-                            count++;
-                        }
-                    }
-                }
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-                toolNotInPane.showAndWait();
-            }
-        }
-        if (event.getSource() == deleteTube3) {
-            try {
-                tubes.remove(2);
-                int count = 0;
-                for (int i =0; i <getExperimentSpace().getChildren().size(); i++) {
-                    if (getExperimentSpace().getChildren().get(i) instanceof TubePane) {
-                        if (count == 2) {
-                            getExperimentSpace().getChildren().remove(i);
-                        } else {
-                            count++;
-                        }
                     }
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -1096,6 +1083,7 @@ public class ExperimentSpace implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tubes = new ArrayList<>();
         explanationTab.setDisable(true);
         explanation.setText("Explanation goes here!");
         salts.setItems(saltsForQA);

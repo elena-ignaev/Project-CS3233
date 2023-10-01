@@ -33,6 +33,9 @@ public class QuickNote implements Initializable {
 
     @FXML
     private MenuItem aboutProgrammer;
+    public void saveNote(ActionEvent event) {
+        
+    }
 
     public void exit(ActionEvent event) {
         note.getScene().getWindow().hide();

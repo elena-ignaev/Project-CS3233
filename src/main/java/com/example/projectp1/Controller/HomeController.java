@@ -108,7 +108,6 @@ public class HomeController implements Initializable {
 
     public void createNew(ActionEvent event) {
         if (event.getSource() == newSpace || event.getSource() == createNewSpace){
-            setCountExperiment(getCountExperiment()+1);
             try {
                 setStage((Stage)anchorPane.getScene().getWindow());
                 Stage stage2 = new Stage();
@@ -118,13 +117,20 @@ public class HomeController implements Initializable {
                 stage2.getIcons().add(new Image(TestHomePage.class.getResourceAsStream("chemical.png")));
 //        scene.getStylesheets().add(TestExperimentSpace.class.getResource("light-mode.css").toExternalForm());
                 stage2.setScene(scene);
-                Pane newSpace = new homePageButton("My experiment " + getCountExperiment());
+                Pane newSpace = new homePageButton("My experiment " + (getCountExperiment()+1));
+                if (((ExperimentSpace)fxmlLoader.getController()).isSaved()) {
+                    setCountExperiment(getCountExperiment()+1);
+                }
                 if (getCountExperiment()<5){
                     stage2.showAndWait();
-                    experimentGrid1.add(newSpace,getCountExperiment(),0);
+                    if (((ExperimentSpace)fxmlLoader.getController()).isSaved()) {
+                        experimentGrid1.add(newSpace, getCountExperiment()+1, 0);
+                    }
                 } else if (getCountExperiment()<10) {
                     stage2.showAndWait();
-                    experimentGrid2.add(newSpace,getCountExperiment()-5,0);
+                    if (((ExperimentSpace)fxmlLoader.getController()).isSaved()) {
+                        experimentGrid2.add(newSpace, getCountExperiment() - 5, 0);
+                    }
                 } else if (getCountExperiment()>=10) {
                     Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
                     exceededLimit.setTitle("Warning");
@@ -169,7 +175,7 @@ public class HomeController implements Initializable {
                 stage2.setScene(scene);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           stage2.showAndWait();
                 Pane pane = new homePageButton("New note " + (getCountNotes()-2));
                 if (getCountNotes()<5){
-                    noteGrid.add(pane, getCountNotes(), 0);
+                        noteGrid.add(pane, getCountNotes(), 0);
                 } else {
                     Alert exceededLimit = new Alert(Alert.AlertType.WARNING);
                     exceededLimit.setTitle("Warning");
