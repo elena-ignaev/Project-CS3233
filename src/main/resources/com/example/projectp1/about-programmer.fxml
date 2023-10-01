@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="229.0" layoutY="134.0" text="Brought to you by:">
@@ -22,5 +21,6 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <Label layoutX="238.0" layoutY="287.0" text="Taking CS3233 module" />
    </children>
 </AnchorPane>
