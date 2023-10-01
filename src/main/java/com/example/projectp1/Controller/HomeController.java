@@ -162,7 +162,7 @@ public class HomeController implements Initializable {
             setCountNotes(getCountNotes()+1);
             if (getCountNotes()==3){
                 try {
-                    File file = new File("notes1.txt");
+                    File file = new File(System.getProperty("user.dir") + "/notes1.txt");
                     Desktop.getDesktop().open(file);
                     Pane pane = new homePageButton("New note " + (getCountNotes() - 2));
                     if (getCountNotes() < 5) {
@@ -186,7 +186,7 @@ public class HomeController implements Initializable {
                 }
             } else if (getCountNotes()==4) {
                 try {
-                    File file = new File("notes2.txt");
+                    File file = new File(System.getProperty("user.dir") + "/notes2.txt");
                     Desktop.getDesktop().open(file);
                     Pane pane = new homePageButton("New note " + (getCountNotes() - 2));
                     if (getCountNotes() < 5) {

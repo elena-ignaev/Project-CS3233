@@ -755,7 +755,7 @@ public class ExperimentSpace implements Initializable {
             @Override
             public void run() {
                 try {
-                    Desktop.getDesktop().open(new File("notes.txt"));
+                    Desktop.getDesktop().open(new File(System.getProperty("user.dir") + "/notes.txt"));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -852,7 +852,7 @@ public class ExperimentSpace implements Initializable {
             @Override
             public void run() {
                 try {
-                    Desktop.getDesktop().open(new File("notes1.txt"));
+                    Desktop.getDesktop().open(new File(System.getProperty("user.dir") + "/notes1.txt"));
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -1103,7 +1103,7 @@ public class ExperimentSpace implements Initializable {
         testPH.setItems(litmusPaperType);
         splint.setItems(splintTypes);
         lightUp.setVisible(false);
-        database = new Database("cationNames.txt", "anionNames.txt", "gas.txt");
+        database = new Database(System.getProperty("user.dir") + "/cationNames.txt", System.getProperty("user.dir") + "/anionNames.txt", System.getProperty("user.dir") + "/gas.txt");
         history = new History();
         added.setVisible(false);
         aluminiumFoil.setVisible(false);
