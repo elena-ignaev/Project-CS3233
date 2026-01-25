@@ -1,0 +1,140 @@
+[
+  {
+    "ion": "",
+    "reagent": "",
+    "observation": "",
+    "rxn_product": ""
+  },
+  {
+    "ion": "Fe2+",
+    "reagent": "NaOH",
+    "observation": "turquoise precipitate, insoluble in excess",
+    "rxn_product": "Fe(OH)2"
+  },
+  {
+    "ion": "Fe2+",
+    "reagent": "NH3",
+    "observation": "green precipitate, insoluble in excess",
+    "rxn_product": "Fe(OH)2(H2O)4"
+  },
+  {
+    "ion": "Fe3+",
+    "reagent": "NaOH",
+    "observation": "red-brown precipitate, insoluble in excess",
+    "rxn_product": "Fe(OH)3"
+  },
+  {
+    "ion": "Fe3+",
+    "reagent": "NH3",
+    "observation": "red-brown precipitate, insoluble in excess",
+    "rxn_product": "Fe(OH)3"
+  },
+  {
+    "ion": "Ca2+",
+    "reagent": "NaOH",
+    "observation": "white precipitate, insoluble in excess",
+    "rxn_product": "Ca(OH)2"
+  },
+  {
+    "ion": "Ca2+",
+    "reagent": "NH3",
+    "observation": "little to no precipitate",
+    "rxn_product": "NA"
+  },
+  {
+    "ion": "Mg2+",
+    "reagent": "NaOH",
+    "observation": "white precipitate, insoluble in excess",
+    "rxn_product": "Mg(OH)2"
+  },
+  {
+    "ion": "Mg2+",
+    "reagent": "NH3",
+    "observation": "white precipitate, insoluble in excess",
+    "rxn_product": "Mg(OH)2"
+  },
+  {
+    "ion": "Cu2+",
+    "reagent": "NaOH",
+    "observation": "light blue precipitate, insoluble in excess",
+    "rxn_product": "Cu(OH)2"
+  },
+  {
+    "ion": "Cu2+",
+    "reagent": "NH3",
+    "observation": "light blue precipitate, soluble and deep blue solution in excess",
+    "rxn_product": "Cu(OH)2"
+  },
+  {
+    "ion": "Zn2+",
+    "reagent": "NaOH",
+    "observation": "white precipitate, soluble and colorless solution in excess",
+    "rxn_product": "Zn(OH)2"
+  },
+  {
+    "ion": "Zn2+",
+    "reagent": "NH3",
+    "observation": "white precipitate, soluble and colorless solution in excess",
+    "rxn_product": "Zn(OH)2"
+  },
+  {
+    "ion": "Pb2+",
+    "reagent": "NaOH",
+    "observation": "white precipitate, soluble and colorless solution in excess",
+    "rxn_product": "Pb(OH)2"
+  },
+  {
+    "ion": "Pb2+",
+    "reagent": "NH3",
+    "observation": "white precipitate, insoluble in excess",
+    "rxn_product": "Pb(OH)2"
+  },
+  {
+    "ion": "Al3+",
+    "reagent": "NaOH",
+    "observation": "white precipitate, soluble and colorless solution in excess",
+    "rxn_product": "Al(OH)3"
+  },
+  {
+    "ion": "Al3+",
+    "reagent": "NH3",
+    "observation": "white precipitate, insoluble in excess",
+    "rxn_product": "Al(OH)3"
+  },
+  {
+    "ion": "Cl-",
+    "reagent": "HNO3, AgNO3",
+    "observation": "white precipitate",
+    "rxn_product": "AgCl"
+  },
+  {
+    "ion": "I-",
+    "reagent": "HNO3, AgNO3",
+    "observation": "yellow precipitate",
+    "rxn_product": "AgI"
+  },
+  {
+    "ion": "(SO4)2-",
+    "reagent": "HNO3, Ba(NO3)2",
+    "observation": "white precipitate",
+    "rxn_product": "BaSO4"
+  },
+  {
+    "ion": "(SO4)2-",
+    "reagent": "HNO3, BaCl2",
+    "observation": "white precipitate",
+    "rxn_product": "BaSO4"
+  },
+  {
+    "ion": "(CO3)2-",
+    "reagent": "H+",
+    "observation": "effervescence",
+    "rxn_product": "CO2"
+  },
+  {
+    "ion": "(NO3)-",
+    "reagent": "NaOH, Al, warm",
+    "observation": "pungent smell, gas turns damp red litmus paper blue",
+    "rxn_product": "NH3"
+  }
+]

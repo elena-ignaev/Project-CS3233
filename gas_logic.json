@@ -1,0 +1,32 @@
+[
+  {
+    "gas": "NH3",
+    "procedures": "damp red litmus paper",
+    "observation": "gas turns damp red litmus paper blue"
+  },
+  {
+    "gas": "CO2",
+    "procedures": "limewater",
+    "observation": "gas gives white precipitate with limewater, soluble in excess"
+  },
+  {
+    "gas": "Cl2",
+    "procedures": "damp litmus paper",
+    "observation": "gas bleaches damp litmus paper"
+  },
+  {
+    "gas": "H2",
+    "procedures": "lighted split",
+    "observation": "gas pops with lighted splint"
+  },
+  {
+    "gas": "O2",
+    "procedures": "glowing splint",
+    "observation": "gas relights glowing splint"
+  },
+  {
+    "gas": "SO2",
+    "procedures": "KMnO4, H+",
+    "observation": "gas turns KMnO4, H+ from purple to colorless"
+  }
+]
