@@ -98,6 +98,8 @@ public class ExperimentSpace implements Initializable {
     }
     @FXML
     private Label added;
+    @FXML
+    private Label workflowStatus;
 
     // Equipment tab
         //Equipment components
@@ -136,9 +138,13 @@ public class ExperimentSpace implements Initializable {
                 TestTube tubeModel = new TestTube();
                 getHistory().getTubes().add(tubeModel);
                 TubePane tube = new TubePane(tubeModel);
+                resetTube();
+                int tubeNumber = tubes.size() + 1;
+                tube.setLayoutX(90 + (tubeNumber - 1) * 95);
+                tube.setLayoutY(105);
                 getExperimentSpace().getChildren().add(tube);
+                selectTube(tubeNumber - 1);
                 setHasTestTube(true);
-                System.out.print(tube.getTubeModel()!=null);
                 // drag the tube
                 tube.setOnMouseDragged(e -> Platform.runLater(() -> tube.setDraggable(experimentSpace,e)));
                 // shake the tube
@@ -156,12 +162,9 @@ public class ExperimentSpace implements Initializable {
 //                        showAdded();
 //                    });
                 }));
+                updateWorkflowStatus("Tube " + tubeNumber + " is ready. Add a salt sample or testing reagent.");
             } else {
-                Alert tubeExists = new Alert(Alert.AlertType.WARNING);
-                tubeExists.setTitle("Warning");
-                tubeExists.setHeaderText("Cannot add test tubes");
-                tubeExists.setContentText("Application only allows 3 test tubes!");
-                tubeExists.showAndWait();
+                showWarning("Cannot add test tubes", "Application only allows 3 test tubes.");
             }
         }
 
@@ -228,12 +231,9 @@ public class ExperimentSpace implements Initializable {
                 burner.toBack();
                 burner.setLayoutY(110);
                 burner.setOnMouseDragged(e -> Platform.runLater(() -> burner.setDraggable(experimentSpace,e)));
+                updateWorkflowStatus("Heating station added. Turn on the lighter before lighting the burner.");
             } else {
-                Alert heatingEquipmentExists = new Alert(Alert.AlertType.WARNING);
-                heatingEquipmentExists.setTitle("Warning");
-                heatingEquipmentExists.setHeaderText("Cannot add heating equipment");
-                heatingEquipmentExists.setContentText("Application only allows 1 set of heating equipment!");
-                heatingEquipmentExists.showAndWait();
+                showWarning("Cannot add heating equipment", "Application only allows 1 set of heating equipment.");
             }
         }
 
@@ -254,11 +254,7 @@ public class ExperimentSpace implements Initializable {
                         red.getChangeable().setFill(Color.LIGHTSKYBLUE);
                     }));
                 } else {
-                    Alert noRedAvailable = new Alert(Alert.AlertType.WARNING);
-                    noRedAvailable.setTitle("Warning");
-                    noRedAvailable.setHeaderText("Cannot add red litmus paper");
-                    noRedAvailable.setContentText("Experiment space only allows 3 red litmus papers!");
-                    noRedAvailable.showAndWait();
+                    showWarning("Cannot add red litmus paper", "Experiment space only allows 3 red litmus papers.");
                 }
             } else if (testPH.getValue().equals("Blue litmus")) {
                 if (blueLitmusAvailability()) {
@@ -273,13 +269,10 @@ public class ExperimentSpace implements Initializable {
                         blue.setBlueLitmus(blueModel);
                     }));
                 } else {
-                    Alert noBlueAvailable = new Alert(Alert.AlertType.WARNING);
-                    noBlueAvailable.setTitle("Warning");
-                    noBlueAvailable.setHeaderText("Cannot add blue litmus paper");
-                    noBlueAvailable.setContentText("Experiment space only allows 3 blue litmus papers!");
-                    noBlueAvailable.showAndWait();
+                    showWarning("Cannot add blue litmus paper", "Experiment space only allows 3 blue litmus papers.");
                 }
             }
+            updateWorkflowStatus("Litmus paper added. Drag it near a gas-producing tube when needed.");
         }
 
         if (event.getSource() == splint) {
@@ -307,12 +300,9 @@ public class ExperimentSpace implements Initializable {
                     splint.setOnMouseDragged(e -> Platform.runLater(() -> splint.setDraggable(experimentSpace,e)));
                 }
             } else {
-                Alert noSplintAvailable = new Alert(Alert.AlertType.WARNING);
-                noSplintAvailable.setTitle("Warning");
-                noSplintAvailable.setHeaderText("Cannot add splint");
-                noSplintAvailable.setContentText("Experiment space only allows 3 splints!");
-                noSplintAvailable.showAndWait();
+                showWarning("Cannot add splint", "Experiment space only allows 3 splints.");
             }
+            updateWorkflowStatus("Splint added. Use it for gas tests after preparing a tube.");
         }
 
     }
@@ -441,6 +431,45 @@ public class ExperimentSpace implements Initializable {
         }
         return (index - 1);
     }
+
+    private boolean hasSelectedTube(ToggleGroup group) {
+        return group != null && group.getSelectedToggle() != null;
+    }
+
+    private void selectTube(int index) {
+        RadioButton[] substanceTubeButtons = {tube1, tube2, tube3};
+        RadioButton[] questionTubeButtons = {questionTube1, questionTube2, questionTube3};
+        if (index >= 0 && index < substanceTubeButtons.length) {
+            substanceTubeButtons[index].setSelected(true);
+            questionTubeButtons[index].setSelected(true);
+        }
+    }
+
+    private boolean selectedTubeExists() {
+        resetTube();
+        return hasSelectedTube(tube) && findTubeIndex() >= 0 && findTubeIndex() < tubes.size();
+    }
+
+    private boolean selectedTubeHasSalt() {
+        return selectedTubeExists()
+                && ((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3() != null
+                && ((TubePane) tubes.get(findTubeIndex())).getTubeModel().getLayer3().getContent() instanceof Salt;
+    }
+
+    private void showWarning(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("ChemQAnalytica");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void updateWorkflowStatus(String message) {
+        if (workflowStatus != null) {
+            workflowStatus.setText(message);
+        }
+    }
+
     public void showAdded() {
         added.setAlignment(Pos.CENTER);
         added.setVisible(true);
@@ -468,6 +497,20 @@ public class ExperimentSpace implements Initializable {
     public void addSubstance(ActionEvent event) {
         try {
             if (isHasTestTube()) {
+                if (!hasSelectedTube(tube)) {
+                    showWarning("No selected test tube", "Select a tube before adding a salt or reagent.");
+                    if (event.getSource() == salts) {
+                        salts.getSelectionModel().clearSelection();
+                    }
+                    return;
+                }
+                if (!selectedTubeExists()) {
+                    showWarning("Tube is not on the bench", "Add the selected tube to the experiment space first.");
+                    if (event.getSource() == salts) {
+                        salts.getSelectionModel().clearSelection();
+                    }
+                    return;
+                }
                 // "Random","FeSO4", "MgSO4", "ZnSO4", "CuSO4", "(NH4)2SO4", "CuCO3", "CaCO3", "FeCl3", "NaCl","Cu(NO3)2"
                 if (event.getSource() == salts) {
                     resetTube();
@@ -547,9 +590,10 @@ public class ExperimentSpace implements Initializable {
                             ((TubePane) tubes.get(findTubeIndex())).setColor3("royalblue");
                         }
                         ((TubePane) tubes.get(findTubeIndex())).getArc().setOpacity(0);
+                        updateWorkflowStatus("Salt added to Tube " + (findTubeIndex() + 1) + ". Add NaOH, NH3, AgNO3, or BaCl2 to observe changes.");
                     }
                 }
-                if (isAddedSalt() && tube.getSelectedToggle() != null) {
+                if (event.getSource() != salts && selectedTubeHasSalt()) {
                     /*
                     TODO:
                     - make exception for adding NaOH to ammonium salts (releasing NH3 instead)
@@ -682,44 +726,25 @@ public class ExperimentSpace implements Initializable {
                         });
                     }
                     if (tube.getSelectedToggle() != null) {
-                        added.setText("");
+                        added.setText("Observation updated");
                         showAdded();
+                        updateWorkflowStatus("Observation recorded for Tube " + (findTubeIndex() + 1) + ". Continue testing or answer the question.");
                     }
-                } else if (!isAddedSalt()) {
-                    Alert noSalt = new Alert(Alert.AlertType.WARNING);
-                    noSalt.setTitle("Warning");
-                    noSalt.setHeaderText("No salt");
-                    noSalt.setContentText("Add salt before adding testing chemicals!");
-                    noSalt.showAndWait();
+                } else if (event.getSource() != salts && !selectedTubeHasSalt()) {
+                    showWarning("No salt in selected tube", "Add a salt sample to Tube " + (findTubeIndex() + 1) + " before adding testing chemicals.");
                 }
             } else {
-                Alert noTestTube = new Alert(Alert.AlertType.WARNING);
-                noTestTube.setTitle("Warning");
-                noTestTube.setHeaderText("No test tube");
-                noTestTube.setContentText("Cannot add substance when there is no test tube!");
-                noTestTube.showAndWait();
+                showWarning("No test tube", "Add a test tube before adding substances.");
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            Alert noSelectedTube = new Alert(Alert.AlertType.WARNING);
-            noSelectedTube.setTitle("Warning");
-            noSelectedTube.setHeaderText("No selected test tube");
-            noSelectedTube.setContentText("Select a tube to add the substances to!");
-            noSelectedTube.showAndWait();
-            if (!noSelectedTube.isShowing()) {
-                salts.getSelectionModel().clearSelection();
-            }
+            showWarning("No selected test tube", "Select a tube to add the substances to.");
+            salts.getSelectionModel().clearSelection();
         } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
-            Alert notEnoughTube = new Alert(Alert.AlertType.WARNING);
-            notEnoughTube.setTitle("Warning");
-            notEnoughTube.setHeaderText("No such test tube");
-            notEnoughTube.setContentText("Make sure the test tube is added to experiment space!");
-            notEnoughTube.showAndWait();
-            if (!notEnoughTube.isShowing()) {
-                salts.getSelectionModel().clearSelection();
-                salts.setValue(null);
-            }
+            showWarning("No such test tube", "Make sure the selected test tube has been added to the experiment space.");
+            salts.getSelectionModel().clearSelection();
+            salts.setValue(null);
         }
     }
 
@@ -838,11 +863,7 @@ public class ExperimentSpace implements Initializable {
             if (isAnswered()){
                 explanationTab.setDisable(false);
             } else {
-                Alert noAnswerYet = new Alert(Alert.AlertType.WARNING);
-                noAnswerYet.setTitle("Warning");
-                noAnswerYet.setHeaderText("Answers have not been submitted yet!");
-                noAnswerYet.setContentText("Click check answer to submit!");
-                noAnswerYet.showAndWait();
+                showWarning("Answers have not been submitted yet", "Click Check to submit your answer first.");
             }
         }
     }
@@ -1036,7 +1057,7 @@ public class ExperimentSpace implements Initializable {
             lightUp.setVisible(false);
             blackPan.setVisible(false);
             aluminiumFoil.setVisible(false);
-            getExperimentSpace().getChildren().removeIf(node -> !(node instanceof Rectangle));
+            getExperimentSpace().getChildren().removeIf(node -> !(node instanceof Rectangle) && node != added);
             getHistory().clearAll();
             explanation.setText("Explanation goes here!");
             explanationTab.setDisable(true);
@@ -1049,7 +1070,13 @@ public class ExperimentSpace implements Initializable {
             salts.getSelectionModel().clearSelection();
             testPH.getSelectionModel().clearSelection();
             splint.getSelectionModel().clearSelection();
-            tube.getSelectedToggle().setSelected(false);
+            if (tube.getSelectedToggle() != null) {
+                tube.getSelectedToggle().setSelected(false);
+            }
+            if (questionTube.getSelectedToggle() != null) {
+                questionTube.getSelectedToggle().setSelected(false);
+            }
+            updateWorkflowStatus("Bench cleared. Add a test tube to begin.");
 
             Alert cleared = new Alert(Alert.AlertType.INFORMATION);
             cleared.setTitle("Successful!");
@@ -1108,6 +1135,7 @@ public class ExperimentSpace implements Initializable {
         added.setVisible(false);
         aluminiumFoil.setVisible(false);
         blackPan.setVisible(false);
+        updateWorkflowStatus("Add a test tube to begin the qualitative analysis workflow.");
         fileChooser.setInitialDirectory(new File("C:\\temp"));
     }
 }

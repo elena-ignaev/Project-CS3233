@@ -1,0 +1,138 @@
+.app-root {
+    -fx-background-color: #f4f7f8;
+    -fx-font-family: "Inter", "SF Pro Text", "Segoe UI", sans-serif;
+    -fx-font-size: 13px;
+}
+
+.menu-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #d7dee2 transparent;
+}
+
+.workflow-bar,
+.home-header {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #d7dee2 transparent;
+}
+
+.workflow-chip {
+    -fx-background-color: #12343b;
+    -fx-background-radius: 6px;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-padding: 5px 10px;
+}
+
+.workflow-status {
+    -fx-text-fill: #263238;
+    -fx-font-weight: 600;
+}
+
+.bench-pane {
+    -fx-background-color: linear-gradient(to bottom, #eef4f4, #dce8e8);
+    -fx-border-color: transparent transparent #c8d4d8 transparent;
+}
+
+.bench-pane .label {
+    -fx-text-fill: #25333a;
+}
+
+.toast-label {
+    -fx-background-color: rgba(18, 52, 59, 0.92);
+    -fx-background-radius: 6px;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-padding: 8px 14px;
+}
+
+.control-tabs {
+    -fx-background-color: #ffffff;
+}
+
+.control-tabs .tab-header-area .tab-header-background {
+    -fx-background-color: #e9eff1;
+}
+
+.control-tabs .tab {
+    -fx-background-color: #dce5e8;
+    -fx-background-radius: 6px 6px 0 0;
+    -fx-padding: 4px 10px;
+}
+
+.control-tabs .tab:selected {
+    -fx-background-color: #ffffff;
+}
+
+.control-pane {
+    -fx-background-color: #ffffff;
+}
+
+.control-group {
+    -fx-background-color: #f7fafb;
+    -fx-background-radius: 8px;
+    -fx-border-color: #d9e2e5;
+    -fx-border-radius: 8px;
+    -fx-padding: 8px;
+}
+
+.button {
+    -fx-background-color: #12343b;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-padding: 7px 12px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1f5961;
+}
+
+.combo-box,
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 6px;
+    -fx-border-color: #b9c8cd;
+    -fx-border-radius: 6px;
+}
+
+.radio-button {
+    -fx-text-fill: #263238;
+}
+
+.home-header {
+    -fx-padding: 22px 28px 18px 28px;
+}
+
+.home-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #12343b;
+}
+
+.home-subtitle {
+    -fx-text-fill: #586970;
+}
+
+.home-section {
+    -fx-padding: 0 22px;
+}
+
+.home-tile-button {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cfdadf;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(18, 52, 59, 0.10), 10, 0.16, 0, 2);
+}
+
+.home-tile-button:hover {
+    -fx-background-color: #eef7f7;
+    -fx-border-color: #77aeb5;
+}
+
+.home-tile-label {
+    -fx-text-fill: #263238;
+    -fx-font-weight: 700;
+}
