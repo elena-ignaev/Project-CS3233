@@ -30,13 +30,10 @@ public class homePageButton extends Pane implements Paintable {
         Label label = new Label(name);
         setPrefHeight(100);
         setPrefWidth(120);
-        getStyleClass().add("home-tile");
         imageView.setFitHeight(70.0);
         imageView.setFitWidth(70.0);
         button.setPrefHeight(80.0);
         button.setPrefWidth(80.0);
-        button.getStyleClass().add("home-tile-button");
-        label.getStyleClass().add("home-tile-label");
         button.setGraphic(imageView);
         button.setAlignment(Pos.CENTER);
         getChildren().addAll(button, label);

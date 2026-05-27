@@ -16,14 +16,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import java.net.URL?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="520.0" prefWidth="760.0" styleClass="app-root" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.HomeController">
-   <stylesheets>
-      <URL value="@lab.css" />
-   </stylesheets>
+<AnchorPane fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.HomeController">
    <children>
-      <VBox prefHeight="520.0" prefWidth="760.0" spacing="18.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <MenuBar>
               <menus>
@@ -45,15 +41,9 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <VBox spacing="4.0" styleClass="home-header">
+            <HBox prefHeight="113.0" prefWidth="600.0">
                <children>
-                  <Label styleClass="home-title" text="ChemQAnalytica" />
-                  <Label styleClass="home-subtitle" text="Qualitative analysis workspace" />
-               </children>
-            </VBox>
-            <HBox prefHeight="128.0" prefWidth="760.0" styleClass="home-section">
-               <children>
-                  <GridPane fx:id="experimentGrid1" hgap="12.0" prefHeight="112.0" prefWidth="720.0">
+                  <GridPane fx:id="experimentGrid1" prefHeight="100.0" prefWidth="600.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,9 +65,9 @@
                   </GridPane>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="35.0" prefHeight="128.0" prefWidth="760.0" styleClass="home-section">
+            <HBox layoutX="10.0" layoutY="35.0" prefHeight="113.0" prefWidth="600.0">
                <children>
-                  <GridPane fx:id="experimentGrid2" hgap="12.0" prefHeight="112.0" prefWidth="720.0">
+                  <GridPane fx:id="experimentGrid2" prefHeight="100.0" prefWidth="600.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -92,9 +82,9 @@
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
-            <HBox layoutX="10.0" layoutY="149.0" prefHeight="128.0" prefWidth="760.0" styleClass="home-section">
+            <HBox layoutX="10.0" layoutY="149.0" prefHeight="113.0" prefWidth="600.0">
                <children>
-                  <GridPane fx:id="noteGrid" hgap="12.0" prefHeight="112.0" prefWidth="720.0">
+                  <GridPane fx:id="noteGrid" prefHeight="100.0" prefWidth="600.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

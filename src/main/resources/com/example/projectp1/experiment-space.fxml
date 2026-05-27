@@ -18,14 +18,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-<?import java.net.URL?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="app-root" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.ExperimentSpace">
-    <stylesheets>
-        <URL value="@lab.css" />
-    </stylesheets>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectp1.Controller.ExperimentSpace">
     <children>
-        <VBox layoutY="23.0" prefHeight="600.0" prefWidth="900.0" spacing="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutY="23.0" prefHeight="377.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <MenuBar prefHeight="25.0" prefWidth="600.0">
                     <menus>
@@ -68,30 +64,21 @@
                         </Menu>
                     </menus>
                 </MenuBar>
-            <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="900.0" spacing="12.0" styleClass="workflow-bar">
+            <Pane fx:id="experimentSpace" prefHeight="300.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label styleClass="workflow-chip" text="Workflow" />
-                  <Label fx:id="workflowStatus" styleClass="workflow-status" text="Add a test tube to begin the qualitative analysis workflow." />
-               </children>
-               <padding>
-                  <Insets bottom="8.0" left="18.0" right="18.0" top="8.0" />
-               </padding>
-            </HBox>
-            <Pane fx:id="experimentSpace" prefHeight="390.0" prefWidth="900.0" styleClass="bench-pane" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label fx:id="added" layoutX="392.0" layoutY="148.0" styleClass="toast-label" text="Added!" />
-                  <Rectangle fx:id="aluminiumFoil" arcHeight="6.0" arcWidth="6.0" fill="#c9d1d9" height="51.0" layoutX="24.0" layoutY="26.0" stroke="#7a828a" strokeType="INSIDE" width="27.0" />
-                  <Rectangle fx:id="blackPan" arcHeight="8.0" arcWidth="8.0" fill="#161b22" height="279.0" layoutX="650.0" layoutY="28.0" stroke="#30363d" strokeType="INSIDE" width="210.0" />
+                  <Label fx:id="added" layoutX="286.0" layoutY="131.0" text="Added!" />
+                  <Rectangle fx:id="aluminiumFoil" arcHeight="5.0" arcWidth="5.0" fill="#9fa6ac" height="51.0" layoutX="14.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="27.0" />
+                  <Rectangle fx:id="blackPan" arcHeight="5.0" arcWidth="5.0" height="279.0" layoutX="400.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                </children></Pane>
-            <TabPane prefHeight="139.0" prefWidth="900.0" styleClass="control-tabs" VBox.vgrow="SOMETIMES">
+            <TabPane prefHeight="117.0" prefWidth="600.0" VBox.vgrow="SOMETIMES">
               <tabs>
                 <Tab closable="false" text="Equipment">
                   <content>
-                    <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="900.0" styleClass="control-pane">
+                    <AnchorPane fx:id="anchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0" style="-fx-background-color: whitesmoke;">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="900.0" spacing="22.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox prefHeight="90.0" prefWidth="250.0" styleClass="control-group">
+                                    <VBox prefHeight="67.0" prefWidth="222.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="263.0">
                                              <children>
@@ -114,7 +101,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="190.0" spacing="8.0" styleClass="control-group">
+                                    <VBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="149.0">
                                        <children>
                                           <Button fx:id="testTube" alignment="CENTER" mnemonicParsing="false" onAction="#addEquipment" text="Test tube" VBox.vgrow="ALWAYS">
                                              <VBox.margin>
@@ -131,7 +118,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="90.0" prefWidth="250.0" styleClass="control-group">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="199.0">
                                        <children>
                                           <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="263.0">
                                              <children>
@@ -160,19 +147,16 @@
                                  </children>
                               </HBox>
                            </children>
-                           <padding>
-                              <Insets bottom="12.0" left="16.0" right="16.0" top="12.0" />
-                           </padding>
                         </AnchorPane>
                   </content>
                 </Tab>
                 <Tab closable="false" text="Substances">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="900.0" styleClass="control-pane">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: whitesmoke;">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="900.0" spacing="22.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox prefHeight="90.0" prefWidth="220.0" styleClass="control-group">
+                                    <VBox prefHeight="67.0" prefWidth="203.0">
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                                              <children>
@@ -191,7 +175,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="90.0" prefWidth="410.0" styleClass="control-group">
+                                    <VBox alignment="CENTER" prefHeight="72.0" prefWidth="344.0">
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="31.0" prefWidth="327.0">
                                              <children>
@@ -239,7 +223,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="90.0" prefWidth="130.0" styleClass="control-group">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="105.0">
                                        <children>
                                           <RadioButton fx:id="tube1" mnemonicParsing="false" text="Tube 1">
                                              <toggleGroup>
@@ -257,19 +241,16 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="12.0" left="16.0" right="16.0" top="12.0" />
-                           </padding></AnchorPane>
+                           </children></AnchorPane>
                   </content>
                 </Tab>
                   <Tab closable="false" text="Question">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="900.0" styleClass="control-pane">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: whitesmoke;">
                            <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="900.0" spacing="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox alignment="CENTER" prefHeight="90.0" prefWidth="115.0" styleClass="control-group">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="95.0">
                                        <children>
                                           <RadioButton fx:id="questionTube1" mnemonicParsing="false" text="Tube 1">
                                              <toggleGroup>
@@ -285,7 +266,7 @@
                                           <RadioButton fx:id="questionTube3" mnemonicParsing="false" text="Tube 3" toggleGroup="$questionTube" />
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="90.0" prefWidth="170.0" styleClass="control-group">
+                                    <VBox prefHeight="67.0" prefWidth="136.0">
                                        <children>
                                           <Label alignment="CENTER" text="What cation is present?">
                                              <VBox.margin>
@@ -299,7 +280,7 @@
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="90.0" prefWidth="170.0" styleClass="control-group">
+                                    <VBox prefHeight="67.0" prefWidth="133.0">
                                        <children>
                                           <Label alignment="CENTER" text="What anion is present?">
                                              <VBox.margin>
@@ -313,7 +294,7 @@
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="90.0" prefWidth="180.0" styleClass="control-group">
+                                    <VBox prefHeight="67.0" prefWidth="135.0">
                                        <children>
                                           <Label alignment="CENTER" text="What is the salt?">
                                              <VBox.margin>
@@ -327,7 +308,7 @@
                                           </TextField>
                                        </children>
                                     </VBox>
-                                    <VBox alignment="CENTER" prefHeight="90.0" prefWidth="130.0" styleClass="control-group">
+                                    <VBox alignment="CENTER" prefHeight="67.0" prefWidth="99.0">
                                        <children>
                                           <Button fx:id="checkAns" mnemonicParsing="false" onAction="#question" text="Check">
                                              <VBox.margin>
@@ -344,15 +325,12 @@
                                  </children>
                               </HBox>
                            </children>
-                           <padding>
-                              <Insets bottom="12.0" left="16.0" right="16.0" top="12.0" />
-                           </padding>
                         </AnchorPane>
                     </content>
                   </Tab>
                   <Tab fx:id="explanationTab" text="Explanation">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="900.0" styleClass="control-pane">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: whitesmoke;">
                            <children>
                               <VBox layoutX="75.0" layoutY="-75.0" prefHeight="67.33333333333333" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
